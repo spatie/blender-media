@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/spatie-custom/blender-media",
   "dependencies": {
+    "blender.js": "spatie-custom/blender.js#1.1.0",
     "alt": "^0.17.3",
     "dropzone": "^4.0.1",
     "lodash": "^3.10.1",
