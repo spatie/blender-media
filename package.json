@@ -1,0 +1,33 @@
+{
+  "name": "blender-media",
+  "version": "0.1.0",
+  "description": "Blender Media Component",
+  "main": "src/MountsMediaComponents.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spatie-custom/blender.js.git"
+  },
+  "keywords": [
+    "spatie",
+    "blender",
+    "javascript",
+    "react"
+  ],
+  "author": "Sebastian De Deyne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spatie-custom/blender-media/issues"
+  },
+  "homepage": "https://github.com/spatie-custom/blender-media",
+  "dependencies": {
+    "alt": "^0.17.3",
+    "dropzone": "^4.0.1",
+    "lodash": "^3.10.1",
+    "object-assign": "^4.0.1",
+    "react": "0.14.0-rc1",
+    "react-dom": "0.14.0-rc1"
+  }
+}
