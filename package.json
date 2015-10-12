@@ -2,7 +2,7 @@
   "name": "blender-media",
   "version": "0.1.0",
   "description": "Blender Media Component",
-  "main": "src/MountsMediaComponents.jsx",
+  "main": "lib/MountsMediaComponents.js",
   "scripts": {
     "postinstall": "babel ./src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
