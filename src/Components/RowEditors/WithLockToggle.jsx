@@ -9,16 +9,16 @@ import Toggle from '../Fields/Toggle'
 const WithLockToggle = () => {
     return (
         <RowEditor>
-            <Columns size="8">
+            <Columns size="9">
                 <Name />
-            </Columns>
-            <Columns size="1" offset="1" align="right">
-                <Locales />
             </Columns>
             <Columns size="1" offset="1" align="right">
                 <Toggle for="isPrivate"
                         default={false}
                         contents={LockToggleButton} />
+            </Columns>
+            <Columns size="1" align="right">
+                <Locales />
             </Columns>
         </RowEditor>
     )
