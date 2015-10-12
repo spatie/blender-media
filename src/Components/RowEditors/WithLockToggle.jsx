@@ -9,7 +9,7 @@ import Toggle from '../Fields/Toggle'
 const WithLockToggle = () => {
     return (
         <RowEditor>
-            <Columns size="9">
+            <Columns size="8">
                 <Name />
             </Columns>
             <Columns size="1" offset="1" align="right">

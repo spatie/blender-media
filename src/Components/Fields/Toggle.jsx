@@ -33,10 +33,8 @@ const Toggle = React.createClass({
         let onClick = this.updateProperty(!active)
 
         return (
-            <div style={this.props.style} className="toggle">
-                <span onClick={onClick}>
-                    <this.props.contents active={active} />
-                </span>
+            <div style={this.props.style} className="toggle" onClick={onClick}>
+                <this.props.contents active={active} />
             </div>
         )
     }
