@@ -4,6 +4,7 @@
   "description": "Blender Media Component",
   "main": "src/MountsMediaComponents.jsx",
   "scripts": {
+    "postinstall": "babel ./src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,5 +30,8 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23"
   }
 }
