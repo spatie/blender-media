@@ -1,0 +1,30 @@
+.media .row_editor {
+
+  padding: 1em .5em;
+
+  /* Grid
+  ********************************************************/
+
+  $columns: 12;
+  @for $i from 1 through $columns {
+    .columns_#{$i} {
+      display: inline-block;
+      width: percentage(1 / $columns * $i);
+    }
+
+    .columns_offset_#{$i} {
+      margin-left: percentage(1 / $columns * $i);
+    }
+  }
+  
+  /* Align
+  ********************************************************/
+
+  .align_left {
+    text-align: left;
+  }
+
+  .align_right {
+    text-align: right;
+  }
+}

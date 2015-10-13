@@ -4,7 +4,7 @@
   "description": "Blender Media Component",
   "main": "lib/MountsMediaComponents.js",
   "scripts": {
-    "postinstall": "node_modules/.bin/babel ./src -d lib",
+    "postinstall": "node_modules/.bin/babel ./src/js -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/spatie-custom/blender-media",
   "dependencies": {
     "babel": "^5.8.23",
-    "blender.js": "spatie-custom/blender.js#1.1.0",
+    "blender.js": "spatie-custom/blender.js#1.2.0",
     "alt": "^0.17.3",
     "dropzone": "^4.0.1",
     "lodash": "^3.10.1",

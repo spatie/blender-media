@@ -4,6 +4,15 @@ import Alt from '../Alt'
 
 const Name = React.createClass({
     mixins: [Alt],
+
+    propTypes: {
+        withLabel: React.PropTypes.bool
+    },
+    getDefaultProps() {
+        return {
+            withLabel: false
+        }
+    },
     
     contextTypes: {
         media: React.PropTypes.object
@@ -14,7 +23,9 @@ const Name = React.createClass({
     },
 
     render() {
-        return <Text value={this.context.media.name} handleInput={this.handleRename} />
+        return <Text label={this.props.withLabel ? 'Naam' : null}
+                     value={this.context.media.name}
+                     handleInput={this.handleRename} />
     }
 })
 
