@@ -9,10 +9,6 @@
     margin: 0;
   }
 
-  td {
-    border: none;
-  }
-
   /* Rows
   ********************************************************/
 
@@ -23,6 +19,10 @@
     &.ui-sortable-helper {
       box-shadow: 0 0 10px rgba(#000, .1);
       border-top: 1px solid media_color(gray, lighter);
+    }
+    
+    td {
+      border: none;
     }
   }
 
