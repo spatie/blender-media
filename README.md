@@ -14,6 +14,8 @@ This package must be installed alongside with [blender.js](https://github.com/sp
 - jQuery Confirm
 - jQuery UI Sortable
 
+The sass files, located in `src/scss`, need to be imported manually.
+
 ## Usage
 
 ```js
