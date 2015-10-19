@@ -19,7 +19,7 @@ const Name = React.createClass({
     },
 
     handleRename(event) {
-        this.context.alt.getActions('media').rename(this.context.media.id, event)
+        this.context.alt.getActions('media').rename(this.context.media.id, event.target.innerHTML)
     },
 
     render() {
