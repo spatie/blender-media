@@ -4,7 +4,9 @@
   "description": "Blender Media Component",
   "main": "lib/MountsMediaComponents.js",
   "scripts": {
-    "postinstall": "node_modules/.bin/babel ./src/js -d lib",
+    "build:js": "node_modules/.bin/babel ./src/js -d ./lib",
+    "build:scss": "node_modules/.bin/node-sass --output-style compressed ./src/scss -o ./css",
+    "postinstall": "npm run build:js && npm run build:scss",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +32,7 @@
     "dropzone": "^4.0.1",
     "es6-map": "^0.1.2",
     "lodash": "^3.10.1",
+    "node-sass": "^3.3.3",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"

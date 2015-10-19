@@ -1,9 +1,9 @@
 .media {
-  border: solid 2px media_color(gray, light);
+  border: solid 2px color(gray, light);
   box-shadow: 0 3px rgba(34, 34, 34, 0.05);
   border-radius: 3px;
   font-size: .85rem;
-  background: media_color(gray, lightest);
+  background: color(gray, lightest);
   
   table {
     margin: 0;
@@ -13,12 +13,12 @@
   ********************************************************/
 
   .row {
-    background-color: media_color(gray, lightest);
-    border-bottom: 1px solid media_color(gray, lighter);
+    background-color: color(gray, lightest);
+    border-bottom: 1px solid color(gray, lighter);
 
     &.ui-sortable-helper {
       box-shadow: 0 0 10px rgba(#000, .1);
-      border-top: 1px solid media_color(gray, lighter);
+      border-top: 1px solid color(gray, lighter);
     }
     
     td {
@@ -31,7 +31,7 @@
     padding-right: 0;
     text-align: center;
     cursor: grab;
-    color: media_color(gray);
+    color: color(gray);
   }
 
   .row_thumb {
@@ -48,7 +48,7 @@
       height: auto;
       max-width: 64px + 2px;
       max-height: 64px + 2px;
-      border: 1px solid media_color(gray, light);
+      border: 1px solid color(gray, light);
       border-radius: 3px;
     }
 
@@ -59,7 +59,7 @@
       text-align: center;
       font-weight: bold;
       font-size: 2em;
-      color: media_color(gray, light);
+      color: color(gray, light);
     }
   }
 
@@ -72,19 +72,19 @@
   ********************************************************/
 
   .upload {
-    border-top: 2px solid media_color(gray, lighter);
+    border-top: 2px solid color(gray, lighter);
     margin-top: -1px; // Offset for last row border
   }
 
   .upload_dropzone {
     &.dz-drag-hover {
-      background: media_color(blue, lightest);
-      border-color: media_color(blue, light);
+      background: color(blue, lightest);
+      border-color: color(blue, light);
       border-style: dashed;
       opacity: 0.8;
 
       tr, td {
-        background: media_color(blue, lightest) !important;
+        background: color(blue, lightest) !important;
       }
     }
   }
@@ -121,7 +121,7 @@
       tab-size: 2;
       border: none;
       border-radius: 0;
-      border-top: solid 2px media_color(gray, lighter);
+      border-top: solid 2px color(gray, lighter);
       box-shadow: none;
     }
   }

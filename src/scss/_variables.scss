@@ -1,4 +1,4 @@
-$media_colors: (
+$colors: (
     gray: (
         lightest: #f8f8f8,
         lighter: #d8d8da,
@@ -30,6 +30,6 @@ $media_colors: (
     )    
 );
 
-@function media_color($color, $key: 'default') {
-    @return map-get(map-get($media_colors, $color), $key);
+@function color($color, $key: 'default') {
+    @return map-get(map-get($colors, $color), $key);
 }

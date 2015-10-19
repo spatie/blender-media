@@ -20,7 +20,7 @@
     }
 
     &_label {
-      color: media_color(gray, light);
+      color: color(gray, light);
       display: inline-block;
       margin-left: .5em;
       text-transform: lowercase;
@@ -41,11 +41,11 @@
     font-weight: 600;
     color: #fff;
     text-align: center;
-    background-color: media_color(gray, lighter);
+    background-color: color(gray, lighter);
     cursor: pointer;
 
     &.-active {
-      background-color: media_color(green);
+      background-color: color(green);
     }
   }
 }
