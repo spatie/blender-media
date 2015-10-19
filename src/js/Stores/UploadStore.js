@@ -1,6 +1,6 @@
 import UploadActions from '../Actions/UploadActions'
 import MediaActions from '../Actions/MediaActions'
-import { mapToArray } from '../Utilities'
+import { mapToArray, translate } from '../Utilities'
 
 class UploadStore {
     constructor() {
