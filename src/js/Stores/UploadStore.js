@@ -40,9 +40,9 @@ class UploadStore {
         this.progress.set(file.uploadId, progress)
     }
 
-    setError([ file, error ]) {
+    setError([ file, error, response ]) {
         this.progress = null
-        this.error = error
+        this.error = response.status === 500 ? translate('parts.upload.fail') : error
     }
 
     complete() {
