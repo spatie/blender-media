@@ -2,5 +2,5 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
-# 0.1
+# 1.0
 - Initial release
