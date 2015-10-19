@@ -22,6 +22,8 @@ const Text = React.createClass({
     },
 
     shouldComponentUpdate(nextProps) {
+        // The DOM isn't allowed to rerender to prevent caret jumps in Firefox
+        // https://stackoverflow.com/questions/22677931/react-js-onchange-event-for-contenteditable
         return nextProps.value !== ReactDOM.findDOMNode(this.refs.input).innerHTML;
     },
 
