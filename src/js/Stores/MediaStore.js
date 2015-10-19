@@ -1,4 +1,5 @@
 import assign from 'object-assign'
+import Map from 'es6-map'
 import _ from 'lodash'
 
 class MediaStore {

@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import Alt from './Alt'
+import Map from 'es6-map'
 import Media from './Components/Media'
 import React from 'react'
 import ReactDOM from 'react-dom'

@@ -133,7 +133,9 @@ const Media = React.createClass({
     },
 
     warnDraftable() {
-        let hasTemp = this.state.media.items.filter(media => media.custom_properties.temp).length
+        let hasTemp = this.state.media.items.filter(media => {
+            return media.custom_properties ? media.custom_properties.temp : false
+        }).length
 
         if (! hasTemp) {
             return

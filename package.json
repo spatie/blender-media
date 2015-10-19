@@ -24,10 +24,11 @@
   },
   "homepage": "https://github.com/spatie-custom/blender-media",
   "dependencies": {
+    "alt": "^0.17.3",
     "babel": "^5.8.23",
     "blender.js": "spatie-custom/blender.js#1.2.0",
-    "alt": "^0.17.3",
     "dropzone": "^4.0.1",
+    "es6-map": "^0.1.2",
     "lodash": "^3.10.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
