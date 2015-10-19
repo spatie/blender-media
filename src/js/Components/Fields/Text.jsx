@@ -21,6 +21,10 @@ const Text = React.createClass({
         }, 0)
     },
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.value !== ReactDOM.findDOMNode(this.refs.input).innerHTML;
+    },
+
     render() {
         let value = this.props.forProperty ?
             this.context.media.custom_properties[this.props.forProperty] : 
@@ -38,12 +42,12 @@ const Text = React.createClass({
         return (
             <div className="text" style={this.props.style}>
                 <div className={`text_input ${value ? null : '-empty'}`}
-                      dangerouslySetInnerHTML={{ __html: value }}
-                      onFocus={this.handleFocus}
-                      onKeyUp={handleInput}
-                      onBlur={handleInput}
-                      contentEditable="true"
-                      ref="input">
+                     dangerouslySetInnerHTML={{ __html: value }}
+                     onFocus={this.handleFocus}
+                     onKeyUp={handleInput}
+                     onBlur={handleInput}
+                     contentEditable="true"
+                     ref="input">
                 </div>
                 <div className="text_label" onClick={this.focusInput}>
                     <i className="fa fa-pencil" /> {this.props.label}
