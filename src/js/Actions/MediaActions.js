@@ -5,10 +5,9 @@ const MediaActions = function() {
         'addUploadedMedia',
         'updateCustomProperties',
         'removeMedia',
+        'rename',
         'setNewOrder'
     )
-
-    this.rename = (id, event) => [ id, event.target.innerText ]
 }
 
 export default MediaActions
