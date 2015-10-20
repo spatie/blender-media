@@ -1,6 +1,6 @@
 {
   "name": "blender-media",
-  "version": "0.1.0",
+  "version": "1.1.1",
   "description": "Blender Media Component",
   "main": "lib/MountsMediaComponents.js",
   "scripts": {
