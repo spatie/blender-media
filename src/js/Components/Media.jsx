@@ -154,7 +154,7 @@ const Media = React.createClass({
             })
 
         if (mediaRows.length === 0) {
-            mediaRows = <tr><td>{translate('dataTables.infoEmpty')}</td></tr>
+            mediaRows = <tr className="row"><td>{translate('dataTables.infoEmpty')}</td></tr>
         }
 
         return (
