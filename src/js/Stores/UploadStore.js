@@ -1,6 +1,4 @@
-import UploadActions from '../Actions/UploadActions'
 import Map from 'es6-map'
-import MediaActions from '../Actions/MediaActions'
 import { mapToArray, translate } from '../Utilities'
 
 class UploadStore {
@@ -38,10 +36,10 @@ class UploadStore {
     setProgress([ file, progress ]) {
         let uploadId = this.getUploadId(file)
 
-        this.progress.set(file.uploadId, progress)
+        this.progress.set(uploadId, progress)
     }
 
-    setError([ file, error, response ]) {
+    setError([ , error, response ]) {
         this.progress = null
         this.error = response.status === 500 ? translate('parts.upload.fail') : error
     }

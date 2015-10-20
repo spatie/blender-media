@@ -6,8 +6,10 @@
   "scripts": {
     "build:js": "node_modules/.bin/babel ./src/js -d ./lib",
     "build:scss": "node_modules/.bin/node-sass --output-style compressed ./src/scss -o ./css",
-    "postinstall": "npm run build:js && npm run build:scss",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:js && npm run build:scss",
+    "test:lint": "node_modules/.bin/eslint .",
+    "test": "npm run test:lint",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,9 +34,12 @@
     "dropzone": "^4.0.1",
     "es6-map": "^0.1.2",
     "lodash": "^3.10.1",
-    "node-sass": "^3.3.3",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^1.7.2",
+    "node-sass": "^3.3.3"
   }
 }
