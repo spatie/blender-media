@@ -1,5 +1,8 @@
 # Blender Media
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/spatie-custom/blender-media.svg?style=flat-square)](https://travis-ci.org/spatie-custom/blender-media)
+
 The media uploader and manager for [Blender](https://github.com/spatie-custom/blender), our CMS.
 
 ## Installation
