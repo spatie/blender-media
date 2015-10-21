@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.1.2
+- Changed: Added font-awesome-filetypes dep
+
 ## 1.1.1
 - Fixed: Style fix
 

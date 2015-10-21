@@ -1,4 +1,5 @@
 import translate from 'blender.js/modules/interface.translations'
+import getClassNameForExtension from 'font-awesome-filetypes'
 
 function mapToArray(map) {
     return Array.from(map.values())
@@ -48,41 +49,7 @@ function isImage(filename) {
 function getIconForFile(filename) {
     let extension = getExtensionFromFilename(filename)
 
-    switch(extension) {
-        case 'jpg':
-        case 'jpeg':
-        case 'gif':
-        case 'png':
-            return 'fa-file-image-o'
-        case 'pdf':
-            return 'fa-file-pdf-o'
-        case 'doc':
-        case 'docx':
-            return 'fa-file-word-o'
-        case 'ppt':
-        case 'pptx':
-            return 'fa-file-powerpoint-o'
-        case 'xls':
-        case 'xlsx':
-            return 'fa-file-excel-o'
-        case 'mp3':
-        case 'aac':
-            return 'fa-file-audio-o'
-        case 'mp4':
-        case 'flv':
-        case 'avi':
-        case 'mkv':
-            return 'fa-file-audio-o'
-        case 'zip':
-        case 'tar':
-            return 'fa-file-zip-o'
-        case 'html':
-        case 'css':
-        case 'js':
-            return 'fa-file-code-o'
-        default:
-            return 'fa-file-o'
-    }
+    return getClassNameForExtension(extension)
 }
 
 export default {
