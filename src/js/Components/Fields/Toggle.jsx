@@ -7,11 +7,14 @@ const Toggle = React.createClass({
     propTypes: {
         for: React.PropTypes.string.isRequired,
         default: React.PropTypes.bool,
-        icons: React.PropTypes.shape({
+        icon: React.PropTypes.shape({
             on: React.PropTypes.string,
             off: React.PropTypes.string
         }),
-        label: React.PropTypes.string
+        label: React.PropTypes.shape({
+            on: React.PropTypes.string,
+            off: React.PropTypes.string
+        })
     },
     getDefaultProps() {
         return {
@@ -37,14 +40,14 @@ const Toggle = React.createClass({
         let active = this.isActive()
         let onClick = this.updateProperty(!active)
 
-        let icon = this.props.icons ?
+        let icon = this.props.icon ?
             <span className="toggle_icon">
-                <i className={`fa fa-${active ? this.props.icons.on : this.props.icons.off}`} />
+                <i className={`fa fa-${active ? this.props.icon.on : this.props.icon.off}`} />
             </span> :
             null
 
         let label = this.props.label ?
-            <span className="toggle_label">this.props.label</span> :
+            <span className="toggle_label">{active ? this.props.label.on : this.props.label.off}</span> :
             null
 
         return (

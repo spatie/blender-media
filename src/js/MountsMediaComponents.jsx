@@ -9,6 +9,7 @@ class MountsMediaComponents {
 
     constructor() {
         this.components = new Map()
+        this.debug = false
     }
 
     register(name, props = {}) {
@@ -27,7 +28,6 @@ class MountsMediaComponents {
     mountCollection(node) {
         let collection = node.dataset.mediaCollection
         let model = JSON.parse(node.dataset.model)
-        let debug = !!node.dataset.debug
 
         let componentProps = this.components.get(node.dataset.mediaType)
         if (! componentProps) {
@@ -44,7 +44,7 @@ class MountsMediaComponents {
         ReactDOM.render(
             <Media collection={collection}
                    model={model}
-                   debug={!!debug}
+                   debug={this.debug}
                    alt={alt}
                    {...componentProps} />,
             node
@@ -56,8 +56,7 @@ class MountsMediaComponents {
             'mediaCollection',
             'mediaType',
             'initial',
-            'model',
-            'debug'
+            'model'
         ]
 
         let keys = _.difference(Object.keys(node.dataset), reservedNodeProperties)
