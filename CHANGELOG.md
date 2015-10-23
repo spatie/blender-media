@@ -3,6 +3,7 @@
 All Notable changes to `blender-media` will be documented in this file.
 
 ## 1.2.0
+- Removed: LockToggleButton & WithLockToggle
 - Changed: Toggle field properties
  
 ## 1.1.3
