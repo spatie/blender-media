@@ -35,8 +35,8 @@
 
   .toggle {
     display: inline-block;
-    width: 2em;
     margin-right: 4px;
+    padding: .1em .5em;
     border-radius: 2px;
     font-weight: 600;
     color: #fff;
@@ -46,6 +46,14 @@
 
     &.-active {
       background-color: color(green);
+    }
+
+    &_icon {
+      top: -1px;
+
+      + .toggle_label {
+        margin-left: .4em;
+      }
     }
   }
 }

@@ -9,7 +9,7 @@
     "build": "npm run build:js && npm run build:scss",
     "test:lint": "node_modules/.bin/eslint .",
     "test": "npm run test:lint",
-    "postinstall": "npm run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
   "dependencies": {
     "alt": "^0.17.3",
     "babel": "^5.8.23",
-    "blender.js": "spatie-custom/blender.js#1.2.0",
+    "blender.js": "spatie-custom/blender.js#1.2.1",
     "dropzone": "^4.0.1",
     "es6-map": "^0.1.2",
     "font-awesome-filetypes": "^1.0.0",

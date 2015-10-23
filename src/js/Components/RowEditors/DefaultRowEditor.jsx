@@ -10,7 +10,7 @@ const DefaultRowEditor = () => {
             <Columns size="10">
                 <Name />
             </Columns>
-            <Columns size="1" offset="1" align="right">
+            <Columns size="2" align="right">
                 <Locales />
             </Columns>
         </RowEditor>

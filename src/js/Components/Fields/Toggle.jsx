@@ -7,7 +7,11 @@ const Toggle = React.createClass({
     propTypes: {
         for: React.PropTypes.string.isRequired,
         default: React.PropTypes.bool,
-        contents: React.PropTypes.func
+        icons: React.PropTypes.shape({
+            on: React.PropTypes.string,
+            off: React.PropTypes.string
+        }),
+        label: React.PropTypes.string
     },
     getDefaultProps() {
         return {
@@ -16,7 +20,8 @@ const Toggle = React.createClass({
     },
 
     isActive() {
-        return this.context.media.custom_properties[this.props.for] || this.props.default
+        let active = this.context.media.custom_properties[this.props.for]
+        return active !== undefined ? active : this.props.default
     },
 
     updateProperty(value) {
@@ -32,9 +37,20 @@ const Toggle = React.createClass({
         let active = this.isActive()
         let onClick = this.updateProperty(!active)
 
+        let icon = this.props.icons ?
+            <span className="toggle_icon">
+                <i className={`fa fa-${active ? this.props.icons.on : this.props.icons.off}`} />
+            </span> :
+            null
+
+        let label = this.props.label ?
+            <span className="toggle_label">this.props.label</span> :
+            null
+
         return (
-            <div style={this.props.style} className="toggle" onClick={onClick}>
-                <this.props.contents active={active} />
+            <div className={`toggle ${this.isActive() ? '-active' : ''}`} onClick={onClick}>
+                {icon}
+                {label}
             </div>
         )
     }
