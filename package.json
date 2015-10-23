@@ -9,7 +9,7 @@
     "build": "npm run build:js && npm run build:scss",
     "test:lint": "node_modules/.bin/eslint .",
     "test": "npm run test:lint",
-    "prepublish": "npm run build"
+    "prepublish": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
