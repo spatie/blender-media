@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.2.0
+- Changed: Toggle field properties
+ 
 ## 1.1.3
 - Fixed: Moved node-sass from devDependencies to dependencies
 
