@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.3.1
+- Bumped Blender.js version
+
 ## 1.3.0
 - Added: Select field
 - Changed: React & Blender.js are now peerDependencies
