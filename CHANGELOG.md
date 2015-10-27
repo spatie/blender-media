@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.3.2
+- use blender.js from Sinopia
+
 ## 1.3.1
 - Bumped Blender.js version
 
