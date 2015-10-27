@@ -66,6 +66,10 @@
   .row_actions {
     text-align: right;
     width: 60px;
+
+    button {
+      margin-top: -5px;
+    }
   }
 
   /* Uploader

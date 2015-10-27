@@ -9,7 +9,7 @@ const Text = React.createClass({
     propTypes: {
         label: React.PropTypes.string,
         value: React.PropTypes.string,
-        forProperty: React.PropTypes.string,
+        for: React.PropTypes.string,
         handleInput: React.PropTypes.func
     },
 
@@ -27,23 +27,23 @@ const Text = React.createClass({
         return nextProps.value !== ReactDOM.findDOMNode(this.refs.input).innerHTML;
     },
 
+    handleInput(event) {
+        this.context.alt.getActions('media').updateCustomProperties(
+            this.context.media.id,
+            { [this.props.for]: event.target.innerHTML }
+        )
+    },
+
     render() {
-        let value = this.props.forProperty ?
-            this.context.media.custom_properties[this.props.forProperty] : 
+        let value = this.props.for ?
+            this.context.media.custom_properties[this.props.for] : 
             this.props.value
 
-        let handleInput = this.props.handleInput ?
-            this.props.handleInput :
-            (event) => {
-                this.context.alt.getActions('media').updateCustomProperties(
-                    this.context.media.id,
-                    { [this.props.forProperty]: event.target.innerHTML }
-                )
-            }
+        let handleInput = this.props.handleInput || this.handleInput
 
         return (
             <div className="text" style={this.props.style}>
-                <div className={`text_input ${value ? null : '-empty'}`}
+                <div className="text_input"
                      dangerouslySetInnerHTML={{ __html: value }}
                      onFocus={this.handleFocus}
                      onKeyUp={handleInput}

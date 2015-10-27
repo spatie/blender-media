@@ -15,7 +15,7 @@ const Columns = (props) => {
         className += props.className
     }
 
-    return <div className={className}>{props.children}</div>
+    return <div className={className} style={props.style || {}}>{props.children}</div>
 }
 
 export default Columns

@@ -8,8 +8,7 @@
       padding: .25em 0;
       transition: all .1s ease-out;
 
-      &:focus,
-      &.-empty {
+      &:focus {
         padding: .25em .5em;
         background-color: #fff;
       }
@@ -54,6 +53,37 @@
       + .toggle_label {
         margin-left: .4em;
       }
+    }
+  }
+
+  .select {
+    // React-select overrides
+
+    .Select-control {
+      box-shadow: none;
+      border-radius: 2px;
+      text-align: left;
+      border: none;
+      margin-top: -5px;
+    }
+
+    .Select-input > input {
+      font-weight: inherit;
+    }
+
+    .Select-menu-outer {
+      box-shadow: 0px 1px 20px rgba(#000, .25);
+      border: none;
+    }
+
+    .Select-menu {
+      border: 2px solid color(gray, light);
+      border-radius: 0 0 2px 2px;
+    }
+
+    .Select-option.is-focused {
+      color: $white;
+      background-color: color(blue, dark);
     }
   }
 }
