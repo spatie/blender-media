@@ -38,7 +38,7 @@
     "object-assign": "^4.0.1"
   },
   "peerDependencies": {
-    "blender.js": "spatie-custom/blender.js#1.2.2",
+    "blender.js": "spatie-custom/blender.js#1.2.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-select": "^0.8.2"
