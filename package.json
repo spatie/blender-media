@@ -39,7 +39,7 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-select": "^0.8.2",
+    "react-select": "^0.8.2"
   },
   "devDependencies": {
     "eslint": "^1.7.2"
