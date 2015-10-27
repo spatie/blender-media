@@ -81,9 +81,13 @@
       border-radius: 0 0 2px 2px;
     }
 
-    .Select-option.is-focused {
-      color: $white;
-      background-color: color(blue, dark);
+    .Select-option {
+      border-radius: 0;
+
+      &.is-focused {
+        color: $white;
+        background-color: color(blue, dark);
+      }
     }
   }
 }
