@@ -4,6 +4,9 @@ node_js:
 sudo: false
 
 before_script:
+  - npm set registry https://npm.spatie.be
+  - npm set ca null
+  - npm install -g npm
   - npm install
 
 script: npm run test
