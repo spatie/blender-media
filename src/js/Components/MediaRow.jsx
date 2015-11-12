@@ -37,11 +37,15 @@ const MediaRow = React.createClass({
     },
 
     thumbnail() {
-        if (this.isImage()) {
-            return `/media/${this.props.media.id}/conversions/admin.jpg`
+        if (! this.isImage()) {
+            return null
         }
-
-        return null
+            
+        if (this.props.media.hasOwnProperty('thumb') ) {
+           return this.props.media.thumb
+        }
+        
+        return `/media/${this.props.media.id}/conversions/admin.jpg`
     },
 
     render() {
