@@ -41,7 +41,7 @@ const MediaRow = React.createClass({
             return null
         }
             
-        if (this.props.media.hasOwnProperty('thumbUrl') ) {
+        if (this.props.media.hasOwnProperty('thumbUrl')) {
            return this.props.media.thumbUrl
         }
         
@@ -49,13 +49,12 @@ const MediaRow = React.createClass({
     },
     
     getOriginalUrl() {
-        
-        if (this.props.media.hasOwnProperty('originalUrl') ) {
+        if (this.props.media.hasOwnProperty('originalUrl')) {
            return this.props.media.originalUrl
         }
         
         return `/media/${this.props.media.id}/${this.props.media.file_name}`
-    }
+    },
 
     render() {
         let thumb = this.isImage() ?
