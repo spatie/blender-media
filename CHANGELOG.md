@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.4.2
+- fix for fix for linking to original file
+
 ## 1.4.1
 - fix for linking to original file
 
