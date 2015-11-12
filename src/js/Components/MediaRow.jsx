@@ -36,21 +36,30 @@ const MediaRow = React.createClass({
         return isImage(this.props.media.file_name)
     },
 
-    thumbnail() {
+    getThumbnailUrl() {
         if (! this.isImage()) {
             return null
         }
             
-        if (this.props.media.hasOwnProperty('thumb') ) {
-           return this.props.media.thumb
+        if (this.props.media.hasOwnProperty('thumbUrl') ) {
+           return this.props.media.thumbUrl
         }
         
         return `/media/${this.props.media.id}/conversions/admin.jpg`
     },
+    
+    getOriginalUrl() {
+        
+        if (this.props.media.hasOwnProperty('originalUrl') ) {
+           return this.props.media.originalUrl
+        }
+        
+        return `/media/${this.props.media.id}/${this.props.media.file_name}`
+    }
 
     render() {
         let thumb = this.isImage() ?
-            <img className="image" src={this.thumbnail()} /> :
+            <img className="image" src={this.getThumbnailUrl()} /> :
             <span className="icon"><i className={`fa ${getIconForFile(this.props.media.file_name)}`} /></span>
 
         return (
@@ -59,7 +68,7 @@ const MediaRow = React.createClass({
                     <i className="fa fa-arrows-v"></i>
                 </td>
                 <td className="row_thumb">
-                    <a href={`/media/${this.props.media.id}/${this.props.media.file_name}`}
+                    <a href={this.getOriginalUrl()}
                        target="_blank"
                        tabIndex="-1">
                         {thumb}
