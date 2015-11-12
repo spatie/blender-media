@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.4.0
+- add support for explicitely passed thumbnails
+
 ## 1.3.2
 - use blender.js from Sinopia
 
