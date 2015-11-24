@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.4.3
+- Array.from polyfill
+
 ## 1.4.2
 - fix for fix for linking to original file
 
