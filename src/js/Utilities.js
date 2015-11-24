@@ -2,7 +2,8 @@ import translate from 'blender.js/modules/interface.translations'
 import getClassNameForExtension from 'font-awesome-filetypes'
 
 function mapToArray(map) {
-    return Array.from(map.values())
+    // Array.from polyfill
+    return [].slice.call(map.values())
 }
 
 function confirm(action) {
