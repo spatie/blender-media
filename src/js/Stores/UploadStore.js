@@ -13,7 +13,7 @@ class UploadStore {
     static getProgress() {
         let progress = this.getState().progress ? mapToArray(this.getState().progress) : null
 
-        if (progress.length === 0) {
+        if (progress === null || progress.length === 0) {
             return null
         }
 
