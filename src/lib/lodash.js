@@ -6,8 +6,4 @@ _.mixin({
         return !! _.find(collection, object);
     },
 
-    pipe(object, ...operations) {
-        return operations.reduce((object, operation) => operation(object), object);
-    },
-
 });

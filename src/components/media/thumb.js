@@ -1,4 +1,4 @@
-import { icon, isImage, originalUrl, thumbUrl } from '../../media';
+import { icon, isImage, originalUrl, thumbUrl } from '../../lib/media';
 
 export default {
 

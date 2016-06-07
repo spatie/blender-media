@@ -5,12 +5,14 @@ export default {
 
     template: `
         <div class="media">
+            <!--
             <media-table></media-table>
             <export></export>
+            -->
         </div>
     `,
 
-    props: ['collection', 'media'],
+    props: ['collection', 'initial'],
 
     components: {
         Export,
@@ -24,7 +26,8 @@ export default {
     },
 
     ready() {
-        this.dispatch(this.$props);
+        console.log(this.collection);
+        console.log(this.initial);
     },
 
 };

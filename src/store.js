@@ -1,3 +1,4 @@
+import { debug } from './lib/helpers';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -9,8 +10,17 @@ const state = {
 
 const mutations = {
 
-    HYDRATE_MEDIA(state, media) {
+    HYDRATE(state, { collection, media }) {
+        state.collection = collection;
         state.media = media;
+    },
+
+    ADD_MEDIA(state, { media }) {
+        state.media.push(media);
+    },
+
+    REMOVE_MEDIA(state, { media }) {
+        state.media = state.media.reject(m => m.id === media.id);
     },
 
 };
@@ -18,5 +28,5 @@ const mutations = {
 export default new Vuex.Store({
     state,
     mutations,
-    strict: true,
+    strict: debug,
 });

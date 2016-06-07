@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Blender Media</title>
+  </head>
+  <body>
+    <media
+      :collection="images"
+      :initial='[
+        {
+          "id": 1,
+          "name": "image_1",
+          "file_name": "image_1.jpg",
+          "custom_properties":[],
+          "order_column": 1,
+          "thumbUrl": "./media/image_1.jpg",
+          "originalUrl":"./media/image_1.jpg"
+        },
+        {
+          "id": 2,
+          "name": "image_2",
+          "file_name": "image_2.jpg",
+          "custom_properties":[],
+          "order_column": 2,
+          "thumbUrl": "./media/image_2.jpg",
+          "originalUrl":"./media/image_2.jpg"
+        }
+      ]'
+    ></media>
+    <script src=./build/index.js></script>
+  </body>
+</html>

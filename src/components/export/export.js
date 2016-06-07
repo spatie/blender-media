@@ -1,4 +1,4 @@
-import { debug } from '../../helpers';
+import { debug } from '../../lib/helpers';
 
 export default {
 

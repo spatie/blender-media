@@ -1,5 +1,5 @@
-import MediaRow from 'media-row';
-import sort from '../../media';
+import MediaRow from './media-row';
+import sort from '../../lib/media';
 
 export default {
 
