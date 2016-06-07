@@ -1,28 +1,17 @@
 {
     "rules": {
-        "indent": [
-            2,
-            4,
-            {
-                "SwitchCase": 1
-            }
-        ],
-        "quotes": [
-            2,
-            "single"
-        ],
-        "linebreak-style": [
-            2,
-            "unix"
-        ],
-        "semi": [
-            2,
-            "never"
-        ]
+        "comma-dangle": [2, "always-multiline"],
+        "indent": [2, 4],
+        "linebreak-style": [2, "unix"],
+        "quotes": [2, "single"],
+        "semi": [2, "always"],
+        "sort-imports": ["error", { "ignoreCase": true }],
+        "space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }],
+        "strict": [2, "never"]
     },
-    "ecmaFeatures": {
-        "jsx": true,
-        "modules": true
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
     },
     "env": {
         "browser": true,
