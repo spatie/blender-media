@@ -27,9 +27,11 @@
     "url": "https://github.com/spatie-custom/blender-media/issues"
   },
   "homepage": "https://github.com/spatie-custom/blender-media",
+  "dependencies": {
+    "font-awesome-filetypes": "^1.0.1"
+  },
   "peerDependencies": {
-    "vue": "^1.0.24",
-    "vuex": "^0.6.3"
+    "vue": "^1.0.24"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
@@ -41,8 +43,5 @@
     "presets": [
       "es2015"
     ]
-  },
-  "dependencies": {
-    "font-awesome-filetypes": "^1.0.1"
   }
 }

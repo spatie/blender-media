@@ -4,7 +4,7 @@ export default {
 
     template: `
         <a class="button -small -danger" @click="remove">
-            Remove <i class="fa fa-remove"></i>
+            <i class="fa fa-remove"></i>
         </a>
     `,
 

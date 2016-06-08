@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { includes, sortBy } from 'lodash';
 import getClassNameForExtension from 'font-awesome-filetypes';
 
 export const extension = media => {
@@ -6,7 +6,7 @@ export const extension = media => {
 };
 
 export const isImage = media => {
-    return _.contains(['jpg', 'jpeg', 'gif', 'png'], extension(media));
+    return includes(['jpg', 'jpeg', 'gif', 'png'], extension(media));
 };
 
 export const icon = media => {
@@ -14,5 +14,5 @@ export const icon = media => {
 };
 
 export const sort = media => {
-    return _.sortBy(media, 'order_column');
+    return sortBy(media, 'order_column');
 };
