@@ -5,23 +5,23 @@ export default {
     template: `
         <div>
             <textarea
-                :name="name"
-                :value="exportableData"
-                class="export"
-                :class="{ '-debug': debug }"
+                :name="collection"
+                :value="data"
+                :class="['export', { '-debug': debug }]"
+                style="width: 50vh; height: 50vh"
             ></textarea>
         </div>
     `,
 
-    props: ['name', 'data'],
+    props: ['collection', 'media'],
 
     computed: {
-        exportableData() {
+        data() {
             if (debug) {
-                return JSON.stringify(this.data, null, '\t');
+                return JSON.stringify(this.media, null, '\t');
             }
 
-            return JSON.stringify(this.data);
+            return JSON.stringify(this.media);
         },
     },
 

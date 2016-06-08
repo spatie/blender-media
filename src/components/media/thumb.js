@@ -1,4 +1,4 @@
-import { icon, isImage, originalUrl, thumbUrl } from '../../lib/media';
+import { icon, isImage } from '../../lib/media';
 
 export default {
 
@@ -18,10 +18,18 @@ export default {
     props: ['media'],
 
     computed: {
-        icon: () => icon(this.media),
-        isImage: () => isImage(this.media),
-        originalUrl: () => originalUrl(this.media),
-        thumbUrl: () => thumbUrl(this.media),
+        icon() {
+            return icon(this.media);
+        },
+        isImage() {
+            return isImage(this.media);
+        },
+        originalUrl() {
+            return this.media.originalUrl;
+        },
+        thumbUrl() {
+            return this.media.thumbUrl;
+        },
     },
 
 };

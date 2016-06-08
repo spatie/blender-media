@@ -1,33 +1,38 @@
 import MediaRow from './media-row';
-import sort from '../../lib/media';
+import { sort } from '../../lib/media';
 
 export default {
 
     template: `
-        <table>
-            <tbody v-if="hasMedia" v-for="item in media">
-                <tr is="media-row" :media="item">
-                    Editor...
-                </tr>
-            </tbody>
-            <tbody v-else>
+        <div>
+            <table v-if="hasMedia">
+                <tbody v-for="media in orderedMedia">
+                    <tr
+                        is="media-row"
+                        :media="media"
+                        :editor="editor"
+                    ></tr>
+                </tbody>
+            </table>
+            <div v-else>
                 dataTables.infoEmpty
-            </tbody>
-        </table>
+            </div>
+        </div>
     `,
+
+    props: ['collection', 'media', 'editor'],
 
     components: {
         MediaRow,
     },
 
-    vuex: {
-        getters: {
-            media: state => sort(state.media),
-        },
-    },
-
     computed: {
-        hasMedia: () => this.media.length > 1,
+        orderedMedia() {
+            return sort(this.media);
+        },
+        hasMedia() {
+            return this.media.length > 0;
+        },
     },
 
 };

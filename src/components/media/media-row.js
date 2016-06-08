@@ -1,3 +1,4 @@
+import editors from '../../editors';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 
@@ -11,18 +12,30 @@ export default {
             <td className="row_thumb">
                 <thumb :media="media"></thumb>
             </td>
-            <slot></slot>
+            <td>
+                <component
+                    is="editor"
+                    :media="media"
+                ></component>
+            </td>
             <td class="row_actions">
                 <remove-media :media="media"></remove-media>
             </td>
         </tr>
     `,
 
+    props: ['media', 'editor'],
+
     components: {
         RemoveMedia,
         Thumb,
-    },
+        editor(resolve) {
+            if (!editors.hasOwnProperty(this.editor)) {
+                throw new Error(`Media editor \`${this.editor}\` isn't registered`);
+            }
 
-    props: ['media'],
+            resolve(editors[this.editor]);
+        },
+    },
 
 };

@@ -1,32 +1,17 @@
-import { debug } from './lib/helpers';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { concat, reject } from 'lodash';
 
-Vue.use(Vuex);
-
-const state = {
+export const state = {
     media: [],
 };
 
-const mutations = {
-
-    HYDRATE(state, { collection, media }) {
-        state.collection = collection;
-        state.media = media;
-    },
-
-    ADD_MEDIA(state, { media }) {
-        state.media.push(media);
-    },
-
-    REMOVE_MEDIA(state, { media }) {
-        state.media = state.media.reject(m => m.id === media.id);
-    },
-
+export const hydrate = ({ media }) => {
+    state.media = concat(state.media, media);
 };
 
-export default new Vuex.Store({
-    state,
-    mutations,
-    strict: debug,
-});
+export const addMedia = media => {
+    state.media = concat(state.media, media);
+};
+
+export const removeMedia = media => {
+    state.media = reject(state.media, m => m.id === media.id);
+};

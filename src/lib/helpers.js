@@ -1,1 +1,7 @@
-export const debug = (() => true)();
+export const debug = (() => {
+    return true;
+})();
+
+export const translate = key => {
+    return key;
+};
