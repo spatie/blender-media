@@ -4,20 +4,15 @@ import { sort } from '../../lib/media';
 export default {
 
     template: `
-        <div>
-            <table v-if="hasMedia">
-                <tbody v-for="media in orderedMedia">
-                    <tr
-                        is="media-row"
-                        :media="media"
-                        :editor="editor"
-                    ></tr>
-                </tbody>
-            </table>
-            <div v-else>
-                dataTables.infoEmpty
-            </div>
-        </div>
+        <table>
+            <tbody v-for="media in orderedMedia">
+                <tr
+                    is="media-row"
+                    :media="media"
+                    :editor="editor"
+                ></tr>
+            </tbody>
+        </table>
     `,
 
     props: ['collection', 'media', 'editor'],
@@ -29,9 +24,6 @@ export default {
     computed: {
         orderedMedia() {
             return sort(this.media);
-        },
-        hasMedia() {
-            return this.media.length > 0;
         },
     },
 

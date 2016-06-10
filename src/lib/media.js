@@ -16,3 +16,7 @@ export const icon = media => {
 export const sort = media => {
     return sortBy(media, 'order_column');
 };
+
+export const inCollection = (media, collection) => {
+    return media.filter(m => m.collection === collection);
+};

@@ -13,7 +13,7 @@ registerEditor('basic', BasicEditor);
 const types = {};
 
 export const registerType = (name, {
-    accepts = '*',
+    accepts = null,
     multiple = true,
     editor = 'basic',
 }) => {
@@ -25,11 +25,11 @@ export const registerType = (name, {
 };
 
 registerType('images', {
-    accepts: 'jpg,jpeg,png,gif,svg',
+    accepts: '.jpg,.jpeg,.png,.gif,.svg',
 });
 
 registerType('image', {
-    accepts: 'jpg,jpeg,png,gif,svg',
+    accepts: '.jpg,.jpeg,.png,.gif,.svg',
     multiple: false,
 });
 

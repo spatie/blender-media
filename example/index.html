@@ -9,6 +9,8 @@
     <media
       collection="images"
       type="images"
+      upload-url="/upload"
+      :model="{ name: 'MyModel', id: 1 }"
       :initial='[
         {
           "id": 1,
@@ -16,8 +18,8 @@
           "file_name": "image_1.png",
           "custom_properties": [],
           "order_column": 1,
-          "thumbUrl": "./media/image_1.png",
-          "originalUrl": "./media/image_1.png",
+          "thumbUrl": "/media/image_1.png",
+          "originalUrl": "/media/image_1.png",
           "collection": "images"
         },
         {
@@ -26,12 +28,30 @@
           "file_name": "image_2.png",
           "custom_properties": [],
           "order_column": 2,
-          "thumbUrl": "./media/image_2.png",
-          "originalUrl": "./media/image_2.png",
+          "thumbUrl": "/media/image_2.png",
+          "originalUrl": "/media/image_2.png",
           "collection": "images"
         }
       ]'
     ></media>
-    <script src="./build/index.js"></script>
+    <media
+      collection="downloads"
+      type="download"
+      upload-url="/upload"
+      :model="{ name: 'MyModel', id: 1 }"
+      :initial='[
+        {
+          "id": 1,
+          "name": "image_1",
+          "file_name": "image_1.png",
+          "custom_properties": [],
+          "order_column": 1,
+          "thumbUrl": "/media/image_1.png",
+          "originalUrl": "/media/image_1.png",
+          "collection": "downloads"
+        }
+      ]'
+    ></media>
+    <script src="/build/index.js"></script>
   </body>
 </html>
