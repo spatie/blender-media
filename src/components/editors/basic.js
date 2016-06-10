@@ -6,7 +6,6 @@ export default {
         </div>
     `,
 
-    // Props are registered in `editors.register`
-    // props: ['media'],
+    props: ['media'],
 
 };

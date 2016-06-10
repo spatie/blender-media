@@ -1,5 +1,6 @@
 import { hydrate, state } from '../store';
 import Export from './export/export';
+import { getSettings } from '../settings';
 import MediaTable from './media/media-table';
 
 export default {
@@ -9,7 +10,7 @@ export default {
             <media-table
                 :collection="collection"
                 :media="media"
-                :editor="editor"
+                :editor="settings.editor"
             ></media-table>
             <export
                 :collection="collection"
@@ -20,10 +21,10 @@ export default {
 
     props: {
         collection: {
-            default: '',
+            required: true,
         },
-        editor: {
-            default: 'basic',
+        type: {
+            required: true,
         },
         initial: {
             default: [],
@@ -42,6 +43,9 @@ export default {
     computed: {
         media() {
             return this.state.media.filter(m => m.collection === this.collection);
+        },
+        settings() {
+            return getSettings(this.type);
         },
     },
 

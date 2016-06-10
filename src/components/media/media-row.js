@@ -1,4 +1,4 @@
-import editors from '../../editors';
+import { getEditor } from '../../settings';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 
@@ -30,11 +30,7 @@ export default {
         RemoveMedia,
         Thumb,
         editor(resolve) {
-            if (!editors.hasOwnProperty(this.editor)) {
-                throw new Error(`Media editor \`${this.editor}\` isn't registered`);
-            }
-
-            resolve(editors[this.editor]);
+            resolve(getEditor(this.editor));
         },
     },
 
