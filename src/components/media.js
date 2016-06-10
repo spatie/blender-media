@@ -1,4 +1,5 @@
 import { hydrate, state } from '../store';
+import Dropzone from 'dropzone';
 import Export from './export/export';
 import { getSettings } from '../settings';
 import MediaTable from './media/media-table';
@@ -6,7 +7,7 @@ import MediaTable from './media/media-table';
 export default {
 
     template: `
-        <div class="media">
+        <div class="media" v-el:media>
             <media-table
                 :collection="collection"
                 :media="media"
@@ -24,6 +25,9 @@ export default {
             required: true,
         },
         type: {
+            required: true,
+        },
+        uploadUrl: {
             required: true,
         },
         initial: {
@@ -51,6 +55,28 @@ export default {
 
     ready() {
         hydrate({ media: this.initial });
+
+        new Dropzone(this.$els.media, {
+            url: this.uploadUrl,
+            uploadMultiple: this.settings.multiple,
+            acceptedFiles: this.settings.accepts,
+            previewTemplate: false,
+            addedfile: this.addedFile,
+            success: this.success,
+            error: this.error,
+        });
+    },
+
+    methods: {
+        addedFile() {
+            
+        },
+        success() {
+
+        },
+        error() {
+
+        },
     },
 
 };
