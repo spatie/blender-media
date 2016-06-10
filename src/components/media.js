@@ -1,10 +1,9 @@
 import * as store from '../store';
-import Dropzone from 'dropzone';
 import Export from './export/export';
-import { getError } from '../lib/helpers';
 import { getSettings } from '../settings';
 import { inCollection as mediaInCollection } from '../lib/media';
 import MediaTable from './media/media-table';
+import uploader from './upload/uploader';
 import UploadErrors from './upload/upload-errors';
 import { inCollection as uploadsInCollection } from '../lib/uploads';
 
@@ -42,6 +41,8 @@ export default {
         model: { required: true },
         initial: { default: [] },
     },
+
+    mixins: [uploader],
 
     components: {
         Export,
@@ -84,42 +85,14 @@ export default {
     ready() {
         store.hydrate({ media: this.initial });
 
-        new Dropzone(this.$els.media, {
+        this.initDropzone(this.$els.media, {
+            collection: this.collection,
+            model: this.model,
             url: this.uploadUrl,
             uploadMultiple: this.settings.multiple,
             acceptedFiles: this.settings.accepts,
             clickable: this.$els.addMedia,
-            previewsContainer: false,
-            previewTemplate: false,
-            sending: this.sending,
-            uploadprogress: this.progress,
-            success: this.success,
-            error: this.fail,
-            complete: this.complete,
         });
-    },
-
-    methods: {
-        sending(file, xhr, data) {
-            file.collection = this.collection;
-            data.append('collection_name', this.collection);
-            data.append('model_name', this.model.name);
-            data.append('model_id', this.model.id);
-            store.clearErrors(this.collection);
-            store.startUpload(file);
-        },
-        progress(file) {
-            store.updateProgress(file);
-        },
-        success(file, response) {
-            store.addMedia(response);
-        },
-        fail(file) {
-            store.addError(this.collection, getError(file.xhr));
-        },
-        complete(file) {
-            store.finishUpload(file);
-        },
     },
 
 };
