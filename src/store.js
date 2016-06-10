@@ -5,6 +5,7 @@ export const state = {
     media: [],
     uploadCount: 1,
     uploads: {},
+    errors: {},
 };
 
 export const hydrate = ({ media }) => {
@@ -35,4 +36,12 @@ export const updateProgress = file => {
 
 export const finishUpload = file => {
     Vue.delete(state.uploads, file.uploadId);
+};
+
+export const addError = (collection, error) => {
+    Vue.set(state.errors, collection, error);
+};
+
+export const clearErrors = collection => {
+    Vue.delete(state.errors, collection);
 };

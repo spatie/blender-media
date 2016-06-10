@@ -1,9 +1,11 @@
 import * as store from '../store';
 import Dropzone from 'dropzone';
 import Export from './export/export';
+import { getError } from '../lib/helpers';
 import { getSettings } from '../settings';
 import { inCollection as mediaInCollection } from '../lib/media';
 import MediaTable from './media/media-table';
+import UploadErrors from './upload/upload-errors';
 import { inCollection as uploadsInCollection } from '../lib/uploads';
 
 export default {
@@ -21,10 +23,11 @@ export default {
             <div v-else>
                 dataTables.infoEmpty
             </div>
+            Uploads: {{ uploads.length }}
             <div v-show="canAddMedia">
                 <span v-el:add-media>Add media</span>
             </div>
-            Uploads: {{ uploads.length }}
+            <upload-errors :collection="collection"></upload-errors>
             <export
                 :collection="collection"
                 :media="media"
@@ -43,6 +46,7 @@ export default {
     components: {
         Export,
         MediaTable,
+        UploadErrors,
     },
 
     data() {
@@ -52,20 +56,14 @@ export default {
     },
 
     computed: {
+        settings() {
+            return getSettings(this.type);
+        },
         media() {
             return mediaInCollection(this.state.media, this.collection);
         },
         hasMedia() {
             return this.media.length > 0;
-        },
-        settings() {
-            return getSettings(this.type);
-        },
-        uploads() {
-            return uploadsInCollection(this.state.uploads, this.collection);
-        },
-        hasUploads() {
-            return this.uploads.length > 0;
         },
         canAddMedia() {
 
@@ -74,6 +72,12 @@ export default {
             }
 
             return !this.hasMedia && !this.hasUploads;
+        },
+        uploads() {
+            return uploadsInCollection(this.state.uploads, this.collection);
+        },
+        hasUploads() {
+            return this.uploads.length > 0;
         },
     },
 
@@ -90,7 +94,7 @@ export default {
             sending: this.sending,
             uploadprogress: this.progress,
             success: this.success,
-            error: this.error,
+            error: this.fail,
             complete: this.complete,
         });
     },
@@ -101,6 +105,7 @@ export default {
             data.append('collection_name', this.collection);
             data.append('model_name', this.model.name);
             data.append('model_id', this.model.id);
+            store.clearErrors(this.collection);
             store.startUpload(file);
         },
         progress(file) {
@@ -109,7 +114,8 @@ export default {
         success(file, response) {
             store.addMedia(response);
         },
-        error() {
+        fail(file) {
+            store.addError(this.collection, getError(file.xhr));
         },
         complete(file) {
             store.finishUpload(file);
