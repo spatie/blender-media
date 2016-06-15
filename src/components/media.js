@@ -12,12 +12,11 @@ export default {
     template: `
         <div class="media" v-el:media>
             <div v-if="hasMedia">
-                <table
-                    is="media-table"
+                <media-table
                     :collection="collection"
                     :media="media"
                     :editor="settings.editor"
-                ></table>
+                ></media-table>
             </div>
             <div v-else>
                 dataTables.infoEmpty

@@ -5,11 +5,14 @@ import Thumb from './thumb';
 export default {
 
     template: `
-        <tr class="row">
-            <td class="row_order" data-sortablehandle>
-                <i class="fa fa-arrows-v"></i>
+        <tr style="width: 300px; height: 50px; background-color: red;">
+            <td>
+                <i
+                    class="js-handle fa fa-arrows-v"
+                    style="cursor: move; user-select: none;"
+                >X</i>
             </td>
-            <td className="row_thumb">
+            <td>
                 <thumb :media="media"></thumb>
             </td>
             <td>
@@ -18,7 +21,7 @@ export default {
                     :media="media"
                 ></component>
             </td>
-            <td class="row_actions">
+            <td>
                 <remove-media :media="media"></remove-media>
             </td>
         </tr>
@@ -32,6 +35,10 @@ export default {
         editor(resolve) {
             resolve(getEditor(this.editor));
         },
+    },
+
+    ready() {
+        this.$el.mediaId = this.media.id;
     },
 
 };

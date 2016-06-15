@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/spatie-custom/blender-media",
   "dependencies": {
+    "dragula": "^3.7.1",
     "font-awesome-filetypes": "^1.0.1"
   },
   "peerDependencies": {
