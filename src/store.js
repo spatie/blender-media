@@ -1,4 +1,4 @@
-import { concat, reject } from 'lodash';
+import { concat, forIn, reject } from 'lodash';
 import Vue from 'vue';
 
 export const state = {
@@ -18,6 +18,12 @@ export const addMedia = media => {
 
 export const removeMedia = media => {
     state.media = reject(state.media, m => m.id === media.id);
+};
+
+export const setMediaOrder = order => {
+    forIn(order, (order, mediaId) => {
+        state.media.find(m => m.id === parseInt(mediaId)).order_column = order;
+    });
 };
 
 export const startUpload = file => {

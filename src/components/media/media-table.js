@@ -1,16 +1,18 @@
 import MediaRow from './media-row';
+import { setMediaOrder } from '../../store';
 import { sort } from '../../lib/media';
-import sortable from '../sortable/sortable';
+import Sortable from '../sortable/sortable';
 
 export default {
 
     template: `
-        <table v-el:sort-container>
+        <table v-el:container v-sortable handle=".js-handle">
             <tbody v-for="media in orderedMedia">
                 <tr
                     is="media-row"
                     :media="media"
                     :editor="editor"
+                    v-ref:foo
                 ></tr>
             </tbody>
         </table>
@@ -18,15 +20,32 @@ export default {
 
     props: ['collection', 'media', 'editor'],
 
-    mixins: [sortable],
-
     components: {
         MediaRow,
+    },
+
+    directives: {
+        Sortable,
     },
 
     computed: {
         orderedMedia() {
             return sort(this.media);
+        },
+    },
+
+    events: {
+        reordered({ elements }) {
+
+            const order = elements
+                .map(tbody => tbody.children[0])
+                .map(row => parseInt(row.dataset.mediaId))
+                .reduce((order, mediaId) => {
+                    order[mediaId] = Object.keys(order).length;
+                    return order;
+                }, {});
+
+            setMediaOrder(order);
         },
     },
 

@@ -29,6 +29,7 @@ export default {
             <export
                 :collection="collection"
                 :media="media"
+                :debug="debug"
             ></export>
         </div>
     `,
@@ -39,6 +40,7 @@ export default {
         uploadUrl: { required: true },
         model: { required: true },
         initial: { default: [] },
+        debug: { default: false },
     },
 
     mixins: [uploader],

@@ -1,26 +1,30 @@
-import constrain from '../../lib/dragula-constrain';
+import constrain from 'dragula-constrain';
 import dragula from 'dragula';
+import { matches } from '../../lib/helpers';
 
 export default {
-    ready() {
 
-        const drake = dragula([this.$els.sortContainer], {
-            moves(el, container, handle) {
-                return handle.classList.contains('js-handle');
+    params: ['handle'],
+
+    bind() {
+
+        const { handle = '*' } = this.params;
+
+        this.el.sortable = dragula([this.el], {
+            moves(element, container, handleElement) {
+                return matches(handleElement, handle);
             },
         });
 
-        drake.on('drop', function () {
-            // const mediaElements = Array.from(this.$els.sortContainer.children);
-            // mediaElements.map(tbody => tbody.children[0].mediaId)
-        }.bind(this));
+        constrain(this.el.sortable);
 
-        drake.on('cloned', function (clone) {
-            this.dragulaConstraint = constrain(clone, this.$els.sortContainer);
-        }.bind(this));
-
-        drake.on('dragend', function () {
-            this.dragulaConstraint.break();
+        this.el.sortable.on('drop', function () {
+            this.vm.$emit('reordered', { elements: Array.from(this.el.children) });
         }.bind(this));
     },
+
+    unbind() {
+        this.el.sortable.destroy();
+    },
+
 };

@@ -5,7 +5,7 @@ import Thumb from './thumb';
 export default {
 
     template: `
-        <tr style="width: 300px; height: 50px; background-color: red;">
+        <tr :data-media-id="media.id">
             <td>
                 <i
                     class="js-handle fa fa-arrows-v"
@@ -35,10 +35,6 @@ export default {
         editor(resolve) {
             resolve(getEditor(this.editor));
         },
-    },
-
-    ready() {
-        this.$el.mediaId = this.media.id;
     },
 
 };

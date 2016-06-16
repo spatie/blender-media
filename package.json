@@ -29,6 +29,7 @@
   "homepage": "https://github.com/spatie-custom/blender-media",
   "dependencies": {
     "dragula": "^3.7.1",
+    "dragula-constrain": "^0.1.0",
     "font-awesome-filetypes": "^1.0.1"
   },
   "peerDependencies": {
@@ -46,6 +47,9 @@
   "babel": {
     "presets": [
       "es2015"
+    ],
+    "plugins": [
+      "babel-plugin-syntax-object-rest-spread"
     ]
   }
 }

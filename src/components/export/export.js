@@ -1,23 +1,20 @@
-import { debug } from '../../lib/helpers';
-
 export default {
 
     template: `
-        <div>
+        <div v-show="debug">
             <textarea
                 :name="collection"
                 :value="data"
-                :class="['export', { '-debug': debug }]"
-                style="width: 50vh; height: 50vh"
+                :style="{ width: '100%', height: '300px' }"
             ></textarea>
         </div>
     `,
 
-    props: ['collection', 'media'],
+    props: ['collection', 'media', 'debug'],
 
     computed: {
         data() {
-            if (debug) {
+            if (this.debug) {
                 return JSON.stringify(this.media, null, '\t');
             }
 
