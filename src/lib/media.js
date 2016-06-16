@@ -3,11 +3,11 @@ import getClassNameForExtension from 'font-awesome-filetypes';
 
 /**
  * @typedef {Object} Media
- * @property {int} id
+ * @property {number} id
  * @property {string} name
  * @property {string} file_name
  * @property {Object} custom_properties
- * @property {int} order_column
+ * @property {number} order_column
  * @property {string} thumbUrl
  * @property {string} originalUrl
  * @property {string} collection

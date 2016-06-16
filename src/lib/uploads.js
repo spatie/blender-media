@@ -2,8 +2,8 @@ import { values } from 'lodash';
 
 /**
  * @typedef {Object} Upload
- * @property {int} id
- * @property {int} progress
+ * @property {number} id
+ * @property {number} progress
  * @property {string} collection
  */
 

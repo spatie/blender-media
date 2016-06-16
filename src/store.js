@@ -2,11 +2,11 @@ import { forIn } from 'lodash';
 import Vue from 'vue';
 
 /**
- * @type {State}
- * @property {Object} media  Media objects keyed by id.
- * @property {int} uploadCount
- * @property {Object} uploads  Upload objects keyed by id.
- * @property {Object} errors  Error messages keyed by collection.
+ * @type {Object}
+ * @property {Object} media - Media objects keyed by id.
+ * @property {number} uploadCount
+ * @property {Object} uploads - Upload objects keyed by id.
+ * @property {Object} errors - Error messages keyed by collection.
  */
 export const state = {
     media: {},
@@ -16,7 +16,8 @@ export const state = {
 };
 
 /**
- * @param {Media} data.media
+ * @param {Object} data
+ * @param {Media[]} data.media
  */
 export const hydrate = ({ media }) => {
     addMedia(media);
@@ -37,8 +38,8 @@ export const removeMedia = media => {
 };
 
 /**
- * @param {Object} order  An object with media id's as keys and order columns
- *                        as values.
+ * @param {Object} order - An object with media id's as keys and order columns
+ *                         as values.
  */
 export const setMediaOrder = order => {
     forIn(order, (order, mediaId) => {
@@ -47,7 +48,7 @@ export const setMediaOrder = order => {
 };
 
 /**
- * @param {Object} file  A file object provided by Dropzone.js.
+ * @param {Object} file - A file object provided by Dropzone.js.
  */
 export const startUpload = file => {
 
@@ -61,7 +62,7 @@ export const startUpload = file => {
 };
 
 /**
- * @param {Object} file  A file object provided by Dropzone.js.
+ * @param {Object} file - A file object provided by Dropzone.js.
  */
 export const updateProgress = file => {
 
@@ -71,7 +72,7 @@ export const updateProgress = file => {
 };
 
 /**
- * @param {Object} file  A file object provided by Dropzone.js.
+ * @param {Object} file - A file object provided by Dropzone.js.
  */
 export const finishUpload = file => {
     Vue.delete(state.uploads, file.uploadId);
