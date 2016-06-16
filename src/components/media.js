@@ -3,14 +3,21 @@ import Export from './export/export';
 import { getSettings } from '../settings';
 import { inCollection as mediaInCollection } from '../lib/media';
 import MediaTable from './media/media-table';
-import uploader from './upload/uploader';
+import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import { inCollection as uploadsInCollection } from '../lib/uploads';
 
 export default {
 
     template: `
-        <div class="media" v-el:media>
+        <div
+            v-upload
+            :collection="collection"
+            :model="model"
+            :url="uploadUrl"
+            :multiple="settings.multiple"
+            :accepts="settings.accepts"
+        >
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
@@ -23,7 +30,9 @@ export default {
             </div>
             Uploads: {{ uploads.length }}
             <div v-show="canAddMedia">
-                <span v-el:add-media>Add media</span>
+                <span @click="showUploadDialog">
+                    Add media
+                </span>
             </div>
             <upload-errors :collection="collection"></upload-errors>
             <export
@@ -43,12 +52,14 @@ export default {
         debug: { default: false },
     },
 
-    mixins: [uploader],
-
     components: {
         Export,
         MediaTable,
         UploadErrors,
+    },
+
+    directives: {
+        Upload,
     },
 
     data() {
@@ -83,17 +94,14 @@ export default {
         },
     },
 
+    methods: {
+        showUploadDialog() {
+            this.upload.hiddenFileInput.click();
+        },
+    },
+
     ready() {
         store.hydrate({ media: this.initial });
-
-        this.initDropzone(this.$els.media, {
-            collection: this.collection,
-            model: this.model,
-            url: this.uploadUrl,
-            uploadMultiple: this.settings.multiple,
-            acceptedFiles: this.settings.accepts,
-            clickable: this.$els.addMedia,
-        });
     },
 
 };

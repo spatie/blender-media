@@ -10,21 +10,21 @@ export default {
 
         const { handle = '*' } = this.params;
 
-        this.el.sortable = dragula([this.el], {
+        this.vm.sortable = dragula([this.el], {
             moves(element, container, handleElement) {
                 return matches(handleElement, handle);
             },
         });
 
-        constrain(this.el.sortable);
+        constrain(this.vm.sortable);
 
-        this.el.sortable.on('drop', function () {
+        this.vm.sortable.on('drop', function () {
             this.vm.$emit('reordered', { elements: Array.from(this.el.children) });
         }.bind(this));
     },
 
     unbind() {
-        this.el.sortable.destroy();
+        this.vm.sortable.destroy();
     },
 
 };
