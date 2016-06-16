@@ -82,3 +82,9 @@ media.register('images', {
     rowEditor: <WithLink />
 })
 ```
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+Example images provided by [Unsplash](https://unsplash.com).
