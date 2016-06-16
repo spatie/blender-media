@@ -6,6 +6,7 @@ import MediaTable from './media/media-table';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import { inCollection as uploadsInCollection } from '../lib/uploads';
+import { values } from 'lodash';
 
 export default {
 
@@ -73,7 +74,10 @@ export default {
             return getSettings(this.type);
         },
         media() {
-            return mediaInCollection(this.state.media, this.collection);
+            return mediaInCollection(
+                values(this.state.media),
+                this.collection
+            );
         },
         hasMedia() {
             return this.media.length > 0;
