@@ -1,4 +1,4 @@
-import { getEditor } from '../../settings';
+import { getEditor } from '../../lib/editors';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 

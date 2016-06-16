@@ -1,6 +1,6 @@
 import * as store from '../store';
 import Export from './export/export';
-import { getSettings } from '../settings';
+import { getSettings } from '../lib/types';
 import { inCollection as mediaInCollection } from '../lib/media';
 import MediaTable from './media/media-table';
 import Upload from './upload/upload';
