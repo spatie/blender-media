@@ -75,7 +75,7 @@ export default {
             return getSettings(this.type);
         },
         media() {
-            return this.allMedia.filter(m => m.collection === this.collection);
+            return this.allMedia.filter(media => media.collection === this.collection);
         },
         hasMedia() {
             return this.media.length > 0;
@@ -89,7 +89,7 @@ export default {
             return !this.hasMedia && !this.hasUploads;
         },
         uploads() {
-            return this.allUploads.filter(u => u.collection === this.collection);
+            return this.allUploads.filter(upload => upload.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;

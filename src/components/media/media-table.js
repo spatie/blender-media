@@ -11,7 +11,6 @@ export default {
                     is="media-row"
                     :media="media"
                     :editor="editor"
-                    v-ref:foo
                 ></tr>
             </tbody>
         </table>
