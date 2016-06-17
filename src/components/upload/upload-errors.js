@@ -1,10 +1,8 @@
-import { clearErrors, state } from '../../store';
-
 export default {
 
     template: `
         <div v-if="hasError">
-            <span @click="clearErrors">
+            <span @click="clearErrors(collection)">
                 {{ error }}
             </span>
         </div>
@@ -12,23 +10,21 @@ export default {
 
     props: ['collection'],
 
-    computed: {
-        error() {
-
-            if (!state.errors.hasOwnProperty(this.collection)) {
-                return '';
-            }
-
-            return state.errors[this.collection];
+    vuex: {
+        getters: {
+            allErrors: state => state.errors.errors,
         },
-        hasError() {
-            return !! this.error;
+        actions: {
+            clearErrors: ({ dispatch }, collection) => dispatch('CLEAR_ERRORS', collection),
         },
     },
 
-    methods: {
-        clearErrors() {
-            clearErrors(this.collection);
+    computed: {
+        error() {
+            return this.allErrors[this.collection] || '';
+        },
+        hasError() {
+            return !! this.error;
         },
     },
 

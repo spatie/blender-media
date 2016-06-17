@@ -32,7 +32,7 @@ export const registerType = (name, {
  */
 export const getSettings = name => {
 
-    if (!types.name) {
+    if (!types[name]) {
         throw new Error(`Media component type \`${name}\` doesn't exist`);
     }
 

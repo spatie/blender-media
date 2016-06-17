@@ -1,4 +1,4 @@
-import * as store from '../../store';
+import store from '../../store';
 import Dropzone from 'dropzone';
 import { getError } from '../../lib/helpers';
 
@@ -27,23 +27,26 @@ export default {
 
             sending(file, xhr, data) {
                 file.collection = collection;
+                file.uploadId = store.state.uploads.count;
+
                 data.append('collection_name', collection);
                 data.append('model_name', model.name);
                 data.append('model_id', model.id);
-                store.clearErrors(collection);
-                store.startUpload(file);
+
+                store.dispatch('CLEAR_ERRORS', collection);
+                store.dispatch('START_UPLOAD', file.uploadId, collection);
             },
             uploadprogress(file) {
-                store.updateProgress(file);
+                store.dispatch('UPDATE_UPLOAD_PROGRESS', file.uploadId);
             },
             success(file, response) {
-                store.addMedia(response);
+                store.dispatch('ADD_MEDIA', response);
             },
             error(file) {
-                store.addError(collection, getError(file.xhr));
+                store.dispatch('ADD_ERROR', collection, getError(file.xhr));
             },
             complete(file) {
-                store.finishUpload(file);
+                store.dispatch('FINISH_UPLOAD', file.uploadId);
             },
         });
     },

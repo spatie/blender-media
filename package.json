@@ -33,7 +33,8 @@
     "font-awesome-filetypes": "^1.0.1"
   },
   "peerDependencies": {
-    "vue": "^1.0.24"
+    "vue": "^1.0.24",
+    "vuex": "^0.6.3"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

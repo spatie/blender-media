@@ -1,11 +1,8 @@
-import * as store from '../store';
 import Export from './export/export';
 import { getSettings } from '../lib/types';
-import { inCollection as mediaInCollection } from '../lib/media';
 import MediaTable from './media/media-table';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
-import { inCollection as uploadsInCollection } from '../lib/uploads';
 import { values } from 'lodash';
 
 export default {
@@ -63,10 +60,14 @@ export default {
         Upload,
     },
 
-    data() {
-        return {
-            state: store.state,
-        };
+    vuex: {
+        getters: {
+            allMedia: state => values(state.media.media),
+            allUploads: state => values(state.uploads.uploads),
+        },
+        actions: {
+            hydrate: ({ dispatch }, data) => dispatch('HYDRATE', data),
+        },
     },
 
     computed: {
@@ -74,10 +75,7 @@ export default {
             return getSettings(this.type);
         },
         media() {
-            return mediaInCollection(
-                values(this.state.media),
-                this.collection
-            );
+            return this.allMedia.filter(m => m.collection === this.collection);
         },
         hasMedia() {
             return this.media.length > 0;
@@ -91,7 +89,7 @@ export default {
             return !this.hasMedia && !this.hasUploads;
         },
         uploads() {
-            return uploadsInCollection(this.state.uploads, this.collection);
+            return this.allUploads.filter(u => u.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -105,7 +103,7 @@ export default {
     },
 
     ready() {
-        store.hydrate({ media: this.initial });
+        this.hydrate({ media: this.initial });
     },
 
 };

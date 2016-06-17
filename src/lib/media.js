@@ -44,12 +44,3 @@ export const icon = media => {
 export const sort = media => {
     return sortBy(media, 'order_column');
 };
-
-/**
- * @param {Media[]} media
- * @param {string} collection
- * @return {Media[]}
- */
-export const inCollection = (media, collection) => {
-    return media.filter(m => m.collection === collection);
-};

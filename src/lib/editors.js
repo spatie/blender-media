@@ -1,4 +1,4 @@
-import BasicEditor from './components/editors/basic';
+import BasicEditor from '../components/editors/basic';
 
 /**
  * @type {Object} - Editors keyed by name.
@@ -19,7 +19,7 @@ export const registerEditor = (name, component) => {
  */
 export const getEditor = name => {
 
-    if (!editors.name) {
+    if (!editors[name]) {
         throw new Error(`Media editor \`${name}\` doesn't exist`);
     }
 

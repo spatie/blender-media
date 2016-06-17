@@ -1,18 +1,16 @@
-import { removeMedia } from '../../store';
-
 export default {
 
     template: `
-        <a class="button -small -danger" @click="remove">
+        <a class="button -small -danger" @click="removeMedia(media)">
             <i class="fa fa-remove"></i> Remove
         </a>
     `,
 
     props: ['media'],
 
-    methods: {
-        remove() {
-            removeMedia(this.media);
+    vuex: {
+        actions: {
+            removeMedia: ({ dispatch }, media) => dispatch('REMOVE_MEDIA', media),
         },
     },
 

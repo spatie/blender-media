@@ -1,5 +1,4 @@
 import MediaRow from './media-row';
-import { setMediaOrder } from '../../store';
 import { sort } from '../../lib/media';
 import Sortable from '../sortable/sortable';
 
@@ -34,6 +33,12 @@ export default {
         },
     },
 
+    vuex: {
+        actions: {
+            setMediaOrder: ({ dispatch }, order) => dispatch('SET_MEDIA_ORDER', order),
+        },
+    },
+
     events: {
         reordered({ elements }) {
 
@@ -45,7 +50,7 @@ export default {
                     return order;
                 }, {});
 
-            setMediaOrder(order);
+            this.setMediaOrder(order);
         },
     },
 
