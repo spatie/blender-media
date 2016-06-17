@@ -1,15 +1,9 @@
 import Media from './components/media';
 import store from './store';
-import Vue from 'vue';
 
-new Vue({
+export default Media;
 
-    el: 'body',
-
+export {
+    Media,
     store,
-
-    components: {
-        Media,
-    },
-
-});
+};

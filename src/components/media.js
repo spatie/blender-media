@@ -1,6 +1,7 @@
 import Export from './export/export';
 import { getSettings } from '../lib/types';
 import MediaTable from './media/media-table';
+import store from '../store';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import { values } from 'lodash';
@@ -59,6 +60,8 @@ export default {
     directives: {
         Upload,
     },
+
+    store,
 
     vuex: {
         getters: {
