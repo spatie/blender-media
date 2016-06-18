@@ -1,4 +1,3 @@
-import { getEditor } from '../../lib/editors';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 
@@ -33,7 +32,7 @@ export default {
         RemoveMedia,
         Thumb,
         editor(resolve) {
-            resolve(getEditor(this.editor));
+            resolve(this.editor);
         },
     },
 

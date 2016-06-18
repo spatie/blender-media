@@ -1,3 +1,5 @@
+import BasicEditor from '../components/editors/basic';
+
 /**
  * @typedef {Type}
  * @property {?string} accepts
@@ -17,7 +19,7 @@ const types = {};
 export const registerType = (name, {
     accepts = null,
     multiple = true,
-    editor = 'basic',
+    editor = BasicEditor,
 }) => {
     types[name] = {
         accepts,

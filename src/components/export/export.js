@@ -1,7 +1,7 @@
 export default {
 
     template: `
-        <div v-show="debug">
+        <div v-show="false">
             <textarea
                 :name="collection"
                 :value="data"
@@ -10,14 +10,10 @@ export default {
         </div>
     `,
 
-    props: ['collection', 'media', 'debug'],
+    props: ['collection', 'media'],
 
     computed: {
         data() {
-            if (this.debug) {
-                return JSON.stringify(this.media, null, '\t');
-            }
-
             return JSON.stringify(this.media);
         },
     },
