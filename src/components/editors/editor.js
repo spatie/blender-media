@@ -1,5 +1,5 @@
 export default {
- 
+
     vuex: {
         actions: {
             dispatchRename: ({ dispatch }, media, name) => {
@@ -10,6 +10,8 @@ export default {
             },
         },
     },
+
+    props: ['media', 'data'],
 
     computed: {
         name: {

@@ -49,9 +49,10 @@
           "collection": "images"
         }
       ]'
+      :data="{ locales: ['nl', 'en'] }"
     ></media>
     <media
-      collection="downloads"
+      collection="download"
       type="download"
       upload-url="/upload"
       :model="{ name: 'MyModel', id: 1 }"
@@ -64,9 +65,10 @@
           "order_column": 3,
           "thumbUrl": "/media/image_3.jpeg",
           "originalUrl": "/media/image_3.jpeg",
-          "collection": "downloads"
+          "collection": "download"
         }
       ]'
+      :data="{ locales: ['nl', 'en'] }"
     ></media>
     <script src="/build/index.js"></script>
   </body>

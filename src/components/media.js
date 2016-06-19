@@ -22,6 +22,7 @@ export default {
                     :collection="collection"
                     :media="media"
                     :editor="settings.editor"
+                    :data="data"
                 ></media-table>
             </div>
             <div v-else>
@@ -48,7 +49,7 @@ export default {
         uploadUrl: { required: true },
         model: { required: true },
         initial: { default: [] },
-        debug: { default: false },
+        data: { default: {} },
     },
 
     components: {

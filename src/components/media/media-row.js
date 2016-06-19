@@ -18,6 +18,7 @@ export default {
                 <component
                     is="editor"
                     :media="media"
+                    :data="data"
                 ></component>
             </td>
             <td>
