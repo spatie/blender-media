@@ -115,7 +115,17 @@ describe('media', () => {
             assert.equal(state.media[1].custom_properties.foo, 'bar');
         });
 
-        it('can set a nested custom property');
+        it('can set a nested custom property up to one level deep', () => {
+
+            const state = { media: {} };
+            const media = createMedia(1);
+
+            mutations.ADD_MEDIA(state, media);
+
+            mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo.bar', 'baz');
+
+            assert.equal(state.media[1].custom_properties.foo.bar, 'baz');
+        });
 
         it('can update an existing custom property', () => {
 

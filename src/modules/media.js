@@ -41,7 +41,18 @@ export const mutations = {
 
         if(!state.media[id]) return;
 
-        Vue.set(state.media[id].custom_properties, prop, value);
+        const [ namespace, property ] = prop.split('.');
+
+        if (!property) {
+            Vue.set(state.media[id].custom_properties, namespace, value);
+            return;
+        }
+
+        if (!state.media[id].custom_properties[namespace]) {
+            state.media[id].custom_properties[namespace] = {};
+        }
+
+        state.media[id].custom_properties[namespace][property] = value;
     },
 
 };
