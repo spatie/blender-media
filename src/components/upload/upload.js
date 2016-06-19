@@ -1,6 +1,6 @@
-import store from '../../store';
 import Dropzone from 'dropzone';
 import { getError } from '../../lib/helpers';
+import store from '../../store';
 
 export default {
 
