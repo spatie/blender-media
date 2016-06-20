@@ -19,7 +19,7 @@ app.post('/upload', upload.any(), (req, res) => {
             id: id,
             name: file.originalname,
             file_name: file.originalname,
-            custom_properties: [],
+            custom_properties: {},
             order_column: id,
             thumbUrl: `/temp/${file.filename}`,
             originalUrl: `/temp/${file.filename}`,

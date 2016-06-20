@@ -1,12 +1,12 @@
-import Media, { LocaleEditor, registerType } from '../src';
+import Media, { extendType } from '../src';
 import Vue from 'vue';
 
-registerType('images', {
-    editor: LocaleEditor,
+extendType('images', {
+    editor: 'locales',
 });
 
-registerType('download', {
-    editor: LocaleEditor,
+extendType('download', {
+    editor: 'locales',
 });
 
 new Vue({

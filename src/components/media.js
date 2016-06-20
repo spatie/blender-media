@@ -1,5 +1,5 @@
 import Export from './export/export';
-import { getSettings } from '../lib/types';
+import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
 import store from '../store';
 import Upload from './upload/upload';
@@ -14,14 +14,14 @@ export default {
             :collection="collection"
             :model="model"
             :url="uploadUrl"
-            :multiple="settings.multiple"
-            :accepts="settings.accepts"
+            :multiple="options.multiple"
+            :accepts="options.accepts"
         >
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
                     :media="media"
-                    :editor="settings.editor"
+                    :editor="options.editor"
                     :data="data"
                 ></media-table>
             </div>
@@ -75,8 +75,8 @@ export default {
     },
 
     computed: {
-        settings() {
-            return getSettings(this.type);
+        options() {
+            return getTypeOptions(this.type);
         },
         media() {
             return this.allMedia.filter(media => media.collection === this.collection);
@@ -86,7 +86,7 @@ export default {
         },
         canAddMedia() {
 
-            if (this.settings.multiple) {
+            if (this.options.multiple) {
                 return true;
             }
 

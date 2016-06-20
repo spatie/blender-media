@@ -49,10 +49,10 @@ export const mutations = {
         }
 
         if (!state.media[id].custom_properties[namespace]) {
-            state.media[id].custom_properties[namespace] = {};
+            Vue.set(state.media[id].custom_properties, namespace, {});
         }
 
-        state.media[id].custom_properties[namespace][property] = value;
+        Vue.set(state.media[id].custom_properties[namespace], property, value);
     },
 
 };

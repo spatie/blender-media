@@ -1,4 +1,5 @@
-import { icon, isImage } from '../../lib/media';
+import getClassNameForExtension from 'font-awesome-filetypes';
+import { includes } from 'lodash';
 
 export default {
 
@@ -18,11 +19,14 @@ export default {
     props: ['media'],
 
     computed: {
+        extension() {
+            return this.media.file_name.split('.').pop().toLowerCase();
+        },
         icon() {
-            return icon(this.media);
+            return getClassNameForExtension(this.extension);
         },
         isImage() {
-            return isImage(this.media);
+            return includes(['jpg', 'jpeg', 'gif', 'png'], this.extension);
         },
         originalUrl() {
             return this.media.originalUrl;

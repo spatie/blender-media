@@ -1,17 +1,17 @@
 export default {
 
+    props: ['media', 'data'],
+
     vuex: {
         actions: {
-            dispatchRename: ({ dispatch }, media, name) => {
+            renameMedia: ({ dispatch }, media, name) => {
                 dispatch('RENAME_MEDIA', media, name);
             },
-            dispatchUpdateCustomProperty: ({ dispatch }, media, property, value) => {
+            updateMediaCustomProperty: ({ dispatch }, media, property, value) => {
                 dispatch('UPDATE_CUSTOM_PROPERTY', media, property, value);
             },
         },
     },
-
-    props: ['media', 'data'],
 
     computed: {
         name: {
@@ -26,10 +26,13 @@ export default {
 
     methods: {
         rename(name) {
-            this.dispatchRename(this.media, name);
+            this.renameMedia(this.media, name);
         },
         updateCustomProperty(property, value) {
-            this.dispatchUpdateCustomProperty(this.media, property, value);
+            this.updateMediaCustomProperty(this.media, property, value);
+        },
+        customProperty(name, fallback = null) {
+            return this.media.custom_properties[name] || fallback;
         },
     },
 

@@ -1,3 +1,5 @@
+import { assign } from 'lodash';
+import { getEditors } from '../../options/editors';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 
@@ -15,11 +17,11 @@ export default {
                 <thumb :media="media"></thumb>
             </td>
             <td>
-                <component
-                    is="editor"
+                <div
+                    :is="editor"
                     :media="media"
                     :data="data"
-                ></component>
+                ></div>
             </td>
             <td>
                 <remove-media :media="media"></remove-media>
@@ -27,14 +29,11 @@ export default {
         </tr>
     `,
 
-    props: ['media', 'editor'],
+    props: ['media', 'editor', 'data'],
 
-    components: {
+    components: assign({
         RemoveMedia,
         Thumb,
-        editor(resolve) {
-            resolve(this.editor);
-        },
-    },
+    }, getEditors()),
 
 };

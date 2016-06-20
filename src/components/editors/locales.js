@@ -1,3 +1,4 @@
+import { assign, keys, pick } from 'lodash';
 import editor from './editor';
 
 export default {
@@ -8,10 +9,11 @@ export default {
                 <input type="text" v-model="name">
             </div>
             <div>
-                <label v-for="locale in locales">
+                <label v-for="(locale, toggled) in locales">
                     {{ locale }}
                     <input
-                        :checked="mediaLocales[locale]"
+                        type="checkbox"
+                        :checked="toggled"
                         @change="toggleLocale(locale)"
                     >
                 </label>
@@ -19,21 +21,34 @@ export default {
         </div>
     `,
 
-    mixin: [editor],
+    mixins: [editor],
 
     computed: {
         locales() {
-            return this.data.locales;
-        },
-        mediaLocales() {
-            return this.media.custom_properties.locales || {};
+            return this.customProperty('locales');
         },
     },
 
     methods: {
         toggleLocale(locale) {
-            this.updateCustomProperty(`locales.${locale}`, locale);
+            this.updateCustomProperty(`locales.${locale}`, !this.locales[locale]);
         },
+        normalizeLocales() {
+
+            const locales = this.data.locales.reduce((locales, locale) => {
+                locales[locale] = true;
+                return locales;
+            }, {});
+
+            this.updateCustomProperty('locales', pick(
+                assign({}, locales, this.customProperty('locales')),
+                keys(locales)
+            ));
+        },
+    },
+
+    ready() {
+        this.normalizeLocales();
     },
 
 };

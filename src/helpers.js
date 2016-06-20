@@ -2,10 +2,6 @@ export const translate = key => {
     return key;
 };
 
-export const getError = xhr => {
-    return xhr.responseText;
-};
-
 export const matches = (element, selector) => {
 
     if (element.matches) {

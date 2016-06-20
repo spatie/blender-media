@@ -1,13 +1,18 @@
+import { extendType, registerType } from './options/types';
 import editor from './components/editors/editor';
-import LocaleEditor from './components/editors/locales';
 import Media from './components/media';
-import { registerType } from './lib/types';
+import { registerEditor } from './options/editors';
 
 export default Media;
 
 export {
-    editor,
-    registerType,
-    LocaleEditor,
+
     Media,
+
+    editor,
+    registerEditor,
+
+    extendType,
+    registerType,
+
 };
