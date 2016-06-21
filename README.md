@@ -75,7 +75,7 @@ Media objects look like the original model from the Laravel package.
 
 ```js
 /**
- * @typedef {Object} Media
+ * @typedef  {Object} Media
  * @property {number} id
  * @property {string} name
  * @property {string} fileName
@@ -127,15 +127,15 @@ registerType('images', {
 
 #### Type Options
 
-##### `accepts: ?string`
+##### `accepts: ?string = null`
 
-The file types that the uploader will accept. If `accepts` is `null`, all file types will be accepted. Available formats of the string are described in [Dropzone's documentation](#).
+The file types that the uploader will accept. If `accepts` is `null`, all file types will be accepted. Available formats of the string are described in [Dropzone's documentation](http://www.dropzonejs.com/#config-acceptedFiles).
 
-##### `multiple: bool`
+##### `multiple: bool = true`
 
 Determines whether multiple files can be uploaded to a collection.
 
-##### `editor: basic`
+##### `editor: string = 'basic'`
 
 The name of the registered editor to be rendered inside the component. See [Editors](#editors) for a more detailed explanation.
 
