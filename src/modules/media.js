@@ -33,7 +33,7 @@ export const mutations = {
 
     SET_MEDIA_ORDER(state, order) {
         forIn(order, (order, mediaId) => {
-            state.media[mediaId].order_column = order;
+            state.media[mediaId].orderColumn = order;
         });
     },
 
@@ -44,15 +44,15 @@ export const mutations = {
         const [ namespace, property ] = prop.split('.');
 
         if (!property) {
-            Vue.set(state.media[id].custom_properties, namespace, value);
+            Vue.set(state.media[id].customProperties, namespace, value);
             return;
         }
 
-        if (!state.media[id].custom_properties[namespace]) {
-            Vue.set(state.media[id].custom_properties, namespace, {});
+        if (!state.media[id].customProperties[namespace]) {
+            Vue.set(state.media[id].customProperties, namespace, {});
         }
 
-        Vue.set(state.media[id].custom_properties[namespace], property, value);
+        Vue.set(state.media[id].customProperties[namespace], property, value);
     },
 
 };

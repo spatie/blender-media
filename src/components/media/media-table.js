@@ -29,7 +29,7 @@ export default {
 
     computed: {
         orderedMedia() {
-            return sortBy(this.media, 'order_column');
+            return sortBy(this.media, 'orderColumn');
         },
     },
 

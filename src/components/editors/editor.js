@@ -32,7 +32,7 @@ export default {
             this.updateMediaCustomProperty(this.media, property, value);
         },
         customProperty(name, fallback = null) {
-            return this.media.custom_properties[name] || fallback;
+            return this.media.customProperties[name] || fallback;
         },
     },
 

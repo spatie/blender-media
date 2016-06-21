@@ -20,7 +20,7 @@ export default {
 
     computed: {
         extension() {
-            return this.media.file_name.split('.').pop().toLowerCase();
+            return this.media.fileName.split('.').pop().toLowerCase();
         },
         icon() {
             return getClassNameForExtension(this.extension);

@@ -10,10 +10,10 @@ The media uploader and manager for [Blender](https://github.com/spatie-custom/bl
 The `blender-media` package isn't publicly available on npm, you'll need to either copy it into your own project, or require a tag as a dependency:
 
 ```bash
-npm install spatie-custom/blender-media@'2.0.0'
+npm install spatie-custom/blender-media#2.0.0
 ```
 
-`blender-media` requires two peer dependencies which you'll need to install, `vue` and `vuex`:
+`blender-media` also requires you to install two peer dependencies in your project: `vue` and `vuex`:
 
 ```bash
 npm install vue@'^1.0.24' vuex@'^0.6.3'
@@ -58,9 +58,9 @@ After registering the component, it can be used in your html:
     :initial='[{
         "id": 1,
         "name": "image_1",
-        "file_name": "image_1.jpeg",
-        "custom_properties": {},
-        "order_column": 1,
+        "fileName": "image_1.jpeg",
+        "customProperties": {},
+        "orderColumn": 1,
         "thumbUrl": "/media/image_1.jpeg",
         "originalUrl": "/media/image_1.jpeg",
         "collection": "images"
@@ -78,9 +78,9 @@ Media objects look like the original model from the Laravel package.
  * @typedef {Object} Media
  * @property {number} id
  * @property {string} name
- * @property {string} file_name
- * @property {Object} custom_properties
- * @property {number} order_column
+ * @property {string} fileName
+ * @property {Object} customProperties
+ * @property {number} orderColumn
  * @property {string} thumbUrl
  * @property {string} originalUrl
  * @property {string} collection
@@ -93,7 +93,7 @@ The component requires a few properties to be set up to handle the collection an
 
 #### `type: string`
 
-The type of component that should be rendered (see Types for more details).
+The type of component that should be rendered (see [Types](#types) for more details).
 
 #### `upload-url: string`
 
@@ -107,7 +107,7 @@ The fully qualified class name of the model that the media is related too and it
 
 The media items that are already in the collection.
 
-#### `data: Object`
+#### `data: ?Object`
 
 Custom data that can be used in the media editor, e.g. a list of available locales so the media item can be toggled per language.
 
@@ -174,7 +174,7 @@ Rename the current media item.
 Return the value of a custom property. If the property isn't defined, return the fallback.
 
 ```js
-// { custom_properties: { foo: 'bar' } }
+// { customProperties: { foo: 'bar' } }
 
 this.customProperty('foo');
 // > 'bar'
@@ -188,15 +188,15 @@ this.customProperty('baz', 'qux');
 Update a custom property. The key can also be namespaced with a dot.
 
 ```js
-// { custom_properties: {} }
+// { customProperties: {} }
 
 this.updateCustomProperty('locales', { nl: true, en: false });
 
-// { custom_properties: { locales: { nl: true, en: false } } }
+// { customProperties: { locales: { nl: true, en: false } } }
 
 this.updateCustomProperty('locales.en', true);
 
-// { custom_properties: { locales: { nl: true, en: true } } }
+// { customProperties: { locales: { nl: true, en: true } } }
 ```
 
 For a more detailed example of an editor, check out the `basic` and `locales` editors in `src/components/editors`.

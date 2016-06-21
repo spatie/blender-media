@@ -5,9 +5,9 @@ import { values } from 'lodash';
 const createMedia = id => ({
     id: id,
     name: `image_${id}`,
-    file_name: `image_${id}.jpeg`,
-    custom_properties: [],
-    order_column: id,
+    fileName: `image_${id}.jpeg`,
+    customProperties: [],
+    orderColumn: id,
     thumbUrl: `/media/image_${id}.jpeg`,
     originalUrl: `/media/image_${id}.jpeg`,
     collection: 'images',
@@ -96,8 +96,8 @@ describe('media', () => {
 
             mutations.SET_MEDIA_ORDER(state, { 1: 1, 2: 0 });
 
-            assert.equal(state.media[1].order_column, 1);
-            assert.equal(state.media[2].order_column, 0);
+            assert.equal(state.media[1].orderColumn, 1);
+            assert.equal(state.media[2].orderColumn, 0);
         });
     });
 
@@ -112,7 +112,7 @@ describe('media', () => {
 
             mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo', 'bar');
 
-            assert.equal(state.media[1].custom_properties.foo, 'bar');
+            assert.equal(state.media[1].customProperties.foo, 'bar');
         });
 
         it('can set a nested custom property up to one level deep', () => {
@@ -124,7 +124,7 @@ describe('media', () => {
 
             mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo.bar', 'baz');
 
-            assert.equal(state.media[1].custom_properties.foo.bar, 'baz');
+            assert.equal(state.media[1].customProperties.foo.bar, 'baz');
         });
 
         it('can update an existing custom property', () => {
@@ -132,13 +132,13 @@ describe('media', () => {
             const state = { media: {} };
             const media = createMedia(1);
 
-            media.custom_properties = { foo: 'bar' };
+            media.customProperties = { foo: 'bar' };
 
             mutations.ADD_MEDIA(state, media);
 
             mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo', 'baz');
 
-            assert.equal(state.media[1].custom_properties.foo, 'baz');
+            assert.equal(state.media[1].customProperties.foo, 'baz');
         });
     });
 });
