@@ -65,6 +65,7 @@ After registering the component, it can be used in your html:
         "originalUrl": "/media/image_1.jpeg",
         "collection": "images"
     }]'
+    :data="{ locales: ['nl', 'en'] }"
 ></media>
 ```
 
@@ -90,33 +91,61 @@ Media objects look like the original model from the Laravel package.
 
 The component requires a few properties to be set up to handle the collection and uploads.
 
-#### `type` : string
+#### `type: string`
 
 The type of component that should be rendered (see Types for more details).
 
-#### `upload-url` : string
+#### `upload-url: string`
 
 The URL that newly uploaded media will be posted to. This endpoint should handle the upload, and return a `Media` object.
 
-#### `model` : { name: string, id: number }
+#### `model: { name: string, id: number }`
 
-The fully qualified class name of the model that the media is related too, and it's ID.
+The fully qualified class name of the model that the media is related too and it's ID.
 
-#### `initial` : Media[]
+#### `initial: Media[]`
 
 The media items that are already in the collection.
 
+#### `data: Object`
+
+Custom data that can be used in the media editor, e.g. a list of available locales so the media item can be toggled per language.
+
 ### Types
 
-...
+Each media instance requires a type. A type determines the setup of the media component. Types are registered via the `registerType` method, which takes a name and options as arguments.
 
-Types have to be registered **before** any `media` component gets rendered.
+```js
+import { registerType } from 'blender-media';
+
+registerType('images', {
+    accepts: '.jpg,.gif',
+    multiple: true,
+    editor: 'basic',
+});
+```
+
+#### Type Options
+
+##### `accepts: ?string`
+
+The file types that the uploader will accept. If `accepts` is `null`, all file types will be accepted. Available formats of the string are described in [Dropzone's documentation](#).
+
+##### `multiple: bool`
+
+Determines whether multiple files can be uploaded to a collection.
+
+##### `editor: basic`
+
+The name of the registered editor to be rendered inside the component. See [Editors](#editors) for a more detailed explanation.
+
+The package ships with `image`, `images`, `download` and `downloads` types. Types have to be registered and extended **before** any `media` component gets rendered.
 
 ### Editors
 
-Every media row has an editor in section between the thumbnail and the remove button. A `basic` editor is provided that has in input to rename the media object.
+Every media row has an editor in the section between the thumbnail and the remove button. By default a `basic` editor that has in input to rename the media object is used. A `locales` editor also ships with the package, which allows you to enable and disable media items per language.
 
-Editors are simply Vue components with and `editor` mixin. The mixin takes care of the `media` prop and adds some convenience methods.
+Editors are simply Vue components with an `editor` mixin. The mixin takes care of the `media` and `data` props, `name` computed prop, and adds some convenience methods.
 
 Editors can be added by registering them through the `registerEditor` method. Here's a bare bone example of a read-only editor:
 
@@ -126,7 +155,7 @@ import { registerEditor, editor } from 'blender-media';
 registerEditor('readOnly', {
 
     template: `
-        <div>{{ media.name }}</div>
+        <div>{{ name }}</div>
     `,
 
     mixin: [editor],
@@ -134,62 +163,43 @@ registerEditor('readOnly', {
 });
 ```
 
-Since the media component uses Vuex, any updates that editors do should be made through actions. Thanks to the `editor` mixin, you don't have to worry about the implementation, just make sure you make your changes with the `rename` and `updateCustomProperty` methods.
+#### Editor Methods
 
-A more complex editor that can toggle a media item per locale. You can pass in custom data for the editor in the `data` property of the `media` component:
+##### `rename(name: string)`
 
-```html
-<media
-    :data="{ locales: ['nl', 'en'] }"
-></media>
-```
+Rename the current media item.
+
+##### `customProperty(key: string, fallback: any = null)`
+
+Return the value of a custom property. If the property isn't defined, return the fallback.
 
 ```js
-import { registerEditor, editor } from 'blender-media';
+// { custom_properties: { foo: 'bar' } }
 
-registerEditor('localeEditor', {
+this.customProperty('foo');
+// > 'bar'
 
-    template: `
-        <div>
-            <div>
-                <input type="text" v-model="name">
-            </div>
-            <div>
-                <label v-for="locale in data.locales">
-                    {{ locale }}
-                    <input
-                        :checked="locales[locale]"
-                        @change="toggleLocale(locale)"
-                    >
-                </label>
-            </div>
-        </div>
-    `,
-
-    mixin: [editor],
-
-    computed: {
-        name: {
-            get() {
-                return this.media.name;
-            },
-            set(value) {
-              this.rename(value);
-            },
-        },
-        locales() {
-            return media.custom_properties.locales || {};
-        },
-    },
-
-    methods: {
-        toggleLocale(locale) {
-            this.updateCustomProperty('locales.locale', locale);
-        },
-    },
-
-});
+this.customProperty('baz', 'qux');
+// > 'qux'
 ```
+
+##### `updateCustomProperty(string: key, any: value)`
+
+Update a custom property. The key can also be namespaced with a dot.
+
+```js
+// { custom_properties: {} }
+
+this.updateCustomProperty('locales', { nl: true, en: false });
+
+// { custom_properties: { locales: { nl: true, en: false } } }
+
+this.updateCustomProperty('locales.en', true);
+
+// { custom_properties: { locales: { nl: true, en: true } } }
+```
+
+For a more detailed example of an editor, check out the `basic` and `locales` editors in `src/components/editors`.
 
 Like types, editors have to be registered **before** any `media` component gets rendered.
 
