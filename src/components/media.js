@@ -2,6 +2,7 @@ import Export from './export/export';
 import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
 import store from '../store';
+import translations from '../translations';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import { values } from 'lodash';
@@ -26,7 +27,7 @@ export default {
                 ></media-table>
             </div>
             <div v-else>
-                dataTables.infoEmpty
+                {{ translate('noMedia') }}
             </div>
             Uploads: {{ uploads.length }}
             <div v-show="canAddMedia">
@@ -51,6 +52,8 @@ export default {
         initial: { default: [] },
         data: { default: {} },
     },
+
+    mixins: [translations],
 
     components: {
         Export,
