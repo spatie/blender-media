@@ -5,12 +5,18 @@ import Sortable from '../sortable/sortable';
 export default {
 
     template: `
-        <table v-el:container v-sortable handle=".js-handle">
+        <table
+            v-el:container
+            v-sortable
+            handle=".js-handle"
+            class="media__table"
+        >
             <tbody v-for="media in orderedMedia">
                 <tr
                     is="media-row"
                     :media="media"
                     :editor="editor"
+                    class="media__row"
                 ></tr>
             </tbody>
         </table>

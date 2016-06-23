@@ -6,22 +6,19 @@ export default {
 
     template: `
         <tr :data-media-id="media.id">
-            <td>
-                <i
-                    class="js-handle fa fa-arrows-v"
-                    style="cursor: move; user-select: none;"
-                >X</i>
+            <td class="media__row__cell--drag">
+               <i class="js-handle fa fa-arrows-v"></i>
             </td>
-            <td>
+            <td class="media__row__cell--thumb">
                 <thumb :media="media"></thumb>
             </td>
-            <td>
+            <td class="media__row__cell--editor">
                 <component
                     is="editor"
                     :media="media"
                 ></component>
             </td>
-            <td>
+            <td class="media__row__cell--actions">
                 <remove-media :media="media"></remove-media>
             </td>
         </tr>

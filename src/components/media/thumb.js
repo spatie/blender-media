@@ -3,9 +3,17 @@ import { icon, isImage } from '../../lib/media';
 export default {
 
     template: `
-        <a :href="originalUrl" target="blender_media" tabIndex="-1">
+        <a
+            :href="originalUrl"
+            target="blender_media"
+            tabIndex="-1"
+            class="media__thumb"
+        >
             <span v-if="isImage">
-                <img :src="thumbUrl" class="image" :style="{ width: '50px' }" />
+                <img
+                    :src="thumbUrl"
+                    class="media__thumb__image"
+                  />
             </span>
             <span v-else>
                 <span class="icon">

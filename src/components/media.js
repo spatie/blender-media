@@ -15,6 +15,7 @@ export default {
             :url="uploadUrl"
             :multiple="settings.multiple"
             :accepts="settings.accepts"
+            class="media"
         >
             <div v-if="hasMedia">
                 <media-table

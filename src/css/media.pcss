@@ -1,0 +1,78 @@
+@import './settings.pcss';
+
+.media {
+    border: solid 2px $gray-light;
+    box-shadow: 0 3px rgba(34, 34, 34, 0.05);
+    border-radius: 3px;
+    background: $gray-lightest;
+}
+
+.media + .media {
+    margin-top: 2em;
+}
+
+.media__table {
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+
+    & td {
+        border: none;
+        user-select: none;
+    }
+}
+
+.media__row {
+    background-color: $gray-lightest;
+    border-bottom: 1px solid $gray-lighter;
+}
+
+.media__row__cell--drag {
+    text-align: center;
+    color: $gray;
+    vertical-align: middle;
+    padding: 0 .5em;
+
+    & .fa {
+        cursor: grab;
+    }
+}
+
+.media__row__cell--thumb {
+    vertical-align: middle;
+    width: $thumb-width;
+    padding: .25em 0;
+}
+
+.media__row__cell--editor {
+    vertical-align: middle;
+    width: 100%;
+    padding: 0 .5em;
+}
+
+.media__row__cell--actions {
+    vertical-align: middle;
+    text-align: right;
+    padding: 0 .5em;
+}
+
+.media__thumb {
+    display: inline-block;
+    border: 1px solid $gray-light;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.media__thumb__image {
+    width: $thumb-width;
+    height: auto;
+    vertical-align: middle;
+}
+
+.media__row__delete {
+    color: $gray;
+
+    &:hover {
+        color: $red;
+    }
+}

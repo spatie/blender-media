@@ -40,7 +40,7 @@
     font-weight: 600;
     color: #fff;
     text-align: center;
-    background-color: color(gray, lighter);
+    background-color: $gray-lighter;
     cursor: pointer;
 
     &.-active {

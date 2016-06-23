@@ -1,8 +1,8 @@
 export default {
 
     template: `
-        <a class="button -small -danger" @click="removeMedia(media)">
-            <i class="fa fa-remove"></i> Remove
+        <a href="#" class="media__row__delete" @click="removeMedia(media)">
+            <i class="fa fa-remove"></i>
         </a>
     `,
 

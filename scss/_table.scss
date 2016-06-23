@@ -1,38 +1,6 @@
 .media {
-  border: solid 2px color(gray, light);
-  box-shadow: 0 3px rgba(34, 34, 34, 0.05);
-  border-radius: 3px;
-  font-size: .85rem;
-  background: color(gray, lightest);
-  
-  table {
-    margin: 0;
-  }
 
-  /* Rows
-  ********************************************************/
 
-  .row {
-    background-color: color(gray, lightest);
-    border-bottom: 1px solid color(gray, lighter);
-
-    &.ui-sortable-helper {
-      box-shadow: 0 0 10px rgba(#000, .1);
-      border-top: 1px solid color(gray, lighter);
-    }
-    
-    td {
-      border: none;
-    }
-  }
-
-  .row_order {
-    width: 27px;
-    padding-right: 0;
-    text-align: center;
-    cursor: grab;
-    color: color(gray);
-  }
 
   .row_thumb {
     width: calc(64px + 2px + 2em);
@@ -76,7 +44,7 @@
   ********************************************************/
 
   .upload {
-    border-top: 2px solid color(gray, lighter);
+    border-top: 2px solid $gray-lighter;
     margin-top: -1px; // Offset for last row border
   }
 
@@ -125,7 +93,7 @@
       tab-size: 2;
       border: none;
       border-radius: 0;
-      border-top: solid 2px color(gray, lighter);
+      border-top: solid 2px $gray-lighter;
       box-shadow: none;
     }
   }
