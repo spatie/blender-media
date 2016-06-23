@@ -5,6 +5,7 @@ import store from '../store';
 import translations from '../translations';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
+import UploadTable from './upload/upload-table';
 import { values } from 'lodash';
 
 export default {
@@ -27,16 +28,16 @@ class="media"
                     :editor="options.editor"
                     :data="data"
                 ></media-table>
-                <div class="media__row--message">
-                Uploads: {{ uploads.length }}
-                </div>
             </div>
-
             <div v-else
                  class="media__row--message">
                 {{ translate('noMedia') }}
             </div>
-
+            <div v-if="hasUploads">
+                <upload-table
+                    :uploads="uploads"
+                ></upload-table>
+            </div>
             <div v-show="canAddMedia"
                 class="media__upload"
             >
@@ -71,6 +72,7 @@ class="media"
         Export,
         MediaTable,
         UploadErrors,
+        UploadTable,
     },
 
     directives: {

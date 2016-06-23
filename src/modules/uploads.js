@@ -7,12 +7,13 @@ const state = {
 
 export const mutations = {
 
-    START_UPLOAD(state, id, collection) {
+    START_UPLOAD(state, id, name, collection) {
 
         state.count++;
 
         Vue.set(state.uploads, id, {
             id,
+            name,
             collection,
             progress: 0,
         });

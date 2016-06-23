@@ -33,10 +33,10 @@ export default {
                 data.append('model_id', model.id);
 
                 store.dispatch('CLEAR_ERRORS', collection);
-                store.dispatch('START_UPLOAD', file.uploadId, collection);
+                store.dispatch('START_UPLOAD', file.uploadId, file.name, collection);
             },
             uploadprogress(file) {
-                store.dispatch('UPDATE_UPLOAD_PROGRESS', file.uploadId);
+                store.dispatch('UPDATE_UPLOAD_PROGRESS', file.uploadId, file.upload.progress);
             },
             success(file, response) {
                 store.dispatch('ADD_MEDIA', response);

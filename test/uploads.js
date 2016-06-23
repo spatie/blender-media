@@ -10,10 +10,11 @@ describe('uploads', () => {
 
             const state = { count: 1, uploads: {} };
 
-            mutations.START_UPLOAD(state, 1, 'images');
+            mutations.START_UPLOAD(state, 1, 'image.jpg', 'images');
 
             assert.lengthOf(values(state.uploads), 1);
             assert.equal(state.uploads[1].id, 1);
+            assert.equal(state.uploads[1].name, 'image.jpg');
             assert.equal(state.uploads[1].collection, 'images');
             assert.equal(state.uploads[1].progress, 0);
         });
