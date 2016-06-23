@@ -4,7 +4,7 @@ const state = {
     errors: {},
 };
 
-const mutations = {
+export const mutations = {
 
     ADD_ERROR(state, collection, error) {
         Vue.set(state.errors, collection, error);

@@ -1,6 +1,5 @@
-import store from '../../store';
 import Dropzone from 'dropzone';
-import { getError } from '../../lib/helpers';
+import store from '../../store';
 
 export default {
 
@@ -43,7 +42,7 @@ export default {
                 store.dispatch('ADD_MEDIA', response);
             },
             error(file) {
-                store.dispatch('ADD_ERROR', collection, getError(file.xhr));
+                store.dispatch('ADD_ERROR', collection, file.xhr.responseText);
             },
             complete(file) {
                 store.dispatch('FINISH_UPLOAD', file.uploadId);

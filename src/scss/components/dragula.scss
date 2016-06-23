@@ -1,0 +1,46 @@
+.gu-mirror {
+  position: fixed !important;
+  z-index: 9999 !important;
+
+  margin: 0 !important;
+
+  color: $gray;
+  border-top: 1px solid $blue-lighter;
+  border-bottom: 1px solid $blue-lighter;
+  background-color: $blue-lightest;
+  box-shadow: 0 3px rgba(0, 0, 0, .035);
+
+  & .media__row {
+    background-color: transparent;
+  }
+
+  & * {
+    position: relative;
+
+    box-sizing: border-box;
+  }
+
+  & :before,
+  & :after {
+    box-sizing: border-box;
+  }
+
+  & .media__column--drag__icon {
+    color: $blue-light;
+  }
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  user-select: none !important;
+}
+
+.gu-transit {
+  opacity: .35;
+  box-shadow: inset 0 3px rgba(0, 0, 0, .035);
+
+  filter: brightness(80%);
+}

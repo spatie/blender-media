@@ -19,9 +19,9 @@ app.post('/upload', upload.any(), (req, res) => {
         return {
             id: id,
             name: file.originalname,
-            file_name: file.originalname,
-            custom_properties: [],
-            order_column: id,
+            fileName: file.originalname,
+            customProperties: {},
+            orderColumn: id,
             thumbUrl: `/temp/${file.filename}`,
             originalUrl: `/temp/${file.filename}`,
             collection: Array.isArray(req.body.collection_name) ?

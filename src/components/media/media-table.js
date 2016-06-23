@@ -1,6 +1,6 @@
 import MediaRow from './media-row';
-import { sort } from '../../lib/media';
 import Sortable from '../sortable/sortable';
+import { sortBy } from 'lodash';
 
 export default {
 
@@ -15,6 +15,7 @@ export default {
                 <tr
                     is="media-row"
                     :media="media"
+                    :data="data"
                     :editor="editor"
                     class="media__row"
                 ></tr>
@@ -22,7 +23,7 @@ export default {
         </table>
     `,
 
-    props: ['collection', 'media', 'editor'],
+    props: ['collection', 'media', 'editor', 'data'],
 
     components: {
         MediaRow,
@@ -34,7 +35,7 @@ export default {
 
     computed: {
         orderedMedia() {
-            return sort(this.media);
+            return sortBy(this.media, 'orderColumn');
         },
     },
 

@@ -5,7 +5,7 @@ const state = {
     uploads: {},
 };
 
-const mutations = {
+export const mutations = {
 
     START_UPLOAD(state, id, collection) {
 

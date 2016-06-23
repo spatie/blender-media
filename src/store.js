@@ -12,5 +12,5 @@ export default new Vuex.Store({
         uploads,
         errors,
     },
-    strict: true,
+    strict: process.env.NODE_ENV === 'development',
 });

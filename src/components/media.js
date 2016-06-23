@@ -1,6 +1,8 @@
 import Export from './export/export';
-import { getSettings } from '../lib/types';
+import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
+import store from '../store';
+import translations from '../translations';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import { values } from 'lodash';
@@ -9,29 +11,41 @@ export default {
 
     template: `
         <div
+class="media"
+
             v-upload
             :collection="collection"
             :model="model"
             :url="uploadUrl"
-            :multiple="settings.multiple"
-            :accepts="settings.accepts"
-            class="media"
+            :multiple="options.multiple"
+            :accepts="options.accepts"
         >
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
                     :media="media"
-                    :editor="settings.editor"
+                    :editor="options.editor"
+                    :data="data"
                 ></media-table>
+                <div class="media__row--message">
+                Uploads: {{ uploads.length }}
+                </div>
             </div>
-            <div v-else>
-                dataTables.infoEmpty
+
+            <div v-else
+                 class="media__row--message">
+                {{ translate('noMedia') }}
             </div>
-            Uploads: {{ uploads.length }}
-            <div v-show="canAddMedia">
-                <span @click="showUploadDialog">
+
+            <div v-show="canAddMedia"
+                class="media__upload"
+            >
+                <button
+                    class="media__form__button"
+                    @click="showUploadDialog"
+                >
                     Add media
-                </span>
+                </button>
             </div>
             <upload-errors :collection="collection"></upload-errors>
             <export
@@ -48,8 +62,10 @@ export default {
         uploadUrl: { required: true },
         model: { required: true },
         initial: { default: [] },
-        debug: { default: false },
+        data: { default: {} },
     },
+
+    mixins: [translations],
 
     components: {
         Export,
@@ -60,6 +76,8 @@ export default {
     directives: {
         Upload,
     },
+
+    store,
 
     vuex: {
         getters: {
@@ -72,8 +90,8 @@ export default {
     },
 
     computed: {
-        settings() {
-            return getSettings(this.type);
+        options() {
+            return getTypeOptions(this.type);
         },
         media() {
             return this.allMedia.filter(media => media.collection === this.collection);
@@ -83,7 +101,7 @@ export default {
         },
         canAddMedia() {
 
-            if (this.settings.multiple) {
+            if (this.options.multiple) {
                 return true;
             }
 

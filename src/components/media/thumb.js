@@ -1,4 +1,5 @@
-import { icon, isImage } from '../../lib/media';
+import getClassNameForExtension from 'font-awesome-filetypes';
+import { includes } from 'lodash';
 
 export default {
 
@@ -9,16 +10,14 @@ export default {
             tabIndex="-1"
             class="media__thumb"
         >
-            <span v-if="isImage">
-                <img
-                    :src="thumbUrl"
-                    class="media__thumb__image"
-                  />
-            </span>
-            <span v-else>
-                <span class="icon">
-                    <i :class="['fa', icon]"></i>
-                </span>
+            <img v-if="isImage"
+                :src="thumbUrl"
+                class="media__thumb__image"
+              />
+            <span v-else
+                  class="media__thumb__file"
+            >
+                <i :class="['fa', icon, 'media__thumb__file__icon']"></i>
             </span>
         </a>
     `,
@@ -26,11 +25,14 @@ export default {
     props: ['media'],
 
     computed: {
+        extension() {
+            return this.media.fileName.split('.').pop().toLowerCase();
+        },
         icon() {
-            return icon(this.media);
+            return getClassNameForExtension(this.extension);
         },
         isImage() {
-            return isImage(this.media);
+            return includes(['jpg', 'jpeg', 'gif', 'png'], this.extension);
         },
         originalUrl() {
             return this.media.originalUrl;

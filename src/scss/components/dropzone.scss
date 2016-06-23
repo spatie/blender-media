@@ -1,0 +1,11 @@
+.dz-drag-hover.media {
+  border-color: $green;
+
+  & > * {
+    opacity: .1;
+  }
+
+  & .media__upload {
+    opacity: 1;
+  }
+}

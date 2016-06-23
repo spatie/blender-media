@@ -1,0 +1,48 @@
+.media__thumb {
+  display: inline-block;
+  overflow: hidden;
+
+  transition: transform .3s linear;
+
+  border: 1px solid $gray-lighter;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .05);
+
+
+  &:hover,
+  &:focus {
+    outline: 0;
+
+    & .media__thumb__image {
+      opacity: .75;
+    }
+
+    & .media__thumb__file {
+      color: $gray;
+    }
+  }
+}
+
+.media__thumb__image {
+  width: $thumb-width;
+  height: auto;
+
+  vertical-align: middle;
+}
+
+.media__thumb__file {
+  display: flex;
+
+  width: $thumb-width;
+  height: $thumb-width;
+
+  color: $gray-light;
+  background: $white;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.media__thumb__file__icon {
+  font-size: 1.5em;
+}

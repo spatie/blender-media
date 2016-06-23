@@ -1,6 +1,6 @@
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
-import { matches } from '../../lib/helpers';
+import { matches } from '../../helpers';
 
 export default {
 

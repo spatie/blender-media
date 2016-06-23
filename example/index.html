@@ -1,30 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
   <head>
     <meta charset="utf-8">
     <title>Blender Media</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/build/media.css">
     <style>
-      .gu-mirror {
-        position: fixed !important;
-        margin: 0 !important;
-        z-index: 9999 !important;
-      }
-      .gu-hide {
-        display: none !important;
-      }
-      .gu-unselectable {
-        user-select: none !important;
-      }
-      .gu-transit {
-        opacity: 0.5;
+      * {
+        font-family: sans-serif;
       }
     </style>
   </head>
   <body>
     <media
-      :debug="true"
       collection="images"
       type="images"
       upload-url="/upload"
@@ -33,9 +21,9 @@
         {
           "id": 1,
           "name": "image_1",
-          "file_name": "image_1.jpeg",
-          "custom_properties": [],
-          "order_column": 1,
+          "fileName": "image_1.jpeg",
+          "customProperties": {},
+          "orderColumn": 1,
           "thumbUrl": "/media/image_1.jpeg",
           "originalUrl": "/media/image_1.jpeg",
           "collection": "images"
@@ -43,17 +31,18 @@
         {
           "id": 2,
           "name": "image_2",
-          "file_name": "image_2.jpeg",
-          "custom_properties": [],
-          "order_column": 2,
+          "fileName": "image_2.jpeg",
+          "customProperties": { locales: { en: false } },
+          "orderColumn": 2,
           "thumbUrl": "/media/image_2.jpeg",
           "originalUrl": "/media/image_2.jpeg",
           "collection": "images"
         }
       ]'
+      :data="{ locales: ['nl', 'en'] }"
     ></media>
     <media
-      collection="downloads"
+      collection="download"
       type="download"
       upload-url="/upload"
       :model="{ name: 'MyModel', id: 1 }"
@@ -61,14 +50,15 @@
         {
           "id": 3,
           "name": "image_3",
-          "file_name": "image_3.jpeg",
-          "custom_properties": [],
-          "order_column": 3,
+          "fileName": "image_3.jpeg",
+          "customProperties": {},
+          "orderColumn": 3,
           "thumbUrl": "/media/image_3.jpeg",
           "originalUrl": "/media/image_3.jpeg",
-          "collection": "downloads"
+          "collection": "download"
         }
       ]'
+      :data="{ locales: ['nl', 'en'] }"
     ></media>
     <script src="/build/index.js"></script>
   </body>

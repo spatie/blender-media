@@ -1,10 +1,12 @@
 export default {
 
     template: `
-        <div v-if="hasError">
-            <span @click="clearErrors(collection)">
-                {{ error }}
-            </span>
+        <div>
+            <div v-if="hasError">
+                <span @click="clearErrors(collection)">
+                    {{ error }}
+                </span>
+            </div>
         </div>
     `,
 

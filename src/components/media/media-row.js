@@ -1,4 +1,5 @@
-import { getEditor } from '../../lib/editors';
+import { assign } from 'lodash';
+import { getEditors } from '../../options/editors';
 import RemoveMedia from './remove-media';
 import Thumb from './thumb';
 
@@ -6,32 +7,30 @@ export default {
 
     template: `
         <tr :data-media-id="media.id">
-            <td class="media__row__cell--drag">
-               <i class="js-handle fa fa-arrows-v"></i>
+            <td class="media__column--drag">
+               <i class="js-handle fa fa-arrows-v media__column--drag__icon"></i>
             </td>
-            <td class="media__row__cell--thumb">
+            <td class="media__column--thumb">
                 <thumb :media="media"></thumb>
             </td>
-            <td class="media__row__cell--editor">
-                <component
-                    is="editor"
+            <td class="media__column--editor">
+                <div
+                    :is="editor"
                     :media="media"
-                ></component>
+                    :data="data"
+                ></div>
             </td>
-            <td class="media__row__cell--actions">
+            <td class="media__column--actions">
                 <remove-media :media="media"></remove-media>
             </td>
         </tr>
     `,
 
-    props: ['media', 'editor'],
+    props: ['media', 'editor', 'data'],
 
-    components: {
+    components: assign({
         RemoveMedia,
         Thumb,
-        editor(resolve) {
-            resolve(getEditor(this.editor));
-        },
-    },
+    }, getEditors()),
 
 };

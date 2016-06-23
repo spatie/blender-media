@@ -1,15 +1,18 @@
+import { extendType, registerType } from './options/types';
+import editor from './components/editors/editor';
 import Media from './components/media';
-import store from './store';
-import Vue from 'vue';
+import { registerEditor } from './options/editors';
 
-new Vue({
+export default Media;
 
-    el: 'body',
+export {
 
-    store,
+    Media,
 
-    components: {
-        Media,
-    },
+    editor,
+    registerEditor,
 
-});
+    extendType,
+    registerType,
+
+};
