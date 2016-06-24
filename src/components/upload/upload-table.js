@@ -3,12 +3,23 @@ import { sortBy } from 'lodash';
 export default {
 
     template: `
-        <table>
+        <table class="media__upload__table">
             <tbody v-for="upload in orderedUploads">
-                <tr>
-                    <td colspan="4">
-                        {{ upload.name }}
-                        <div :style="{ width: upload.progress + '%', height: '10px', backgroundColor: 'red' }"></div>
+                 <tr class="media__upload__row">
+                    <td class="media__upload__column--thumb">
+                       <span class="media__thumb -ghost">
+                    </td>
+                    <td class="media__upload__column--progress">
+                        <div class="media__progress">
+                            <div class="media__progress__name">
+                                {{ upload.name }}
+                            </div>
+                            <div
+                                class="media__progress__bar"
+                                :style="{ transform: 'translateX(' + (upload.progress - 100) + '%)' }"
+                            >
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -20,7 +31,7 @@ export default {
     computed: {
         orderedUploads() {
             return sortBy(this.uploads, 'id');
-        },
+        }
     },
 
 };

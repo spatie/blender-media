@@ -30,7 +30,7 @@ class="media"
                 ></media-table>
             </div>
             <div v-else
-                 class="media__row--message">
+                 class="media__alert">
                 {{ translate('noMedia') }}
             </div>
             <div v-if="hasUploads">
@@ -38,8 +38,10 @@ class="media"
                     :uploads="uploads"
                 ></upload-table>
             </div>
-            <div v-show="canAddMedia"
-                class="media__upload"
+            <upload-errors :collection="collection"></upload-errors>
+            <div
+                class="media__upload__button"
+                v-show="canAddMedia"
             >
                 <button
                     class="media__form__button"
@@ -48,7 +50,7 @@ class="media"
                     Add media
                 </button>
             </div>
-            <upload-errors :collection="collection"></upload-errors>
+
             <export
                 :collection="collection"
                 :media="media"

@@ -4,7 +4,7 @@
   border: solid 2px $gray-light;
   border-radius: 3px;
   background: $white-off;
-  box-shadow: 0 3px rgba(0, 0, 0, .035);
+  box-shadow: $shadow;
 
   & * {
     position: relative;

@@ -1,3 +1,27 @@
-.media__upload {
-  /* to do */
+
+
+.media__upload__table {
+  width: 100%;
+  margin: 0;
+
+  border-collapse: collapse;
+
+  background-color: $white-off;
+}
+
+.media__upload__row {
+  border-bottom: 1px solid $gray-lightest;
+}
+
+.media__upload__column--thumb {
+  padding: .5em 1em .5em 2.5em;
+}
+
+.media__upload__column--progress {
+  width: 100%;
+  padding-right: 1em;
+}
+
+.media__upload__button {
+  margin: 1em;
 }

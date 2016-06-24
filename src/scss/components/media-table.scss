@@ -3,21 +3,12 @@
   margin: 0;
 
   border-collapse: collapse;
+
+  background-color: $white-off;
 }
 
 .media__row {
   border-bottom: 1px solid $gray-lightest;
-  background-color: $white-off;
-}
-
-.media__row--message {
-  font-size: .85em;
-
-  padding: 1em;
-
-  text-align: center;
-
-  color: $gray-light;
 }
 
 .media__row__delete {
@@ -38,7 +29,7 @@
 .media__column--drag__icon {
   cursor: grab;
 
-  color: $gray;
+  color: $gray-light;
 
   &:hover {
     color: $blue-light;
@@ -65,7 +56,7 @@
 }
 
 .media__column--actions {
-  padding: 0 .5em;
+  padding: 0 1em;
 
   text-align: right;
   vertical-align: middle;

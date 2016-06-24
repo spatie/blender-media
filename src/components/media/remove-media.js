@@ -1,7 +1,11 @@
 export default {
 
     template: `
-        <a href="#" class="media__row__delete" @click="removeMedia(media)">
+        <a
+            href="#"
+            class="media__row__delete"
+            @click="removeMedia(media)"
+        >
             <i class="fa fa-remove"></i>
         </a>
     `,

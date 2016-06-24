@@ -1,12 +1,21 @@
 export default {
 
     template: `
-        <div>
-            <div v-if="hasError">
-                <span @click="clearErrors(collection)">
-                    {{ error }}
-                </span>
+        <div
+            v-if="hasError"
+            class="media__alert -error"
+        >
+            <div class="media__alert__message" >
+                {{ error }}
             </div>
+
+            <a
+                href="#"
+                class="media__alert__delete"
+                @click="clearErrors(collection)"
+            >
+                <i class="fa fa-remove"></i>
+            </a>
         </div>
     `,
 
