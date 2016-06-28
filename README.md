@@ -21,11 +21,13 @@ npm install vue@'^1.0.24' vuex@'^0.6.3'
 
 ## Example
 
-This repository contains a dummy version of the media component. It can be built and served on `http://localhost:4000` with the following command:
+This repository contains a dummy version of the media component which can be used for development. It can be built and served on `http://localhost:4000` with the following command:
 
 ```bash
-npm run example
+npm run dev
 ```
+
+The process will also watch for JS and CSS file changes.
 
 ## Usage
 
