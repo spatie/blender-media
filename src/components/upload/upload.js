@@ -1,5 +1,6 @@
 import Dropzone from 'dropzone';
 import store from '../../store';
+import { uniqueIdentifier } from '../../helpers';
 
 export default {
 
@@ -20,13 +21,15 @@ export default {
             url: this.params.url,
             uploadMultiple: this.params.multiple,
             acceptedFiles: this.params.accepts,
+            parallelUploads: 10,
 
             previewsContainer: false,
             previewTemplate: false,
 
             sending(file, xhr, data) {
+
                 file.collection = collection;
-                file.uploadId = store.state.uploads.count;
+                file.uploadId = uniqueIdentifier();
 
                 data.append('collection_name', collection);
                 data.append('model_name', model.name);

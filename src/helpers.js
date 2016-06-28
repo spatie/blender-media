@@ -14,3 +14,7 @@ export const matches = (element, selector) => {
 
     throw new Error('`Element.matches` is not supported in this browser');
 };
+
+export const uniqueIdentifier = () => (
+    `${(new Date()).getTime()}-${Math.floor(Math.random() * 100000)}`
+);

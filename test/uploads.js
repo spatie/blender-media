@@ -8,7 +8,7 @@ describe('uploads', () => {
 
         it('can start an upload', () => {
 
-            const state = { count: 1, uploads: {} };
+            const state = { uploads: {} };
 
             mutations.START_UPLOAD(state, 1, 'image.jpg', 'images');
 
@@ -19,21 +19,13 @@ describe('uploads', () => {
             assert.equal(state.uploads[1].progress, 0);
         });
 
-        it('increments the upload count after adding an upload', () => {
-
-            const state = { count: 1, uploads: {} };
-
-            mutations.START_UPLOAD(state, 1, 'images');
-
-            assert.equal(state.count, 2);
-        });
     });
 
     describe('UPDATE_UPLOAD_PROGRESS', () => {
 
         it('can update an upload\'s progress', () => {
 
-            const state = { count: 1, uploads: {} };
+            const state = { uploads: {} };
 
             mutations.START_UPLOAD(state, 1, 'images');
             mutations.UPDATE_UPLOAD_PROGRESS(state, 1, 50);
@@ -46,7 +38,7 @@ describe('uploads', () => {
 
         it('can finish an upload', () => {
 
-            const state = { count: 1, uploads: {} };
+            const state = { uploads: {} };
 
             mutations.START_UPLOAD(state, 1, 'images');
             mutations.FINISH_UPLOAD(state, 1);
