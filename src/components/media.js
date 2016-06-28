@@ -53,8 +53,7 @@ class="media"
 
             <export
                 :collection="collection"
-                :media="media"
-                :debug="debug"
+                :media="mediaForExport"
             ></export>
         </div>
     `,
@@ -99,6 +98,9 @@ class="media"
         },
         media() {
             return this.allMedia.filter(media => media.collection === this.collection);
+        },
+        mediaForExport() {
+            return this.media.filter(media => !media.markedForRemoval);
         },
         hasMedia() {
             return this.media.length > 0;

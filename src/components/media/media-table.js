@@ -18,6 +18,7 @@ export default {
                     :data="data"
                     :editor="editor"
                     class="media__row"
+                    :class="{ 'media__row--disabled': media.markedForRemoval }"
                 ></tr>
             </tbody>
         </table>

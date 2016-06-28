@@ -71,7 +71,7 @@ describe('media', () => {
 
     describe('REMOVE_MEDIA', () => {
 
-        it('can remove a media item', () => {
+        it('can mark a media item for removal', () => {
 
             const state = { media: {} };
             const media = createMedia(1);
@@ -80,7 +80,22 @@ describe('media', () => {
 
             mutations.REMOVE_MEDIA(state, media);
 
-            assert.lengthOf(values(state.media), 0);
+            assert.isTrue(state.media[1].markedForRemoval);
+        });
+    });
+
+    describe('RESTORE_MEDIA', () => {
+
+        it('can restore a media item that\'s marked for removal', () => {
+
+            const state = { media: {} };
+            const media = createMedia(1);
+
+            mutations.ADD_MEDIA(state, media);
+
+            mutations.RESTORE_MEDIA(state, media);
+
+            assert.isFalse(state.media[1].markedForRemoval);
         });
     });
 

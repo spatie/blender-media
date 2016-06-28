@@ -28,7 +28,17 @@ export const mutations = {
     },
 
     REMOVE_MEDIA(state, { id }) {
-        Vue.delete(state.media, id);
+
+        if(!state.media[id]) return;
+
+        Vue.set(state.media[id], 'markedForRemoval', true);
+    },
+
+    RESTORE_MEDIA(state, { id }) {
+
+        if(!state.media[id]) return;
+
+        Vue.set(state.media[id], 'markedForRemoval', false);
     },
 
     SET_MEDIA_ORDER(state, order) {

@@ -1,13 +1,26 @@
 export default {
 
     template: `
-        <a
-            href="#"
-            class="media__row__delete"
-            @click="removeMedia(media)"
-        >
-            <i class="fa fa-remove"></i>
-        </a>
+        <div>
+            <div v-if="media.markedForRemoval">
+                <a
+                    href="#"
+                    class="media__row__restore"
+                    @click="restoreMedia(media)"
+                >
+                    <i class="fa fa-undo"></i>
+                </a>
+            </div>
+            <div v-else>
+                <a
+                    href="#"
+                    class="media__row__delete"
+                    @click="removeMedia(media)"
+                >
+                    <i class="fa fa-remove"></i>
+                </a>
+            </div>
+        </div>
     `,
 
     props: ['media'],
@@ -15,6 +28,7 @@ export default {
     vuex: {
         actions: {
             removeMedia: ({ dispatch }, media) => dispatch('REMOVE_MEDIA', media),
+            restoreMedia: ({ dispatch }, media) => dispatch('RESTORE_MEDIA', media),
         },
     },
 

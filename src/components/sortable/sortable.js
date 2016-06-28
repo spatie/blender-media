@@ -19,7 +19,7 @@ export default {
         constrain(this.vm.sortable);
 
         this.vm.sortable.on('drop', function () {
-            this.vm.$emit('reordered', { elements: Array.from(this.el.children) });
+            this.vm.$emit('reordered', { elements: [...this.el.children] });
         }.bind(this));
     },
 

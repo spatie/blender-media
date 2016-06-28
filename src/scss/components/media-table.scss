@@ -11,6 +11,10 @@
   border-bottom: 1px solid $gray-lightest;
 }
 
+.media__row--disabled {
+  background-color: red;
+}
+
 .media__row__delete {
   color: $gray-light;
 
