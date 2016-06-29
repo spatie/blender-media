@@ -2,7 +2,7 @@ import Export from './export/export';
 import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
 import store from '../store';
-import translations from '../translations';
+import translate from '../translations';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import UploadTable from './upload/upload-table';
@@ -12,8 +12,7 @@ export default {
 
     template: `
         <div
-class="media"
-
+            class="media"
             v-upload
             :collection="collection"
             :model="model"
@@ -66,8 +65,6 @@ class="media"
         initial: { default: [] },
         data: { default: {} },
     },
-
-    mixins: [translations],
 
     components: {
         Export,
@@ -122,6 +119,7 @@ class="media"
     },
 
     methods: {
+        translate,
         showUploadDialog() {
             this.upload.hiddenFileInput.click();
         },

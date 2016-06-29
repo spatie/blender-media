@@ -2,40 +2,31 @@ import _ from 'lodash';
 
 const translations = {
     nl: {
-        'yes': 'Ja',
-        'no': 'Nee',
-        'areYouSure': 'Bent u zeker?',
         'noMedia': 'Geen items',
         'addMedia': 'Toevoegen',
-        'error.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
-        'error.acceptFileTypes': 'Bestandstype niet toegestaan',
-        'error.maxFileSize': 'Bestand is te groot',
-        'error.minFileSize': 'Bestand is te klein',
-        'error.fail': 'Er liep iets mis bij de verwerking',
+        'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
+        'errors.acceptFileTypes': 'Bestandstype niet toegestaan',
+        'errors.maxFileSize': 'Bestand is te groot',
+        'errors.minFileSize': 'Bestand is te klein',
+        'errors.fail': 'Er liep iets mis bij de verwerking',
     },
     en: {
-        'yes': 'Yes',
-        'no': 'No',
-        'areYouSure': 'Are you sure?',
         'noMedia': 'No items',
         'addMedia': 'Add',
-        'error.maxNumberOfFiles': 'Maximum number of files exceeded',
-        'error.acceptFileTypes': 'File type not allowed',
-        'error.maxFileSize': 'File size too big',
-        'error.minFileSize': 'File size too small',
-        'error.fail': 'Something went wrong during the conversion',
+        'errors.maxNumberOfFiles': 'Maximum number of files exceeded',
+        'errors.acceptFileTypes': 'File type not allowed',
+        'errors.maxFileSize': 'File size too big',
+        'errors.minFileSize': 'File size too small',
+        'errors.fail': 'Something went wrong during the conversion',
     },
     fr: {
-        'yes': 'Oui',
-        'no': 'Non',
-        'areYouSure': 'Etes-vous sûr?',
         'noMedia': 'Pas d\'objets',
         'addMedia': 'Ajouter',
-        'error.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
-        'error.acceptFileTypes': 'Nombre maximum de fichiers dépassé',
-        'error.maxFileSize': 'Fichier est trop volumineux',
-        'error.minFileSize': 'Fichier est trop petit',
-        'error.fail': 'Quelque chose a mal tourné dans le traitement',
+        'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
+        'errors.acceptFileTypes': 'Nombre maximum de fichiers dépassé',
+        'errors.maxFileSize': 'Fichier est trop volumineux',
+        'errors.minFileSize': 'Fichier est trop petit',
+        'errors.fail': 'Quelque chose a mal tourné dans le traitement',
     },
 };
 
@@ -60,10 +51,4 @@ const language = (() => {
     return language;
 })();
 
-const mixin = {
-    methods: {
-        translate,
-    },
-};
-
-export default mixin;
+export default translate;
