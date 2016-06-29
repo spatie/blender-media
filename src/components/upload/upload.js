@@ -1,5 +1,12 @@
+import {
+    addError,
+    addMedia,
+    clearErrors,
+    finishUpload,
+    startUpload,
+    updateUploadProgress,
+} from '../../actions';
 import Dropzone from 'dropzone';
-import store from '../../store';
 import { uniqueIdentifier } from '../../helpers';
 
 export default {
@@ -16,6 +23,7 @@ export default {
     bind() {
 
         const { collection, model } = this.params;
+        const store = this.vm.$store;
 
         this.vm.upload = new Dropzone(this.el, {
             url: this.params.url,
@@ -35,20 +43,20 @@ export default {
                 data.append('model_name', model.name);
                 data.append('model_id', model.id);
 
-                store.dispatch('CLEAR_ERRORS', collection);
-                store.dispatch('START_UPLOAD', file.uploadId, file.name, collection);
+                clearErrors(store, collection);
+                startUpload(store, file.uploadId, file.name, collection);
             },
             uploadprogress(file) {
-                store.dispatch('UPDATE_UPLOAD_PROGRESS', file.uploadId, file.upload.progress);
+                updateUploadProgress(store, file.uploadId, file.upload.progress);
             },
             success(file, response) {
-                store.dispatch('ADD_MEDIA', response);
+                addMedia(store, response);
             },
             error(file) {
-                store.dispatch('ADD_ERROR', collection, file.xhr.responseText);
+                addError(store, collection, file.xhr.responseText);
             },
             complete(file) {
-                store.dispatch('FINISH_UPLOAD', file.uploadId);
+                finishUpload(store, file.uploadId);
             },
         });
     },

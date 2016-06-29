@@ -1,12 +1,13 @@
+import { allMedia, allUploads } from '../getters';
 import Export from './export/export';
 import { getTypeOptions } from '../options/types';
+import { hydrate } from '../actions';
 import MediaTable from './media/media-table';
 import store from '../store';
 import translate from '../translations';
 import Upload from './upload/upload';
 import UploadErrors from './upload/upload-errors';
 import UploadTable from './upload/upload-table';
-import { values } from 'lodash';
 
 export default {
 
@@ -81,11 +82,11 @@ export default {
 
     vuex: {
         getters: {
-            allMedia: state => values(state.media.media),
-            allUploads: state => values(state.uploads.uploads),
+            allMedia,
+            allUploads,
         },
         actions: {
-            hydrate: ({ dispatch }, data) => dispatch('HYDRATE', data),
+            hydrate,
         },
     },
 

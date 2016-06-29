@@ -1,3 +1,6 @@
+import { allErrors } from '../../getters';
+import { clearErrors } from '../../actions';
+
 export default {
 
     template: `
@@ -23,10 +26,10 @@ export default {
 
     vuex: {
         getters: {
-            allErrors: state => state.errors.errors,
+            allErrors,
         },
         actions: {
-            clearErrors: ({ dispatch }, collection) => dispatch('CLEAR_ERRORS', collection),
+            clearErrors,
         },
     },
 

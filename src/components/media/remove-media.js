@@ -1,3 +1,5 @@
+import { removeMedia, restoreMedia } from '../../actions';
+
 export default {
 
     template: `
@@ -27,8 +29,8 @@ export default {
 
     vuex: {
         actions: {
-            removeMedia: ({ dispatch }, media) => dispatch('REMOVE_MEDIA', media),
-            restoreMedia: ({ dispatch }, media) => dispatch('RESTORE_MEDIA', media),
+            removeMedia,
+            restoreMedia,
         },
     },
 

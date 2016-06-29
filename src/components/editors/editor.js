@@ -1,15 +1,13 @@
+import { renameMedia, updateMediaCustomProperty } from '../../actions';
+
 export default {
 
     props: ['media', 'data'],
 
     vuex: {
         actions: {
-            renameMedia: ({ dispatch }, media, name) => {
-                dispatch('RENAME_MEDIA', media, name);
-            },
-            updateMediaCustomProperty: ({ dispatch }, media, property, value) => {
-                dispatch('UPDATE_CUSTOM_PROPERTY', media, property, value);
-            },
+            renameMedia,
+            updateMediaCustomProperty,
         },
     },
 
