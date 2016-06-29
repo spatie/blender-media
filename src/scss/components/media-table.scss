@@ -21,22 +21,6 @@
   }
 }
 
-.media__row__delete {
-  color: $gray-light;
-
-  &:hover {
-    color: $red;
-  }
-}
-
-.media__row__restore {
-  color: $red-light;
-
-  &:hover {
-    color: $red;
-  }
-}
-
 .media__column--drag {
   padding: 0 .5em;
 
@@ -82,4 +66,26 @@
 
   text-align: right;
   vertical-align: middle;
+}
+
+.media__column--actions__icon {
+  display: inline-block;
+
+  width: 1em;
+
+  &.-delete {
+    color: $gray-light;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  &.-restore {
+    color: $red-light;
+
+    &:hover {
+      color: $red;
+    }
+  }
 }

@@ -7,7 +7,7 @@ export default {
             <div v-if="media.markedForRemoval">
                 <a
                     href="#"
-                    class="media__row__restore"
+                    class="media__column--actions__icon -restore"
                     @click="restoreMedia(media)"
                 >
                     <i class="fa fa-undo"></i>
@@ -16,7 +16,7 @@ export default {
             <div v-else>
                 <a
                     href="#"
-                    class="media__row__delete"
+                    class="media__column--actions__icon -delete"
                     @click="removeMedia(media)"
                 >
                     <i class="fa fa-remove"></i>
