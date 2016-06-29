@@ -27,11 +27,19 @@ export const mutations = {
         state.media[id].name = name;
     },
 
-    REMOVE_MEDIA(state, { id }) {
+    MARK_MEDIA_FOR_REMOVAL(state, { id }) {
 
         if(!state.media[id]) return;
 
         Vue.set(state.media[id], 'markedForRemoval', true);
+    },
+
+    MARK_COLLECTION_FOR_REMOVAL(state, collection) {
+        forIn(state.media, (media) => {
+            if (media.collection === collection) {
+                mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
+            }
+        });
     },
 
     RESTORE_MEDIA(state, { id }) {
@@ -39,6 +47,19 @@ export const mutations = {
         if(!state.media[id]) return;
 
         Vue.set(state.media[id], 'markedForRemoval', false);
+    },
+
+    REPLACE_MEDIA(state, collection, media) {
+        mutations.CLEAR_COLLECTION(state, collection);
+        mutations.ADD_MEDIA(state, media);
+    },
+
+    CLEAR_COLLECTION(state, collection) {
+        forIn(state.media, (media, id) => {
+            if (media.collection === collection) {
+                Vue.delete(state.media, id);
+            }
+        });
     },
 
     SET_MEDIA_ORDER(state, order) {

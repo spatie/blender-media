@@ -1,7 +1,7 @@
 import { allMedia, allUploads } from '../getters';
+import { hydrate, markCollectionForRemoval } from '../actions';
 import Export from './export/export';
 import { getTypeOptions } from '../options/types';
-import { hydrate } from '../actions';
 import MediaTable from './media/media-table';
 import store from '../store';
 import translate from '../translations';
@@ -39,18 +39,21 @@ export default {
                 ></upload-table>
             </div>
             <upload-errors :collection="collection"></upload-errors>
-            <div
-                class="media__upload__button"
-                v-show="canAddMedia"
-            >
+            <div class="media__upload__button">
                 <button
                     class="media__form__button"
                     @click="showUploadDialog"
                 >
-                    {{ translate('addMedia') }}
+                    {{ uploadButtonText }}
+                </button>
+                <button
+                    v-if="options.multiple"
+                    class="media__form__button"
+                    @click="markCollectionForRemoval(collection)"
+                >
+                    {{ translate('clearCollection') }}
                 </button>
             </div>
-
             <export
                 :collection="collection"
                 :media="mediaForExport"
@@ -63,8 +66,8 @@ export default {
         type: { required: true },
         uploadUrl: { required: true },
         model: { required: true },
-        initial: { default: [] },
-        data: { default: {} },
+        initial: { default: () => [] },
+        data: { default: () => ({}) },
     },
 
     components: {
@@ -87,6 +90,7 @@ export default {
         },
         actions: {
             hydrate,
+            markCollectionForRemoval,
         },
     },
 
@@ -103,19 +107,20 @@ export default {
         hasMedia() {
             return this.media.length > 0;
         },
-        canAddMedia() {
-
-            if (this.options.multiple) {
-                return true;
-            }
-
-            return !this.hasMedia && !this.hasUploads;
-        },
         uploads() {
             return this.allUploads.filter(upload => upload.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;
+        },
+        uploadButtonText() {
+            if (this.options.multiple) {
+                return translate('addMedia');
+            }
+
+            return (!this.hasMedia && !this.hasUploads) ?
+                translate('addMedia') :
+                translate('replaceMedia');
         },
     },
 

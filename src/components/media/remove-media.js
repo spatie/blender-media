@@ -1,4 +1,4 @@
-import { removeMedia, restoreMedia } from '../../actions';
+import { markMediaForRemoval, restoreMedia } from '../../actions';
 
 export default {
 
@@ -17,7 +17,7 @@ export default {
                 <a
                     href="#"
                     class="media__column--actions__icon -delete"
-                    @click="removeMedia(media)"
+                    @click="markMediaForRemoval(media)"
                 >
                     <i class="fa fa-remove"></i>
                 </a>
@@ -29,7 +29,7 @@ export default {
 
     vuex: {
         actions: {
-            removeMedia,
+            markMediaForRemoval,
             restoreMedia,
         },
     },

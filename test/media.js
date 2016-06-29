@@ -69,7 +69,7 @@ describe('media', () => {
         });
     });
 
-    describe('REMOVE_MEDIA', () => {
+    describe('MARK_MEDIA_FOR_REMOVAL', () => {
 
         it('can mark a media item for removal', () => {
 
@@ -78,10 +78,24 @@ describe('media', () => {
 
             mutations.ADD_MEDIA(state, media);
 
-            mutations.REMOVE_MEDIA(state, media);
+            mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
 
             assert.isTrue(state.media[1].markedForRemoval);
         });
+    });
+
+    describe('MARK_COLLECTION_FOR_REMOVAL', () => {
+
+        it('can mark an entire collection for delete', () => {
+
+            const state = { media: { 1: createMedia(1), 2: createMedia(2) } };
+
+            mutations.MARK_COLLECTION_FOR_REMOVAL(state, 'images');
+
+            assert.isTrue(state.media[1].markedForRemoval);
+            assert.isTrue(state.media[2].markedForRemoval);
+        });
+
     });
 
     describe('RESTORE_MEDIA', () => {
@@ -93,10 +107,29 @@ describe('media', () => {
 
             mutations.ADD_MEDIA(state, media);
 
+            mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
             mutations.RESTORE_MEDIA(state, media);
 
             assert.isFalse(state.media[1].markedForRemoval);
         });
+    });
+
+    describe('REPLACE_MEDIA', () => {
+
+        it('can replace an existing media item with a new item', () => {
+
+            const state = { media: {} };
+
+            const oldMedia = createMedia(1);
+            const newMedia = createMedia(2);
+
+            mutations.ADD_MEDIA(state, oldMedia);
+            mutations.REPLACE_MEDIA(state, 'images', newMedia);
+
+            assert.lengthOf(values(state.media), 1);
+            assert.equal(state.media[2].id, 2);
+        });
+
     });
 
     describe('SET_MEDIA_ORDER', () => {
@@ -114,6 +147,22 @@ describe('media', () => {
             assert.equal(state.media[1].orderColumn, 1);
             assert.equal(state.media[2].orderColumn, 0);
         });
+    });
+
+    describe('CLEAR_COLLECTION', () => {
+
+        it('can clear the media from a collection', () => {
+
+            const state = { media: {} };
+            const media = createMedia(1);
+
+            mutations.ADD_MEDIA(state, media);
+
+            mutations.CLEAR_COLLECTION(state, 'images');
+
+            assert.lengthOf(values(state.media), 0);
+        });
+
     });
 
     describe('UPDATE_CUSTOM_PROPERTY', () => {

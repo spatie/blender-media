@@ -4,6 +4,8 @@ const translations = {
     nl: {
         'noMedia': 'Geen items',
         'addMedia': 'Toevoegen',
+        'replaceMedia': 'Vervangen',
+        'clearCollection': 'Alles verwijderen',
         'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
         'errors.acceptFileTypes': 'Bestandstype niet toegestaan',
         'errors.maxFileSize': 'Bestand is te groot',
@@ -13,6 +15,8 @@ const translations = {
     en: {
         'noMedia': 'No items',
         'addMedia': 'Add',
+        'replaceMedia': 'Replace',
+        'clearCollection': 'Remove all',
         'errors.maxNumberOfFiles': 'Maximum number of files exceeded',
         'errors.acceptFileTypes': 'File type not allowed',
         'errors.maxFileSize': 'File size too big',
@@ -22,6 +26,8 @@ const translations = {
     fr: {
         'noMedia': 'Pas d\'objets',
         'addMedia': 'Ajouter',
+        'replaceMedia': 'Remplacer',
+        'clearCollection': 'Supprimer tous',
         'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
         'errors.acceptFileTypes': 'Nombre maximum de fichiers dépassé',
         'errors.maxFileSize': 'Fichier est trop volumineux',

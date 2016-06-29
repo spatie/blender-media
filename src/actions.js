@@ -10,12 +10,20 @@ export const updateMediaCustomProperty = ({ dispatch }, media, property, value) 
     dispatch('UPDATE_CUSTOM_PROPERTY', media, property, value);
 };
 
-export const removeMedia = ({ dispatch }, media) => {
-    dispatch('REMOVE_MEDIA', media);
+export const markMediaForRemoval = ({ dispatch }, media) => {
+    dispatch('MARK_MEDIA_FOR_REMOVAL', media);
+};
+
+export const markCollectionForRemoval = ({ dispatch }, collection) => {
+    dispatch('MARK_COLLECTION_FOR_REMOVAL', collection);
 };
 
 export const restoreMedia = ({ dispatch }, media) => {
     dispatch('RESTORE_MEDIA', media);
+};
+
+export const replaceMedia = ({ dispatch }, oldMedia, newMedia) => {
+    dispatch('REPLACE_MEDIA', oldMedia, newMedia);
 };
 
 export const setMediaOrder = ({ dispatch }, order) => {
