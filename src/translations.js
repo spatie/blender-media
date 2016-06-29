@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { includes, keys } from 'lodash';
 
 const translations = {
     nl: {
@@ -30,6 +30,13 @@ const translations = {
     },
 };
 
+const language = (() => {
+    const language = document.querySelector('html').getAttribute('lang');
+    const languages = keys(translations);
+
+    return includes(languages, language) ? language : 'en';
+})();
+
 export const translate = (key, parameters = {}) => {
 
     const translation = translations[language][key];
@@ -40,15 +47,5 @@ export const translate = (key, parameters = {}) => {
 
     return translation.replace(/:[\w]+/g, (key => parameters[key.slice(1)] || key));
 };
-
-const language = (() => {
-    const language = document.querySelector('html').getAttribute('lang');
-
-    if (!_(translations).keys().includes(language)) {
-        return 'en';
-    }
-
-    return language;
-})();
 
 export default translate;

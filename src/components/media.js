@@ -46,7 +46,7 @@ export default {
                     class="media__form__button"
                     @click="showUploadDialog"
                 >
-                    Add media
+                    {{ translate('addMedia') }}
                 </button>
             </div>
 
