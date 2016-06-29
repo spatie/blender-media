@@ -17,15 +17,15 @@ export default {
                     is="media-row"
                     :media="media"
                     :data="data"
-                    :editor="editor"
+                    :options="options"
                     class="media__row"
-                    :class="{ 'media__row--disabled': media.markedForRemoval }"
+                    :class="{ '-is-disabled': media.markedForRemoval }"
                 ></tr>
             </tbody>
         </table>
     `,
 
-    props: ['collection', 'media', 'editor', 'data'],
+    props: ['collection', 'media', 'options', 'data'],
 
     components: {
         MediaRow,

@@ -9,14 +9,28 @@
 
 .media__row {
   border-bottom: 1px solid $gray-lightest;
-}
 
-.media__row--disabled {
-  background-color: red;
+  &.-is-disabled {
+    background: $gray-lightest repeating-linear-gradient(
+    -45deg,
+    $white-off,
+    $white-off 5px,
+    $red-lightest 5px,
+    $red-lightest 10px
+    ) fixed;
+  }
 }
 
 .media__row__delete {
   color: $gray-light;
+
+  &:hover {
+    color: $red;
+  }
+}
+
+.media__row__restore {
+  color: $red-light;
 
   &:hover {
     color: $red;
@@ -42,6 +56,10 @@
   &:before {
     /*provide more 'grab' area */
     padding: 1em .5em;
+  }
+
+  &.-is-disabled {
+    visibility: hidden;
   }
 }
 

@@ -4,7 +4,9 @@ export default {
 
     template: `
         <div>
-            <input v-model="name" />
+            <input v-model="name"
+                   :disabled="media.markedForRemoval"
+            />
         </div>
     `,
 

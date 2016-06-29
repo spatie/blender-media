@@ -30,6 +30,14 @@
 
     border-style: dashed;
   }
+
+  &.-is-disabled {
+    filter: grayscale(100%);
+
+    & .media__thumb__image {
+      opacity: .75;
+    }
+  }
 }
 
 .media__thumb__image {

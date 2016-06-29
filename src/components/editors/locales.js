@@ -8,6 +8,7 @@ export default {
             <span class="media__editor__column -stretch">
                 <input
                     class="media__form__text"
+                    :disabled="media.markedForRemoval"
                     type="text"
                     v-model="name"
                 >
@@ -20,6 +21,7 @@ export default {
                     {{ locale }}
                     <input
                         class="media__form__checkbox"
+                        :disabled="media.markedForRemoval"
                         type="checkbox"
                         :checked="toggled"
                         @change="toggleLocale(locale)"

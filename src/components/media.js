@@ -25,7 +25,7 @@ export default {
                 <media-table
                     :collection="collection"
                     :media="media"
-                    :editor="options.editor"
+                    :options="options"
                     :data="data"
                 ></media-table>
             </div>

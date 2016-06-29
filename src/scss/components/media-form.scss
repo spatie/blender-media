@@ -20,6 +20,10 @@
     background: $white;
     box-shadow: $shadow-inset;
   }
+
+  &[disabled] {
+    border-color: transparent !important;
+  }
 }
 
 .media__form__label {
@@ -99,6 +103,18 @@
     transition: transform .1s;
     transform: scale(0);
   }
+
+
+  &[disabled] {
+    cursor: default;
+
+    &:before {
+      color: $gray;
+    }
+    &:after {
+      border-color: transparent !important;
+    }
+  }
 }
 
 .media__form__checkbox {
@@ -165,7 +181,7 @@
     border-color: $blue-lighter;
     outline: 0;
   }
-  
+
   &:active {
     top: 1px;
 
