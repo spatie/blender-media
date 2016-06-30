@@ -9,7 +9,6 @@ const translations = {
         'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
         'errors.acceptFileTypes': 'Bestandstype niet toegestaan',
         'errors.maxFileSize': 'Bestand is te groot',
-        'errors.minFileSize': 'Bestand is te klein',
         'errors.fail': 'Er liep iets mis bij de verwerking',
     },
     en: {
@@ -20,7 +19,6 @@ const translations = {
         'errors.maxNumberOfFiles': 'Maximum number of files exceeded',
         'errors.acceptFileTypes': 'File type not allowed',
         'errors.maxFileSize': 'File size too big',
-        'errors.minFileSize': 'File size too small',
         'errors.fail': 'Something went wrong during the conversion',
     },
     fr: {
@@ -31,7 +29,6 @@ const translations = {
         'errors.maxNumberOfFiles': 'Maximum aantal bestanden overschreden',
         'errors.acceptFileTypes': 'Nombre maximum de fichiers dépassé',
         'errors.maxFileSize': 'Fichier est trop volumineux',
-        'errors.minFileSize': 'Fichier est trop petit',
         'errors.fail': 'Quelque chose a mal tourné dans le traitement',
     },
 };

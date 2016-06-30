@@ -8,6 +8,7 @@ import {
     updateUploadProgress,
 } from '../../actions';
 import Dropzone from 'dropzone';
+import translate from '../../translations';
 import { uniqueIdentifier } from '../../helpers';
 
 export default {
@@ -33,6 +34,10 @@ export default {
 
             previewsContainer: false,
             previewTemplate: false,
+
+            dictInvalidFileType: translate('errors.acceptFileTypes'),
+            dictFileTooBig: translate('errors.maxFileSize'),
+            dictResponseError: translate('errors.fail'),
         });
 
         // For some odd reason `bind` is necessary, arrow functions aren't working.
