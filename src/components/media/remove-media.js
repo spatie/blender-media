@@ -8,7 +8,7 @@ export default {
                 <a
                     href="#"
                     class="media__column--actions__icon -restore"
-                    @click="restoreMedia(media)"
+                    @click.prevent="restoreMedia(media)"
                 >
                     <i class="fa fa-undo"></i>
                 </a>
@@ -17,7 +17,7 @@ export default {
                 <a
                     href="#"
                     class="media__column--actions__icon -delete"
-                    @click="markMediaForRemoval(media)"
+                    @click.prevent="markMediaForRemoval(media)"
                 >
                     <i class="fa fa-remove"></i>
                 </a>

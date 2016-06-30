@@ -15,7 +15,7 @@ export default {
             <a
                 href="#"
                 class="media__alert__delete"
-                @click="clearErrors(collection)"
+                @click.prevent="clearErrors(collection)"
             >
                 <i class="fa fa-remove"></i>
             </a>

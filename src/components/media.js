@@ -42,14 +42,14 @@ export default {
             <div class="media__actions">
                 <button
                     class="media__button"
-                    @click="showUploadDialog"
+                    @click.prevent="showUploadDialog"
                 >
                     {{ uploadButtonText }}
                 </button>
                 <button
                     v-if="options.multiple"
                     class="media__button--delete"
-                    @click="markCollectionForRemoval(collection)"
+                    @click.prevent="markCollectionForRemoval(collection)"
                 >
                     {{ translate('clearCollection') }}  <i class="fa fa-remove media__input--button--delete__icon"></i>
                 </button>
