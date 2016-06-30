@@ -1,4 +1,4 @@
-.media__form__text {
+.media__input--text {
   font-size: inherit;
 
   width: 100%;
@@ -26,23 +26,8 @@
   }
 }
 
-.media__form__label {
-  font-size: .8em;
-
-  display: flex;
-
-  height: 2.5em;
-  padding-right: 1em;
-
-  text-transform: uppercase;
-
-  color: $gray;
-
-  align-items: center;
-}
-
-.media__form__checkbox,
-.media__form__radio {
+.media__input--checkbox,
+.media__input--radio {
   font-size: inherit;
 
   width: 2.5em;
@@ -117,7 +102,7 @@
   }
 }
 
-.media__form__checkbox {
+.media__input--checkbox {
   &:after {
     border-radius: 3px;
   }
@@ -136,7 +121,7 @@
   }
 }
 
-.media__form__radio {
+.media__input--radio {
   &:after {
     border-radius: 100%;
   }
@@ -154,38 +139,17 @@
   }
 }
 
-.media__form__button {
-  font-size: inherit;
-  font-weight: bold;
+.media__input__label {
+  font-size: .8em;
 
-  height: 2em;
-  margin: 0;
-  padding: 0 1em;
+  display: flex;
 
-  cursor: pointer;
+  height: 2.5em;
+  padding-right: 1em;
 
-  color: $white;
-  border-width: 2px;
-  border-style: solid;
-  border-color: $green-light $green-dark $green-dark $green-light ;
-  border-radius: 3px;
-  background: $green;
-  box-shadow: $shadow;
-  text-shadow: 0 1px $gray-lightest;
+  text-transform: uppercase;
 
-  &:hover {
-    background: $green-dark;
-  }
+  color: $gray;
 
-  &:focus {
-    border-color: $blue-lighter;
-    outline: 0;
-  }
-
-  &:active {
-    top: 1px;
-
-    border-color: $green-dark $green-light $green-light $green-dark;
-    box-shadow: none;
-  }
+  align-items: center;
 }

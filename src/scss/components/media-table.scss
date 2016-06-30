@@ -88,4 +88,9 @@
       color: $red;
     }
   }
+
+  &:focus {
+    color: $blue-lighter;
+    outline: 0;
+  }
 }

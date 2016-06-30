@@ -1,0 +1,60 @@
+.media__button {
+  font-size: inherit;
+  font-weight: bold;
+
+  height: 2em;
+  margin: 0;
+  padding: 0 1em;
+
+  cursor: pointer;
+
+  color: $white;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $green-light $green-dark $green-dark $green-light ;
+  border-radius: 3px;
+  background: $green;
+  box-shadow: $shadow;
+  text-shadow: 0 1px $gray-lightest;
+
+  &:hover {
+    background: $green-dark;
+  }
+
+  &:focus {
+    border-color: $blue-lighter;
+    outline: 0;
+  }
+
+  &:active {
+    top: 1px;
+
+    border-color: $green-dark $green-light $green-light $green-dark;
+    box-shadow: none;
+  }
+}
+
+.media__button--delete {
+  font-size: inherit;
+
+  float: right;
+
+  height: 2em;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+
+  color: $gray-light;
+  border: 0;
+  background: none;
+
+  &:hover {
+    color: $red;
+  }
+
+  &:focus {
+    color: $blue-lighter;
+    outline: 0;
+  }
+}

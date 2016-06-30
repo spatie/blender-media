@@ -6,15 +6,22 @@ export default {
         <div class="media__editor">
             <span class="media__editor__column -stretch">
                 <input
-                    class="media__form__text"
+                    class="media__input--text"
                     :disabled="media.markedForRemoval"
                     type="text"
                     v-model="name"
+                    @keyup.enter="blurInput"
                 />
             </span>
         </div>
     `,
 
     mixins: [editor],
+
+    methods: {
+        blurInput(event) {
+            event.target.blur();
+        },
+    }
 
 };

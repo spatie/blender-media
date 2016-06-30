@@ -39,19 +39,19 @@ export default {
                 ></upload-table>
             </div>
             <upload-errors :collection="collection"></upload-errors>
-            <div class="media__upload__button">
+            <div class="media__actions">
                 <button
-                    class="media__form__button"
+                    class="media__button"
                     @click="showUploadDialog"
                 >
                     {{ uploadButtonText }}
                 </button>
                 <button
                     v-if="options.multiple"
-                    class="media__form__button"
+                    class="media__button--delete"
                     @click="markCollectionForRemoval(collection)"
                 >
-                    {{ translate('clearCollection') }}
+                    {{ translate('clearCollection') }}  <i class="fa fa-remove media__input--button--delete__icon"></i>
                 </button>
             </div>
             <export

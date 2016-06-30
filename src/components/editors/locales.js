@@ -7,20 +7,21 @@ export default {
         <div class="media__editor">
             <span class="media__editor__column -stretch">
                 <input
-                    class="media__form__text"
+                    class="media__input--text"
                     :disabled="media.markedForRemoval"
                     type="text"
                     v-model="name"
+                    @keyup.enter="blurInput"
                 >
             </span>
             <span class="media__editor__column">
                 <label
-                    class="media__form__label"
+                    class="media__input__label"
                     v-for="(locale, toggled) in locales"
                 >
                     {{ locale }}
                     <input
-                        class="media__form__checkbox"
+                        class="media__input--checkbox"
                         :disabled="media.markedForRemoval"
                         type="checkbox"
                         :checked="toggled"
@@ -40,6 +41,9 @@ export default {
     },
 
     methods: {
+        blurInput(event) {
+            event.target.blur();
+        },
         toggleLocale(locale) {
             this.updateCustomProperty(`locales.${locale}`, !this.locales[locale]);
         },
