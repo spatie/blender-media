@@ -10,12 +10,14 @@ export default {
             tabIndex="-1"
             class="media__thumb"
         >
-            <img v-if="isImage"
+            <img
+                v-if="isImage"
                 :src="thumbUrl"
                 class="media__thumb__image"
               />
-            <span v-else
-                  class="media__thumb__file"
+            <span
+                v-else
+                class="media__thumb__file"
             >
                 <i :class="['fa', icon, 'media__thumb__file__icon']"></i>
             </span>

@@ -1,3 +1,4 @@
+import { getClassNameForExtension } from 'font-awesome-filetypes';
 import { sortBy } from 'lodash';
 
 export default {
@@ -5,9 +6,13 @@ export default {
     template: `
         <table class="media__upload__table">
             <tbody v-for="upload in orderedUploads">
-                 <tr class="media__upload__row">
+                <tr class="media__upload__row">
                     <td class="media__upload__column--thumb">
-                       <span class="media__thumb -ghost">
+                        <span class="media__thumb -ghost">
+                            <span class="media__thumb__file -ghost">
+                                <i :class="['fa', icon(upload), 'media__thumb__file__icon']"></i>
+                            </span>
+                        </span>
                     </td>
                     <td class="media__upload__column--progress">
                         <div class="media__progress">
@@ -31,7 +36,13 @@ export default {
     computed: {
         orderedUploads() {
             return sortBy(this.uploads, 'id');
-        }
+        },
+    },
+
+    methods: {
+        icon(upload) {
+            return getClassNameForExtension(upload.name);
+        },
     },
 
 };

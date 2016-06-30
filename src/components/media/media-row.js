@@ -8,13 +8,15 @@ export default {
     template: `
         <tr :data-media-id="media.id">
             <td class="media__column--drag">
-               <i class="js-handle fa fa-arrows-v media__column--drag__icon"
+               <i
+                  class="js-handle fa fa-arrows-v media__column--drag__icon"
                   :class="{ '-is-disabled' : media.markedForRemoval || !options.multiple }"
                 ></i>
             </td>
             <td class="media__column--thumb">
-                <thumb :media="media"
-                       :class="{ '-is-disabled': media.markedForRemoval }"
+                <thumb
+                    :media="media"
+                    :class="{ '-is-disabled': media.markedForRemoval }"
                 >
                 </thumb>
             </td>
