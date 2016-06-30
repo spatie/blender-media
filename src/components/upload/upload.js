@@ -17,7 +17,7 @@ export default {
         'model',
         'url',
         'multiple',
-        'acceptedFiles',
+        'accepts',
         'clickable',
     ],
 
