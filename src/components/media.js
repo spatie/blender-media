@@ -29,14 +29,15 @@ export default {
                     :data="data"
                 ></media-table>
             </div>
-            <div v-else
-                 class="media__alert">
-                {{ translate('noMedia') }}
-            </div>
             <div v-if="hasUploads">
                 <upload-table
                     :uploads="uploads"
                 ></upload-table>
+            </div>
+            <div
+                v-if="!hasMedia && !hasUploads"
+                class="media__alert">
+                {{ translate('noMedia') }}
             </div>
             <upload-errors :collection="collection"></upload-errors>
             <div class="media__actions">
