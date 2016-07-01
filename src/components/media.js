@@ -20,6 +20,7 @@ export default {
             :url="uploadUrl"
             :multiple="options.multiple"
             :accepts="options.accepts"
+            :clickable="clickable"
         >
             <div v-if="hasMedia">
                 <media-table
@@ -42,6 +43,7 @@ export default {
             <upload-errors :collection="collection"></upload-errors>
             <div class="media__actions">
                 <button
+                    v-el:clickable
                     class="media__button"
                     @click.prevent="showUploadDialog"
                 >
@@ -120,6 +122,9 @@ export default {
                 translate('addMedia') :
                 translate('replaceMedia');
         },
+        clickable() {
+            return this.$els.clickable ;
+        }
     },
 
     methods: {

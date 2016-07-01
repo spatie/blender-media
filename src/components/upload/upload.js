@@ -31,6 +31,7 @@ export default {
             uploadMultiple: this.params.multiple,
             acceptedFiles: this.params.accepts,
             parallelUploads: 10,
+            clickable: this.params.clickable,
 
             previewsContainer: false,
             previewTemplate: false,

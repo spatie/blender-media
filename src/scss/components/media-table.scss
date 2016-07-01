@@ -11,13 +11,7 @@
   border-bottom: 1px solid $gray-lightest;
 
   &.-is-disabled {
-    background: $gray-lightest repeating-linear-gradient(
-    -45deg,
-    $white-off,
-    $white-off 5px,
-    $red-lightest 5px,
-    $red-lightest 10px
-    ) fixed;
+    background: $red-lightest;
   }
 }
 
@@ -71,6 +65,7 @@
 .media__column--actions__icon {
   display: inline-block;
 
+  border: 0;
   width: 1em;
 
   &.-delete {

@@ -33,6 +33,7 @@
 
   &.-is-disabled {
     filter: grayscale(100%);
+    mix-blend-mode: multiply;
 
     & .media__thumb__image {
       opacity: .75;
@@ -43,6 +44,7 @@
 .media__thumb__image {
   width: $thumb-width;
   height: auto;
+  max-width: none;
 
   vertical-align: middle;
 }

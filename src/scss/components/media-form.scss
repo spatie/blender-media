@@ -5,20 +5,23 @@
   height: 2em;
   padding: 0 0 0 .5em;
 
-  border: solid 2px transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent !important;
   border-radius: 3px;
   background: $gray-lightest;
+  box-shadow: none !important;
 
 
   &:hover {
-    border-color: $gray-lightest;
+    border-color: $gray-lightest !important;
   }
 
   &:focus {
-    border-color: $blue-lighter;
+    border-color: $blue-lighter !important;
     outline: 0;
     background: $white;
-    box-shadow: $shadow-inset;
+    box-shadow: $shadow-inset !important;
   }
 
   &[disabled] {

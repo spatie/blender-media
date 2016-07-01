@@ -48,6 +48,7 @@
   color: $gray-light;
   border: 0;
   background: none;
+  box-shadow: none;
 
   &:hover {
     color: $red;
@@ -56,5 +57,11 @@
   &:focus {
     color: $gray;
     outline: 0;
+  }
+
+  &:active {
+    top: 0px;
+
+    box-shadow: none;
   }
 }
