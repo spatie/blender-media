@@ -18,3 +18,7 @@ export const matches = (element, selector) => {
 export const uniqueIdentifier = () => (
     `${(new Date()).getTime()}-${Math.floor(Math.random() * 100000)}`
 );
+
+export const pipe = (object, ...operations) => {
+    return operations.reduce((object, operation) => operation(object), object);
+}

@@ -48,7 +48,7 @@ export default {
                     {{ uploadButtonText }}
                 </button>
                 <button
-                    v-if="options.multiple"
+                    v-if="hasMedia && options.multiple"
                     class="media__button--delete"
                     @click.prevent="markCollectionForRemoval(collection)"
                 >
@@ -57,7 +57,7 @@ export default {
             </div>
             <export
                 :collection="collection"
-                :media="mediaForExport"
+                :media="media"
             ></export>
         </div>
     `,
@@ -101,9 +101,6 @@ export default {
         },
         media() {
             return this.allMedia.filter(media => media.collection === this.collection);
-        },
-        mediaForExport() {
-            return this.media.filter(media => !media.markedForRemoval);
         },
         hasMedia() {
             return this.media.length > 0;

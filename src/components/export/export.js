@@ -1,3 +1,6 @@
+import { pipe } from '../../helpers';
+import { sortBy } from 'lodash';
+
 export default {
 
     template: `
@@ -14,7 +17,12 @@ export default {
 
     computed: {
         data() {
-            return JSON.stringify(this.media);
+            return pipe(
+                this.media,
+                media => media.filter(media => !media.markedForRemoval),
+                media => sortBy(media, 'orderColumn'),
+                media => JSON.stringify(media)
+            );
         },
     },
 
