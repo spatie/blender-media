@@ -11,7 +11,7 @@ export default {
                     :disabled="media.markedForRemoval"
                     type="text"
                     v-model="name"
-                    @keyup.enter="blurInput"
+                    @keydown.enter.prevent="blurInput"
                 >
             </span>
             <span class="media__editor__column">

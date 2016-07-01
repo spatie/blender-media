@@ -65,8 +65,9 @@
 .media__column--actions__icon {
   display: inline-block;
 
-  border: 0;
   width: 1em;
+
+  border: 0;
 
   &.-delete {
     color: $gray-light;
