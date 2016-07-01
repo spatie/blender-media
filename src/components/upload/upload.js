@@ -65,8 +65,8 @@ export default {
                 replaceMedia(this.vm.$store, collection, response);
         }.bind(this));
 
-        this.vm.upload.on('error', function (file) {
-            addError(this.vm.$store, collection, file.xhr.responseText);
+        this.vm.upload.on('error', function () {
+            addError(this.vm.$store, collection, translate('errors.fail'));
         }.bind(this));
 
         this.vm.upload.on('complete', function (file) {
