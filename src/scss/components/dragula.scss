@@ -41,4 +41,8 @@
   opacity: .35;
   background-color: $gray-light;
   box-shadow: $shadow-inset;
+
+  .media__row {
+    background: transparent !important;
+  }
 }

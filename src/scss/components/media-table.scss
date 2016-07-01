@@ -9,7 +9,7 @@
 
 .media__row {
   border-bottom: 1px solid $gray-lightest;
-  background: transparent !important;
+  background: transparent;
 
   &.-is-disabled {
     background: $red-lightest;
