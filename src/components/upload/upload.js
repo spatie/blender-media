@@ -8,7 +8,6 @@ import {
     updateUploadProgress,
 } from '../../actions';
 import Dropzone from 'dropzone';
-import $ from 'jquery';
 import translate from '../../translations';
 import { uniqueIdentifier } from '../../helpers';
 
@@ -31,7 +30,7 @@ export default {
             uploadMultiple: this.params.multiple,
             acceptedFiles: this.params.accepts,
             parallelUploads: 10,
-            clickable: this.el.getElementsByClassName('js-add-media')[0],
+            clickable: this.el.querySelector('.js-add-media'),
 
             previewsContainer: false,
             previewTemplate: false,

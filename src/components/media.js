@@ -52,7 +52,8 @@ export default {
                     class="media__button--delete"
                     @click.prevent="markCollectionForRemoval(collection)"
                 >
-                    {{ translate('clearCollection') }}  <i class="fa fa-remove media__input--button--delete__icon"></i>
+                    {{ translate('clearCollection') }}
+                    <i class="fa fa-remove media__input--button--delete__icon"></i>
                 </button>
             </div>
             <export
