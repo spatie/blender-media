@@ -52,7 +52,7 @@ export default {
 
             const order = elements
                 .map(tbody => tbody.children[0])
-                .map(row => parseInt(row.dataset.mediaId))
+                .map(row => parseInt(row.getAttribute('data-media-id'))
                 .reduce((order, mediaId) => {
                     order[mediaId] = Object.keys(order).length;
                     return order;
