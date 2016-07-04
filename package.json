@@ -12,7 +12,7 @@
     "dev:js": "NODE_ENV=development watchify example/index.js -o example/build/index.js -t [ babelify --presets [ es2015 ] ]",
     "dev:serve": "node example/server.js",
     "lint": "eslint src",
-    "prepublish": "npm run build",
+    "prepublish": "npm run test; npm run build",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
