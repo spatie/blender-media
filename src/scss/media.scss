@@ -1,5 +1,2 @@
-@import 'variables';
-
-@import 'table';
-@import 'roweditor';
-@import 'fields';
+@import './settings.scss';
+@import './components/*.scss';

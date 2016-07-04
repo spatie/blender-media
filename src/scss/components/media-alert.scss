@@ -1,0 +1,28 @@
+.media__alert {
+  margin: 1em;
+  padding: 1em 2em 1em 1em;
+
+  color: $gray;
+  border-radius: 3px;
+  background: $gray-lightest;
+
+  &.-error {
+    color: $red;
+    background: $red-lightest;
+  }
+}
+
+.media__alert__message {
+  padding: .5em 0;
+}
+
+.media__alert__delete {
+  position: absolute !important;
+  top: 1em;
+  right: 1em;
+
+  display: block;
+
+  color: inherit;
+  border: 0;
+}

@@ -1,0 +1,36 @@
+.media__progress {
+  overflow: hidden;
+
+  width: 100%;
+  height: 2em;
+
+  border-radius: 3px;
+  background: $green-lighter;
+  box-shadow: $shadow-inset;
+}
+
+.media__progress__bar {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2em;
+
+  transition: transform .5s linear;
+
+  background: $green-light;
+  box-shadow: $shadow-inset;
+}
+
+.media__progress__name {
+  line-height: 2em;
+
+  position: absolute !important;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  padding: 0 .65em;
+}

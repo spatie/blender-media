@@ -1,0 +1,93 @@
+.media__table {
+  width: 100%;
+  margin: 0;
+
+  border-collapse: collapse;
+
+  background-color: $white-off;
+}
+
+.media__row {
+  border-bottom: 1px solid $gray-lightest;
+  background: transparent;
+
+  &.-is-disabled {
+    background: $red-lightest;
+  }
+}
+
+.media__column--drag {
+  padding: 0 .5em;
+
+  text-align: center;
+  vertical-align: middle;
+}
+
+.media__column--drag__icon {
+  cursor: grab;
+
+  color: $gray-light;
+
+  &:hover {
+    color: $blue-light;
+  }
+
+  &:before {
+    /*provide more 'grab' area */
+    padding: 1em .5em;
+  }
+
+  &.-is-disabled {
+    visibility: hidden;
+  }
+}
+
+.media__column--thumb {
+  width: $thumb-width;
+  padding: .5em 0;
+
+  vertical-align: middle;
+}
+
+.media__column--editor {
+  width: 100%;
+  padding: 0 .5em;
+
+  vertical-align: middle;
+}
+
+.media__column--actions {
+  padding: 0 1em;
+
+  text-align: right;
+  vertical-align: middle;
+}
+
+.media__column--actions__icon {
+  display: inline-block;
+
+  width: 1em;
+
+  border: 0;
+
+  &.-delete {
+    color: $gray-light;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  &.-restore {
+    color: $red-light;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  &:focus {
+    color: $gray;
+    outline: 0;
+  }
+}
