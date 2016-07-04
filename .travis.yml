@@ -1,11 +1,6 @@
 language: node_js
 node_js:
-  - '4.0'
+  - 'stable'
 sudo: false
-
-before_install:
-  - npm set registry https://npm.spatie.be
-  - npm set ca null
-  - npm install -g npm
 
 script: npm run test
