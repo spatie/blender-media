@@ -34,7 +34,7 @@ export default {
             return getClassNameForExtension(this.extension);
         },
         isImage() {
-            return includes(['jpg', 'jpeg', 'gif', 'png'], this.extension);
+            return includes(['jpg', 'jpeg', 'gif', 'png', 'svg'], this.extension);
         },
         originalUrl() {
             return this.media.originalUrl;
