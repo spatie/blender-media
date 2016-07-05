@@ -48,7 +48,7 @@ export default {
                     {{ uploadButtonText }}
                 </button>
                 <button
-                    v-if="hasMedia && options.multiple"
+                    v-if="canBeCleared"
                     class="media__button--delete"
                     @click.prevent="markCollectionForRemoval(collection)"
                 >
@@ -106,6 +106,9 @@ export default {
         hasMedia() {
             return this.media.length > 0;
         },
+        hasActiveMedia() {
+            return this.media.filter(media => media.markedForRemoval !== true).length > 0;
+        },
         uploads() {
             return this.allUploads.filter(upload => upload.collection === this.collection);
         },
@@ -120,6 +123,13 @@ export default {
             return (!this.hasMedia && !this.hasUploads) ?
                 translate('addMedia') :
                 translate('replaceMedia');
+        },
+        canBeCleared() {
+            if (!this.hasActiveMedia) {
+                return false;
+            }
+
+            return this.options.multiple;
         },
     },
 
