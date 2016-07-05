@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 2.0.0
+- Rewrite with Vue.js
+
 ## 1.4.4
 - Array.from polyfill fix
 
