@@ -33,7 +33,7 @@ export const mutations = {
 export const actions = {};
 
 export const getters = {
-    all: state => values(state.uploads),
+    allUploads: state => values(state.uploads.uploads),
 };
 
 export default { state, mutations, actions, getters };

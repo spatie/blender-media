@@ -19,7 +19,7 @@ export const mutations = {
 export const actions = {};
 
 export const getters = {
-    all: state => state.errors,
+    allErrors: state => state.errors.errors,
 };
 
 export default { state, mutations };

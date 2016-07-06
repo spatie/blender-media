@@ -215,9 +215,9 @@ describe('media', () => {
 
             it('can get all media', () => {
 
-                const state = { media: { 1: { id: 1 }, 2: { id: 2 } } };
+                const state = { media: { media: { 1: { id: 1 }, 2: { id: 2 } } } };
 
-                const allMedia = getters.all(state);
+                const allMedia = getters.allMedia(state);
 
                 assert.lengthOf(allMedia, 2);
                 assert.equal(allMedia[0].id, 1);

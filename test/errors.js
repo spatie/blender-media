@@ -51,9 +51,9 @@ describe('errors', () => {
 
             it('can get all errors', () => {
 
-                const state = { errors: { images: 'Foo', downloads: 'Bar' } };
+                const state = { errors: { errors: { images: 'Foo', downloads: 'Bar' } } };
 
-                const allErrors = getters.all(state);
+                const allErrors = getters.allErrors(state);
 
                 assert.equal(allErrors.images, 'Foo');
                 assert.equal(allErrors.downloads, 'Bar');

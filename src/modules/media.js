@@ -91,7 +91,7 @@ export const mutations = {
 export const actions = {};
 
 export const getters = {
-    all: state => values(state.media),
+    allMedia: state => values(state.media.media),
 };
 
 export default { state, mutations, actions, getters };

@@ -56,9 +56,9 @@ describe('uploads', () => {
 
             it('can get all uploads', () => {
 
-                const state = { uploads: { 1: { id: 1 }, 2: { id: 2 } } };
+                const state = { uploads: { uploads: { 1: { id: 1 }, 2: { id: 2 } } } };
 
-                const allUploads = getters.all(state);
+                const allUploads = getters.allUploads(state);
 
                 assert.lengthOf(allUploads, 2);
                 assert.equal(allUploads[0].id, 1);
