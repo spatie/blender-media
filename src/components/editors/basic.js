@@ -22,6 +22,6 @@ export default {
         blurInput(event) {
             event.target.blur();
         },
-    }
+    },
 
 };

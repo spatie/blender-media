@@ -1,3 +1,4 @@
+import { values } from 'lodash';
 import Vue from 'vue';
 
 const state = {
@@ -29,4 +30,10 @@ export const mutations = {
 
 };
 
-export default { state, mutations };
+export const actions = {};
+
+export const getters = {
+    all: state => values(state.uploads),
+};
+
+export default { state, mutations, actions, getters };

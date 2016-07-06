@@ -16,4 +16,10 @@ export const mutations = {
 
 };
 
+export const actions = {};
+
+export const getters = {
+    all: state => state.errors,
+};
+
 export default { state, mutations };

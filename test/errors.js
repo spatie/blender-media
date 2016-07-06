@@ -1,44 +1,64 @@
+import { getters, mutations } from '../src/modules/errors';
 import { assert } from 'chai';
-import { mutations } from '../src/modules/errors';
 import { values } from 'lodash';
 
 describe('errors', () => {
 
-    describe('ADD_ERROR', () => {
+    describe('mutations', () => {
 
-        it('can add an error for a collection', () => {
+        describe('ADD_ERROR', () => {
 
-            const state = { errors: {} };
+            it('can add an error for a collection', () => {
 
-            mutations.ADD_ERROR(state, 'images', 'File too large');
+                const state = { errors: {} };
 
-            assert.lengthOf(values(state.errors), 1);
-            assert.equal(state.errors['images'], 'File too large');
+                mutations.ADD_ERROR(state, 'images', 'File too large');
+
+                assert.lengthOf(values(state.errors), 1);
+                assert.equal(state.errors['images'], 'File too large');
+            });
+
+            it('only holds the last error per collection', () => {
+
+                const state = { errors: {} };
+
+                mutations.ADD_ERROR(state, 'images', 'File too large');
+                mutations.ADD_ERROR(state, 'images', 'Conversion error');
+
+                assert.lengthOf(values(state.errors), 1);
+                assert.equal(state.errors['images'], 'Conversion error');
+            });
         });
 
-        it('only holds the last error per collection', () => {
+        describe('CLEAR_ERRORS', () => {
 
-            const state = { errors: {} };
+            it('can clear all errors for a collection', () => {
 
-            mutations.ADD_ERROR(state, 'images', 'File too large');
-            mutations.ADD_ERROR(state, 'images', 'Conversion error');
+                const state = { errors: {} };
 
-            assert.lengthOf(values(state.errors), 1);
-            assert.equal(state.errors['images'], 'Conversion error');
+                mutations.ADD_ERROR(state, 'images', 'File too large');
+
+                mutations.CLEAR_ERRORS(state, 'images');
+
+                assert.lengthOf(values(state.errors), 0);
+            });
         });
     });
 
-    describe('CLEAR_ERRORS', () => {
+    describe('getters', () => {
 
-        it('can clear all errors for a collection', () => {
+        describe('all', () => {
 
-            const state = { errors: {} };
+            it('can get all errors', () => {
 
-            mutations.ADD_ERROR(state, 'images', 'File too large');
+                const state = { errors: { images: 'Foo', downloads: 'Bar' } };
 
-            mutations.CLEAR_ERRORS(state, 'images');
+                const allErrors = getters.all(state);
 
-            assert.lengthOf(values(state.errors), 0);
+                assert.equal(allErrors.images, 'Foo');
+                assert.equal(allErrors.downloads, 'Bar');
+
+            });
         });
     });
 });

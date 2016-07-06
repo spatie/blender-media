@@ -21,4 +21,4 @@ export const uniqueIdentifier = () => (
 
 export const pipe = (object, ...operations) => {
     return operations.reduce((object, operation) => operation(object), object);
-}
+};

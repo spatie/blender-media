@@ -1,49 +1,70 @@
+import { getters, mutations } from '../src/modules/uploads';
 import { assert } from 'chai';
-import { mutations } from '../src/modules/uploads';
 import { values } from 'lodash';
 
 describe('uploads', () => {
 
-    describe('START_UPLOAD', () => {
+    describe('mutations', () => {
 
-        it('can start an upload', () => {
+        describe('START_UPLOAD', () => {
 
-            const state = { uploads: {} };
+            it('can start an upload', () => {
 
-            mutations.START_UPLOAD(state, 1, 'image.jpg', 'images');
+                const state = { uploads: {} };
 
-            assert.lengthOf(values(state.uploads), 1);
-            assert.equal(state.uploads[1].id, 1);
-            assert.equal(state.uploads[1].name, 'image.jpg');
-            assert.equal(state.uploads[1].collection, 'images');
-            assert.equal(state.uploads[1].progress, 0);
+                mutations.START_UPLOAD(state, 1, 'image.jpg', 'images');
+
+                assert.lengthOf(values(state.uploads), 1);
+                assert.equal(state.uploads[1].id, 1);
+                assert.equal(state.uploads[1].name, 'image.jpg');
+                assert.equal(state.uploads[1].collection, 'images');
+                assert.equal(state.uploads[1].progress, 0);
+            });
+
         });
 
-    });
+        describe('UPDATE_UPLOAD_PROGRESS', () => {
 
-    describe('UPDATE_UPLOAD_PROGRESS', () => {
+            it('can update an upload\'s progress', () => {
 
-        it('can update an upload\'s progress', () => {
+                const state = { uploads: {} };
 
-            const state = { uploads: {} };
+                mutations.START_UPLOAD(state, 1, 'images');
+                mutations.UPDATE_UPLOAD_PROGRESS(state, 1, 50);
 
-            mutations.START_UPLOAD(state, 1, 'images');
-            mutations.UPDATE_UPLOAD_PROGRESS(state, 1, 50);
+                assert.equal(state.uploads[1].progress, 50);
+            });
+        });
 
-            assert.equal(state.uploads[1].progress, 50);
+        describe('FINISH_UPLOAD', () => {
+
+            it('can finish an upload', () => {
+
+                const state = { uploads: {} };
+
+                mutations.START_UPLOAD(state, 1, 'images');
+                mutations.FINISH_UPLOAD(state, 1);
+
+                assert.lengthOf(values(state.uploads), 0);
+            });
         });
     });
 
-    describe('FINISH_UPLOAD', () => {
+    describe('getters', () => {
 
-        it('can finish an upload', () => {
+        describe('all', () => {
 
-            const state = { uploads: {} };
+            it('can get all uploads', () => {
 
-            mutations.START_UPLOAD(state, 1, 'images');
-            mutations.FINISH_UPLOAD(state, 1);
+                const state = { uploads: { 1: { id: 1 }, 2: { id: 2 } } };
 
-            assert.lengthOf(values(state.uploads), 0);
+                const allUploads = getters.all(state);
+
+                assert.lengthOf(allUploads, 2);
+                assert.equal(allUploads[0].id, 1);
+                assert.equal(allUploads[1].id, 2);
+
+            });
         });
     });
 });
