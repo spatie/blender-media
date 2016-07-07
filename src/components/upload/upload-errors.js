@@ -1,6 +1,3 @@
-import { allErrors } from '../../getters';
-import { clearErrors } from '../../actions';
-
 export default {
 
     template: `
@@ -24,18 +21,15 @@ export default {
 
     props: ['collection'],
 
-    vuex: {
-        getters: {
-            allErrors,
-        },
-        actions: {
-            clearErrors,
+    methods: {
+        clearErrors(collection) {
+            this.$store.dispatch('clearErrors', { collection });
         },
     },
 
     computed: {
         error() {
-            return this.allErrors[this.collection] || '';
+            return this.$store.getters.allErrors[this.collection] || '';
         },
         hasError() {
             return !! this.error;

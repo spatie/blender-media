@@ -1,15 +1,6 @@
-import { renameMedia, updateMediaCustomProperty } from '../../actions';
-
 export default {
 
     props: ['media', 'data'],
-
-    vuex: {
-        actions: {
-            renameMedia,
-            updateMediaCustomProperty,
-        },
-    },
 
     computed: {
         name: {
@@ -24,10 +15,13 @@ export default {
 
     methods: {
         rename(name) {
-            this.renameMedia(this.media, name);
+            this.$store.dispatch('renameMedia', { id: this.media.id, name });
         },
         updateCustomProperty(property, value) {
-            this.updateMediaCustomProperty(this.media, property, value);
+            this.$store.dispatch(
+                'updateCustomProperty',
+                { id: this.media.id, property, value }
+            );
         },
         customProperty(name, fallback = null) {
             return this.media.customProperties[name] || fallback;

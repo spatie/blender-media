@@ -1,5 +1,4 @@
 import MediaRow from './media-row';
-import { setMediaOrder } from '../../actions';
 import Sortable from '../sortable/sortable';
 import { sortBy } from 'lodash';
 
@@ -41,12 +40,6 @@ export default {
         },
     },
 
-    vuex: {
-        actions: {
-            setMediaOrder,
-        },
-    },
-
     events: {
         reordered({ elements }) {
 
@@ -58,7 +51,7 @@ export default {
                     return order;
                 }, {});
 
-            this.setMediaOrder(order);
+            this.$store.dispatch('setMediaOrder', { order });
         },
     },
 

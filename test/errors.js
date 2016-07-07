@@ -6,13 +6,13 @@ describe('errors', () => {
 
     describe('mutations', () => {
 
-        describe('ADD_ERROR', () => {
+        describe('addError', () => {
 
             it('can add an error for a collection', () => {
 
                 const state = { errors: {} };
 
-                mutations.ADD_ERROR(state, 'images', 'File too large');
+                mutations.addError(state, { collection: 'images', message: 'File too large'});
 
                 assert.lengthOf(values(state.errors), 1);
                 assert.equal(state.errors['images'], 'File too large');
@@ -22,23 +22,23 @@ describe('errors', () => {
 
                 const state = { errors: {} };
 
-                mutations.ADD_ERROR(state, 'images', 'File too large');
-                mutations.ADD_ERROR(state, 'images', 'Conversion error');
+                mutations.addError(state, { collection: 'images', message: 'File too large' });
+                mutations.addError(state, { collection: 'images', message: 'Conversion error' });
 
                 assert.lengthOf(values(state.errors), 1);
                 assert.equal(state.errors['images'], 'Conversion error');
             });
         });
 
-        describe('CLEAR_ERRORS', () => {
+        describe('clearErrors', () => {
 
             it('can clear all errors for a collection', () => {
 
                 const state = { errors: {} };
 
-                mutations.ADD_ERROR(state, 'images', 'File too large');
+                mutations.addError(state, 'images', 'File too large');
 
-                mutations.CLEAR_ERRORS(state, 'images');
+                mutations.clearErrors(state, 'images');
 
                 assert.lengthOf(values(state.errors), 0);
             });
@@ -51,7 +51,7 @@ describe('errors', () => {
 
             it('can get all errors', () => {
 
-                const state = { errors: { errors: { images: 'Foo', downloads: 'Bar' } } };
+                const state = { errors: { images: 'Foo', downloads: 'Bar' } };
 
                 const allErrors = getters.allErrors(state);
 

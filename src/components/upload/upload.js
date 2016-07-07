@@ -1,12 +1,3 @@
-import {
-    addError,
-    addMedia,
-    clearErrors,
-    finishUpload,
-    replaceMedia,
-    startUpload,
-    updateUploadProgress,
-} from '../../actions';
 import Dropzone from 'dropzone';
 import translate from '../../translations';
 import { uniqueIdentifier } from '../../helpers';
@@ -51,26 +42,36 @@ export default {
             data.append('model_name', model.name);
             data.append('model_id', model.id);
 
-            clearErrors(this.vm.$store, collection);
-            startUpload(this.vm.$store, file.uploadId, file.name, collection);
+            this.vm.$store.dispatch('clearErrors', { collection });
+            this.vm.$store.dispatch(
+                'startUpload',
+                { id: file.uploadId, name: file.name, collection }
+            );
+
         }.bind(this));
 
         this.vm.upload.on('uploadprogress', function (file) {
-            updateUploadProgress(this.vm.$store, file.uploadId, file.upload.progress);
+            this.vm.$store.dispatch(
+                'updateUploadProgress',
+                { id: file.uploadId, progress: file.upload.progress }
+            );
         }.bind(this));
 
         this.vm.upload.on('success', function (file, response) {
             this.vm.options.multiple ?
-                addMedia(this.vm.$store, response) :
-                replaceMedia(this.vm.$store, collection, response);
+                this.vm.$store.dispatch('addMedia', { media: response }) :
+                this.vm.$store.dispatch('replaceMedia', { collection, media: response });
         }.bind(this));
 
         this.vm.upload.on('error', function () {
-            addError(this.vm.$store, collection, translate('errors.fail'));
+            this.vm.$store.dispatch(
+                'addError',
+                { collection, message: translate('errors.fail') }
+            );
         }.bind(this));
 
         this.vm.upload.on('complete', function (file) {
-            finishUpload(this.vm.$store, file.uploadId);
+            this.vm.$store.dispatch('finishUpload', { id: file.uploadId });
         }.bind(this));
     },
 

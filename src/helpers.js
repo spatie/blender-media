@@ -1,7 +1,3 @@
-export const translate = key => {
-    return key;
-};
-
 export const matches = (element, selector) => {
 
     if (element.matches) {
@@ -19,6 +15,17 @@ export const uniqueIdentifier = () => (
     `${(new Date()).getTime()}-${Math.floor(Math.random() * 100000)}`
 );
 
-export const pipe = (object, ...operations) => {
-    return operations.reduce((object, operation) => operation(object), object);
-};
+export const pipe = (object, ...operations) => (
+    operations.reduce((object, operation) => operation(object), object)
+);
+
+export const makeAction = (type) => (
+    ({ commit }, payload) => commit(type, payload)
+);
+
+export const makeActions = mutations => (
+    Object.keys(mutations).reduce((actions, type) => {
+        actions[type] = makeAction(type);
+        return actions;
+    }, {})
+);

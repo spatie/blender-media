@@ -1,5 +1,3 @@
-import { allMedia, allUploads } from '../getters';
-import { hydrate, markCollectionForRemoval } from '../actions';
 import Export from './export/export';
 import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
@@ -85,23 +83,12 @@ export default {
 
     store,
 
-    vuex: {
-        getters: {
-            allMedia,
-            allUploads,
-        },
-        actions: {
-            hydrate,
-            markCollectionForRemoval,
-        },
-    },
-
     computed: {
         options() {
             return getTypeOptions(this.type);
         },
         media() {
-            return this.allMedia.filter(media => media.collection === this.collection);
+            return this.$store.getters.allMedia.filter(media => media.collection === this.collection);
         },
         hasMedia() {
             return this.media.length > 0;
@@ -110,7 +97,7 @@ export default {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
         },
         uploads() {
-            return this.allUploads.filter(upload => upload.collection === this.collection);
+            return this.$store.getters.allUploads.filter(upload => upload.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -135,10 +122,13 @@ export default {
 
     methods: {
         translate,
+        markCollectionForRemoval(collection) {
+            return this.$store.dispatch('markCollectionForRemoval', { collection });
+        },
     },
 
     ready() {
-        this.hydrate({ media: this.initial });
+        this.$store.dispatch('addMedia', { media: this.initial });
     },
 
 };

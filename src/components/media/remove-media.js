@@ -1,5 +1,3 @@
-import { markMediaForRemoval, restoreMedia } from '../../actions';
-
 export default {
 
     template: `
@@ -27,10 +25,12 @@ export default {
 
     props: ['media'],
 
-    vuex: {
-        actions: {
-            markMediaForRemoval,
-            restoreMedia,
+    methods: {
+        markMediaForRemoval(media) {
+            this.$store.dispatch('markMediaForRemoval', { id: media.id });
+        },
+        restoreMedia(media) {
+            this.$store.dispatch('restoreMedia', { id: media.id });
         },
     },
 

@@ -17,14 +17,14 @@ describe('media', () => {
 
     describe('mutations', () => {
 
-        describe('ADD_MEDIA', () => {
+        describe('addMedia', () => {
 
             it('can add a single media item', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
                 assert.lengthOf(values(state.media), 1);
                 assert.equal(state.media[1], media);
@@ -36,7 +36,7 @@ describe('media', () => {
                 const media1 = createMedia(1);
                 const media2 = createMedia(2);
 
-                mutations.ADD_MEDIA(state, [media1, media2]);
+                mutations.addMedia(state, { media: [media1, media2] });
 
                 assert.lengthOf(values(state.media), 2);
                 assert.equal(state.media[1], media1);
@@ -48,51 +48,51 @@ describe('media', () => {
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
+                mutations.addMedia(state, { media });
 
                 assert.lengthOf(values(state.media), 1);
             });
 
         });
 
-        describe('RENAME_MEDIA', () => {
+        describe('renameMedia', () => {
 
             it('can rename a media item', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.RENAME_MEDIA(state, media, 'image_renamed');
+                mutations.renameMedia(state, { id: media.id, name: 'image_renamed' });
 
                 assert.equal(state.media[1].name, 'image_renamed');
             });
         });
 
-        describe('MARK_MEDIA_FOR_REMOVAL', () => {
+        describe('markMediaForRemoval', () => {
 
             it('can mark a media item for removal', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
+                mutations.markMediaForRemoval(state, { id: media.id });
 
                 assert.isTrue(state.media[1].markedForRemoval);
             });
         });
 
-        describe('MARK_COLLECTION_FOR_REMOVAL', () => {
+        describe('markCollectionForRemoval', () => {
 
-            it('can mark an entire collection for delete', () => {
+            it('can mark an entire collection for removal', () => {
 
                 const state = { media: { 1: createMedia(1), 2: createMedia(2) } };
 
-                mutations.MARK_COLLECTION_FOR_REMOVAL(state, 'images');
+                mutations.markCollectionForRemoval(state, { collection: 'images' });
 
                 assert.isTrue(state.media[1].markedForRemoval);
                 assert.isTrue(state.media[2].markedForRemoval);
@@ -100,23 +100,22 @@ describe('media', () => {
 
         });
 
-        describe('RESTORE_MEDIA', () => {
+        describe('restoreMedia', () => {
 
             it('can restore a media item that\'s marked for removal', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
-
-                mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
-                mutations.RESTORE_MEDIA(state, media);
+                mutations.addMedia(state, { media });
+                mutations.markMediaForRemoval(state, { id: media.id });
+                mutations.restoreMedia(state, { id: media.id });
 
                 assert.isFalse(state.media[1].markedForRemoval);
             });
         });
 
-        describe('REPLACE_MEDIA', () => {
+        describe('replaceMedia', () => {
 
             it('can replace an existing media item with a new item', () => {
 
@@ -125,8 +124,8 @@ describe('media', () => {
                 const oldMedia = createMedia(1);
                 const newMedia = createMedia(2);
 
-                mutations.ADD_MEDIA(state, oldMedia);
-                mutations.REPLACE_MEDIA(state, 'images', newMedia);
+                mutations.addMedia(state, { media: oldMedia });
+                mutations.replaceMedia(state, { collection: 'images', media: newMedia });
 
                 assert.lengthOf(values(state.media), 1);
                 assert.equal(state.media[2].id, 2);
@@ -134,7 +133,7 @@ describe('media', () => {
 
         });
 
-        describe('SET_MEDIA_ORDER', () => {
+        describe('setMediaOrder', () => {
 
             it('can reorder media', () => {
 
@@ -142,41 +141,41 @@ describe('media', () => {
                 const media1 = createMedia(1);
                 const media2 = createMedia(2);
 
-                mutations.ADD_MEDIA(state, [media1, media2]);
+                mutations.addMedia(state, { media: [media1, media2] });
 
-                mutations.SET_MEDIA_ORDER(state, { 1: 1, 2: 0 });
+                mutations.setMediaOrder(state, { order: { 1: 1, 2: 0 } });
 
                 assert.equal(state.media[1].orderColumn, 1);
                 assert.equal(state.media[2].orderColumn, 0);
             });
         });
 
-        describe('CLEAR_COLLECTION', () => {
+        describe('clearCollection', () => {
 
             it('can clear the media from a collection', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.CLEAR_COLLECTION(state, 'images');
+                mutations.clearCollection(state, { collection: 'images' });
 
                 assert.lengthOf(values(state.media), 0);
             });
 
         });
 
-        describe('UPDATE_CUSTOM_PROPERTY', () => {
+        describe('updateCustomProperty', () => {
 
             it('can set a new custom property', () => {
 
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo', 'bar');
+                mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'bar' });
 
                 assert.equal(state.media[1].customProperties.foo, 'bar');
             });
@@ -186,9 +185,9 @@ describe('media', () => {
                 const state = { media: {} };
                 const media = createMedia(1);
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo.bar', 'baz');
+                mutations.updateCustomProperty(state, { id: media.id, property: 'foo.bar', value: 'baz' });
 
                 assert.equal(state.media[1].customProperties.foo.bar, 'baz');
             });
@@ -200,9 +199,9 @@ describe('media', () => {
 
                 media.customProperties = { foo: 'bar' };
 
-                mutations.ADD_MEDIA(state, media);
+                mutations.addMedia(state, { media });
 
-                mutations.UPDATE_CUSTOM_PROPERTY(state, media, 'foo', 'baz');
+                mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'baz' });
 
                 assert.equal(state.media[1].customProperties.foo, 'baz');
             });
@@ -215,7 +214,7 @@ describe('media', () => {
 
             it('can get all media', () => {
 
-                const state = { media: { media: { 1: { id: 1 }, 2: { id: 2 } } } };
+                const state = { media: { 1: { id: 1 }, 2: { id: 2 } } };
 
                 const allMedia = getters.allMedia(state);
 

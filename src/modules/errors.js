@@ -1,3 +1,4 @@
+import { makeActions } from '../helpers';
 import Vue from 'vue';
 
 const state = {
@@ -6,20 +7,22 @@ const state = {
 
 export const mutations = {
 
-    ADD_ERROR(state, collection, error) {
-        Vue.set(state.errors, collection, error);
+    addError(state, { collection, message }) {
+        Vue.set(state.errors, collection, message);
     },
 
-    CLEAR_ERRORS(state, collection) {
+    clearErrors(state, { collection }) {
         Vue.delete(state.errors, collection);
     },
 
 };
 
-export const actions = {};
-
-export const getters = {
-    allErrors: state => state.errors.errors,
+export const actions = {
+    ...makeActions(mutations),
 };
 
-export default { state, mutations };
+export const getters = {
+    allErrors: state => state.errors,
+};
+
+export default { state, mutations, actions, getters };

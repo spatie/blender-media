@@ -1,4 +1,5 @@
 import { forIn, values } from 'lodash';
+import { makeActions } from '../helpers';
 import Vue from 'vue';
 
 const state = {
@@ -7,11 +8,7 @@ const state = {
 
 export const mutations = {
 
-    HYDRATE(state, { media }) {
-        mutations.ADD_MEDIA(state, media);
-    },
-
-    ADD_MEDIA(state, media) {
+    addMedia(state, { media }) {
 
         if (!Array.isArray(media)) {
             media = [media];
@@ -20,41 +17,41 @@ export const mutations = {
         media.forEach(media => Vue.set(state.media, media.id, media));
     },
 
-    RENAME_MEDIA(state, { id }, name) {
+    renameMedia(state, { id, name }) {
 
         if(!state.media[id]) return;
 
         state.media[id].name = name;
     },
 
-    MARK_MEDIA_FOR_REMOVAL(state, { id }) {
+    markMediaForRemoval(state, { id }) {
 
         if(!state.media[id]) return;
 
         Vue.set(state.media[id], 'markedForRemoval', true);
     },
 
-    MARK_COLLECTION_FOR_REMOVAL(state, collection) {
+    markCollectionForRemoval(state, { collection }) {
         forIn(state.media, (media) => {
             if (media.collection === collection) {
-                mutations.MARK_MEDIA_FOR_REMOVAL(state, media);
+                mutations.markMediaForRemoval(state, { id: media.id });
             }
         });
     },
 
-    RESTORE_MEDIA(state, { id }) {
+    restoreMedia(state, { id }) {
 
         if(!state.media[id]) return;
 
         Vue.set(state.media[id], 'markedForRemoval', false);
     },
 
-    REPLACE_MEDIA(state, collection, media) {
-        mutations.CLEAR_COLLECTION(state, collection);
-        mutations.ADD_MEDIA(state, media);
+    replaceMedia(state, { collection, media }) {
+        mutations.clearCollection(state, { collection });
+        mutations.addMedia(state, { media });
     },
 
-    CLEAR_COLLECTION(state, collection) {
+    clearCollection(state, { collection }) {
         forIn(state.media, (media, id) => {
             if (media.collection === collection) {
                 Vue.delete(state.media, id);
@@ -62,19 +59,19 @@ export const mutations = {
         });
     },
 
-    SET_MEDIA_ORDER(state, order) {
+    setMediaOrder(state, { order }) {
         forIn(order, (order, mediaId) => {
             state.media[mediaId].orderColumn = order;
         });
     },
 
-    UPDATE_CUSTOM_PROPERTY(state, { id }, prop, value) {
+    updateCustomProperty(state, { id, property, value }) {
 
         if(!state.media[id]) return;
 
-        const [ namespace, property ] = prop.split('.');
+        const [ namespace, key ] = property.split('.');
 
-        if (!property) {
+        if (!key) {
             Vue.set(state.media[id].customProperties, namespace, value);
             return;
         }
@@ -83,15 +80,17 @@ export const mutations = {
             Vue.set(state.media[id].customProperties, namespace, {});
         }
 
-        Vue.set(state.media[id].customProperties[namespace], property, value);
+        Vue.set(state.media[id].customProperties[namespace], key, value);
     },
 
 };
 
-export const actions = {};
+export const actions = {
+    ...makeActions(mutations),
+};
 
 export const getters = {
-    allMedia: state => values(state.media.media),
+    allMedia: state => values(state.media),
 };
 
 export default { state, mutations, actions, getters };
