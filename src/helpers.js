@@ -19,13 +19,12 @@ export const pipe = (object, ...operations) => (
     operations.reduce((object, operation) => operation(object), object)
 );
 
-export const makeAction = (type) => (
-    ({ commit }, payload) => commit(type, payload)
-);
+export const makeAction = (type) => {
+    return ({ commit }, payload) => commit(type, payload);
+};
 
-export const makeActions = mutations => (
-    Object.keys(mutations).reduce((actions, type) => {
-        actions[type] = makeAction(type);
-        return actions;
-    }, {})
-);
+export const makeActions = mutations => {
+    return Object.keys(mutations).reduce((actions, type) => {
+        return Object.defineProperty(actions, type, makeAction(type));
+    }, {});
+};
