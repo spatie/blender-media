@@ -25,6 +25,6 @@ export const makeAction = (type) => {
 
 export const makeActions = mutations => {
     return Object.keys(mutations).reduce((actions, type) => {
-        return Object.defineProperty(actions, type, makeAction(type));
+        return Object.defineProperty(actions, type, { value: makeAction(type) });
     }, {});
 };
