@@ -1,6 +1,6 @@
 {
   "name": "blender-media",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Blender Media Component",
   "main": "dist/index.js",
   "scripts": {
@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "vue": "^1.0.24",
-    "vuex": "2.0.0-rc.1"
+    "vuex": "2.0.0-rc.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
