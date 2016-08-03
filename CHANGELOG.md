@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 2.1.0
+- Updated Vuex to 2.0.0-rc
+
 ## 2.0.1
 - Treat svg's like images for thumbs
 - Hide clear collection when irrelevant 
