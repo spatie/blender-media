@@ -1,5 +1,4 @@
 export const matches = (element, selector) => {
-
     if (element.matches) {
         return element.matches(selector);
     }
@@ -25,7 +24,7 @@ export const makeAction = (type) => {
 
 export const makeActions = mutations => {
     return Object.keys(mutations).reduce((actions, type) => {
-        return Object.defineProperty(actions, type, { 
+        return Object.defineProperty(actions, type, {
             value: makeAction(type),
             enumerable: true,
         });

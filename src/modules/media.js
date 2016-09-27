@@ -15,13 +15,13 @@ export const mutations = {
         media.forEach(media => Vue.set(state.media, media.id, media));
     },
     renameMedia(state, { id, name }) {
-        if(!state.media[id]) {
+        if (! state.media[id]) {
             return;
         }
         state.media[id].name = name;
     },
     markMediaForRemoval(state, { id }) {
-        if(! state.media[id]) {
+        if (! state.media[id]) {
             return;
         }
 
@@ -35,7 +35,7 @@ export const mutations = {
         });
     },
     restoreMedia(state, { id }) {
-        if(! state.media[id]) {
+        if (! state.media[id]) {
             return;
         }
 
@@ -58,18 +58,18 @@ export const mutations = {
         });
     },
     updateCustomProperty(state, { id, property, value }) {
-        if(! state.media[id]) {
+        if (! state.media[id]) {
             return;
         }
 
-        const [ namespace, key ] = property.split('.');
+        const [namespace, key] = property.split('.');
 
-        if (!key) {
+        if (! key) {
             Vue.set(state.media[id].customProperties, namespace, value);
             return;
         }
 
-        if (!state.media[id].customProperties[namespace]) {
+        if (! state.media[id].customProperties[namespace]) {
             Vue.set(state.media[id].customProperties, namespace, {});
         }
 

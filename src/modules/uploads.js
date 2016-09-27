@@ -16,7 +16,7 @@ export const mutations = {
         });
     },
     updateUploadProgress(state, { id, progress }) {
-        if (!state.uploads[id]) {
+        if (! state.uploads[id]) {
             return;
         }
 
