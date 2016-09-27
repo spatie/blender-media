@@ -9,7 +9,7 @@
     "build:js": "NODE_ENV=production babel src -d dist",
     "dev": "concurrently \"npm run dev:js\" \"npm run dev:css\" \"npm run dev:serve\"",
     "dev:css": "postcss -c postcss.conf.js -o ./example/build/media.css -w",
-    "dev:js": "NODE_ENV=development webpack-dev-server",
+    "dev:js": "NODE_ENV=development webpack-dev-server --config example/webpack.config.js",
     "dev:serve": "node example/server.js",
     "lint": "eslint src",
     "prepublish": "npm run test; npm run build",
