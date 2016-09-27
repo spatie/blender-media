@@ -1,10 +1,17 @@
+<template>
+    <div>
+        <slot></slot>
+    </div>
+</template>
+
+<script>
 import Dropzone from 'dropzone';
 import translate from '../../translations';
 import { uniqueIdentifier } from '../../helpers';
 
 export default {
 
-    params: [
+    props: [
         'collection',
         'model',
         'url',
@@ -12,14 +19,12 @@ export default {
         'accepts',
     ],
 
-    bind() {
+    mounted() {
 
-        const { collection, model } = this.params;
-
-        this.vm.upload = new Dropzone(this.el, {
-            url: this.params.url,
-            uploadMultiple: this.params.multiple,
-            acceptedFiles: this.params.accepts,
+        this.dropzone = new Dropzone(this.el, {
+            url: this.url,
+            uploadMultiple: this.multiple,
+            acceptedFiles: this.accepts,
             parallelUploads: 10,
             clickable: this.el.querySelector('.js-add-media'),
 
@@ -33,50 +38,51 @@ export default {
 
         // For some odd reason `bind` is necessary, arrow functions aren't working.
 
-        this.vm.upload.on('sending', function (file, xhr, data) {
+        this.dropzone.on('sending', function (file, xhr, data) {
 
-            file.collection = collection;
+            file.collection = this.collection;
             file.uploadId = uniqueIdentifier();
 
-            data.append('collection_name', collection);
-            data.append('model_name', model.name);
-            data.append('model_id', model.id);
+            data.append('collection_name', this.collection);
+            data.append('model_name', this.model.name);
+            data.append('model_id', this.model.id);
 
-            this.vm.$store.dispatch('clearErrors', { collection });
+            this.vm.$store.dispatch('clearErrors', { collection: this.collection });
             this.vm.$store.dispatch(
                 'startUpload',
-                { id: file.uploadId, name: file.name, collection }
+                { id: file.uploadId, name: file.name, collection: this.collection }
             );
 
         }.bind(this));
 
-        this.vm.upload.on('uploadprogress', function (file) {
+        this.dropzone.on('uploadprogress', function (file) {
             this.vm.$store.dispatch(
                 'updateUploadProgress',
                 { id: file.uploadId, progress: file.upload.progress }
             );
         }.bind(this));
 
-        this.vm.upload.on('success', function (file, response) {
+        this.dropzone.on('success', function (file, response) {
             this.vm.options.multiple ?
                 this.vm.$store.dispatch('addMedia', { media: response }) :
-                this.vm.$store.dispatch('replaceMedia', { collection, media: response });
+                this.vm.$store.dispatch('replaceMedia', { collection: this.collection, media: response });
         }.bind(this));
 
-        this.vm.upload.on('error', function () {
+        this.dropzone.on('error', function () {
             this.vm.$store.dispatch(
                 'addError',
-                { collection, message: translate('errors.fail') }
+                { collection: this.collection, message: translate('errors.fail') }
             );
         }.bind(this));
 
-        this.vm.upload.on('complete', function (file) {
+        this.dropzone.on('complete', function (file) {
             this.vm.$store.dispatch('finishUpload', { id: file.uploadId });
         }.bind(this));
     },
 
-    unbind() {
-        this.vm.upload.destroy();
+    beforeDestroy() {
+        this.dropzone.destroy();
     },
 
 };
+</script>

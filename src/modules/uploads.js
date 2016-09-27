@@ -7,9 +7,7 @@ const state = {
 };
 
 export const mutations = {
-
     startUpload(state, { id, name, collection }) {
-
         Vue.set(state.uploads, id, {
             id,
             name,
@@ -17,18 +15,16 @@ export const mutations = {
             progress: 0,
         });
     },
-
     updateUploadProgress(state, { id, progress }) {
-
-        if (!state.uploads[id]) return;
+        if (!state.uploads[id]) {
+            return;
+        }
 
         state.uploads[id].progress = progress;
     },
-
     finishUpload(state, { id }) {
         Vue.delete(state.uploads, id);
     },
-
 };
 
 export const actions = {

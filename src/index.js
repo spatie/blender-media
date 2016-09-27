@@ -6,13 +6,9 @@ import { registerEditor } from './options/editors';
 export default Media;
 
 export {
-
     Media,
-
     editor,
     registerEditor,
-
     extendType,
     registerType,
-
 };

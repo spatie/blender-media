@@ -1,18 +1,6 @@
-import Export from './export/export';
-import { getTypeOptions } from '../options/types';
-import MediaTable from './media/media-table';
-import store from '../store';
-import translate from '../translations';
-import Upload from './upload/upload';
-import UploadErrors from './upload/upload-errors';
-import UploadTable from './upload/upload-table';
-
-export default {
-
-    template: `
-        <div
-            class="media"
-            v-upload
+<template>
+    <div class="media">
+        <upload
             :collection="collection"
             :model="model"
             :url="uploadUrl"
@@ -33,7 +21,7 @@ export default {
                 ></upload-table>
             </div>
             <div
-                v-if="!hasMedia && !hasUploads"
+                v-if="isEmpty"
                 class="media__alert">
                 {{ translate('noMedia') }}
             </div>
@@ -58,8 +46,21 @@ export default {
                 :collection="collection"
                 :media="media"
             ></export>
-        </div>
-    `,
+        </upload>
+    </div>
+</template>
+
+<script>
+import Export from './export/export';
+import { getTypeOptions } from '../options/types';
+import MediaTable from './media/media-table';
+import store from '../store';
+import translate from '../translations';
+import Upload from './upload/upload';
+import UploadErrors from './upload/upload-errors';
+import UploadTable from './upload/upload-table';
+
+export default {
 
     props: {
         collection: { required: true },
@@ -102,20 +103,19 @@ export default {
         hasUploads() {
             return this.uploads.length > 0;
         },
+        isEmpty() {
+            return ! this.hasMedia && ! this.hasUploads;
+        }
         uploadButtonText() {
             if (this.options.multiple) {
                 return translate('addMedia');
             }
-
-            return (!this.hasMedia && !this.hasUploads) ?
-                translate('addMedia') :
-                translate('replaceMedia');
+            return this.isEmpty ? translate('addMedia') : translate('replaceMedia');
         },
         canBeCleared() {
-            if (!this.hasActiveMedia) {
+            if (! this.hasActiveMedia) {
                 return false;
             }
-
             return this.options.multiple;
         },
     },
@@ -132,3 +132,4 @@ export default {
     },
 
 };
+</script>

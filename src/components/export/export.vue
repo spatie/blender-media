@@ -1,17 +1,18 @@
+<template>
+    <div v-show="false">
+        <textarea
+            :name="collection"
+            :value="data"
+            :style="{ width: '100%', height: '300px' }"
+        ></textarea>
+    </div>
+</template>
+
+<script>
 import { pipe } from '../../helpers';
 import { sortBy } from 'lodash';
 
 export default {
-
-    template: `
-        <div v-show="false">
-            <textarea
-                :name="collection"
-                :value="data"
-                :style="{ width: '100%', height: '300px' }"
-            ></textarea>
-        </div>
-    `,
 
     props: ['collection', 'media'],
 
@@ -27,3 +28,4 @@ export default {
     },
 
 };
+</script>
