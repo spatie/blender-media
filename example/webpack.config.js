@@ -4,6 +4,7 @@ module.exports = {
     output: {
         path: __dirname + '/build',
         filename: 'app.js',
+        publicPath: '/build',
     },
     module: {
         loaders: [
@@ -20,6 +21,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.vue'],
+        alias: {
+            vue: 'vue/dist/vue.js',
+        },
     },
     devServer: {
         contentBase: __dirname,

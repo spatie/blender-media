@@ -26,7 +26,7 @@ export default {
             uploadMultiple: this.multiple,
             acceptedFiles: this.accepts,
             parallelUploads: 10,
-            clickable: this.el.querySelector('.js-add-media'),
+            clickable: this.$el.querySelector('.js-add-media'),
 
             previewsContainer: false,
             previewTemplate: false,

@@ -7,4 +7,4 @@ extendType('download', {
 
 Vue.component('media', Media);
 
-new Vue({ el: '#app' });
+new Vue({ el: '#app' })

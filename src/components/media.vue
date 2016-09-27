@@ -74,6 +74,7 @@ export default {
     components: {
         Export,
         MediaTable,
+        Upload,
         UploadErrors,
         UploadTable,
     },
