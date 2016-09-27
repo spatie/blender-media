@@ -5,12 +5,6 @@ extendType('download', {
     editor: 'locales',
 });
 
-new Vue({
+Vue.component('media', Media);
 
-    el: 'body',
-
-    components: {
-        Media,
-    },
-
-});
+new Vue({ el: '#app' });

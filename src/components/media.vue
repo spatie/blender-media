@@ -105,7 +105,7 @@ export default {
         },
         isEmpty() {
             return ! this.hasMedia && ! this.hasUploads;
-        }
+        },
         uploadButtonText() {
             if (this.options.multiple) {
                 return translate('addMedia');
