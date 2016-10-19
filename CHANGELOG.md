@@ -4,6 +4,7 @@ All Notable changes to `blender-media` will be documented in this file.
 
 ## 2.1.1
 - Require Vuex ^2.0.0
+- Custom property fixes
 
 ## 2.1.0
 - Updated Vuex to 2.0.0-rc
