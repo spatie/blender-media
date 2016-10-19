@@ -6,7 +6,7 @@ const createMedia = id => ({
     id: id,
     name: `image_${id}`,
     fileName: `image_${id}.jpeg`,
-    customProperties: [],
+    customProperties: {},
     orderColumn: id,
     thumbUrl: `/media/image_${id}.jpeg`,
     originalUrl: `/media/image_${id}.jpeg`,
@@ -175,7 +175,11 @@ describe('media', () => {
 
                 mutations.addMedia(state, { media });
 
-                mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'bar' });
+                mutations.updateCustomProperty(state, {
+                    id: media.id,
+                    property: 'foo',
+                    value: 'bar',
+                });
 
                 assert.equal(state.media[1].customProperties.foo, 'bar');
             });
