@@ -10,15 +10,15 @@ describe('uploads', () => {
 
             it('can start an upload', () => {
 
-                const state = { uploads: {} };
+                const state = { uploads: [] };
 
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
 
                 assert.lengthOf(values(state.uploads), 1);
-                assert.equal(state.uploads[1].id, 1);
-                assert.equal(state.uploads[1].name, 'image.jpg');
-                assert.equal(state.uploads[1].collection, 'images');
-                assert.equal(state.uploads[1].progress, 0);
+                assert.equal(state.uploads[0].id, 1);
+                assert.equal(state.uploads[0].name, 'image.jpg');
+                assert.equal(state.uploads[0].collection, 'images');
+                assert.equal(state.uploads[0].progress, 0);
             });
 
         });
@@ -27,12 +27,12 @@ describe('uploads', () => {
 
             it('can update an upload\'s progress', () => {
 
-                const state = { uploads: {} };
+                const state = { uploads: [] };
 
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
                 mutations.updateUploadProgress(state, { id: 1, progress: 50 });
 
-                assert.equal(state.uploads[1].progress, 50);
+                assert.equal(state.uploads[0].progress, 50);
             });
         });
 
@@ -40,7 +40,7 @@ describe('uploads', () => {
 
             it('can finish an upload', () => {
 
-                const state = { uploads: {} };
+                const state = { uploads: [] };
 
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
                 mutations.finishUpload(state, { id: 1 });
@@ -56,7 +56,7 @@ describe('uploads', () => {
 
             it('can get all uploads', () => {
 
-                const state = { uploads: { 1: { id: 1 }, 2: { id: 2 } } };
+                const state = { uploads: [{ id: 1 }, { id: 2 }] };
 
                 const allUploads = getters.allUploads(state);
 

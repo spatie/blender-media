@@ -1,5 +1,4 @@
 import { forIn, values } from 'lodash';
-import { makeActions } from '../helpers';
 import Vue from 'vue';
 
 const state = {
@@ -77,12 +76,8 @@ export const mutations = {
     },
 };
 
-export const actions = {
-    ...makeActions(mutations),
-};
-
 export const getters = {
     allMedia: state => values(state.media),
 };
 
-export default { state, mutations, actions, getters };
+export default { state, mutations, getters };

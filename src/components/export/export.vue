@@ -3,13 +3,12 @@
         <textarea
             :name="collection"
             :value="data"
-            :style="{ width: '100%', height: '300px' }"
         ></textarea>
     </div>
 </template>
 
 <script>
-import { pipe } from '../../helpers';
+import { pipe } from '../../util';
 import { sortBy } from 'lodash';
 
 export default {
@@ -20,7 +19,7 @@ export default {
         data() {
             return pipe(
                 this.media,
-                media => media.filter(media => !media.markedForRemoval),
+                media => media.filter(media => ! media.markedForRemoval),
                 media => sortBy(media, 'orderColumn'),
                 media => JSON.stringify(media)
             );

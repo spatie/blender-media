@@ -1,4 +1,3 @@
-import { makeActions } from '../helpers';
 import Vue from 'vue';
 
 const state = {
@@ -14,12 +13,8 @@ export const mutations = {
     },
 };
 
-export const actions = {
-    ...makeActions(mutations),
-};
-
 export const getters = {
     allErrors: state => state.errors,
 };
 
-export default { state, mutations, actions, getters };
+export default { state, mutations, getters };

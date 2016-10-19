@@ -1,14 +1,13 @@
-import { makeActions } from '../helpers';
 import { values } from 'lodash';
 import Vue from 'vue';
 
 const state = {
-    uploads: {},
+    uploads: [],
 };
 
 export const mutations = {
     startUpload(state, { id, name, collection }) {
-        Vue.set(state.uploads, id, {
+        state.uploads.push({
             id,
             name,
             collection,
@@ -16,23 +15,21 @@ export const mutations = {
         });
     },
     updateUploadProgress(state, { id, progress }) {
-        if (! state.uploads[id]) {
+        const upload = state.uploads.filter(upload => upload.id === id)[0];
+
+        if (! upload) {
             return;
         }
 
-        state.uploads[id].progress = progress;
+        upload.progress = progress;
     },
     finishUpload(state, { id }) {
-        Vue.delete(state.uploads, id);
+        state.uploads = state.uploads.filter(upload => upload.id !== id);
     },
-};
-
-export const actions = {
-    ...makeActions(mutations),
 };
 
 export const getters = {
-    allUploads: state => values(state.uploads),
+    allUploads: state => state.uploads,
 };
 
-export default { state, mutations, actions, getters };
+export default { state, mutations, getters };

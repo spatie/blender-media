@@ -7,7 +7,7 @@
 <script>
 import Dropzone from 'dropzone';
 import translate from '../../translations';
-import { uniqueIdentifier } from '../../helpers';
+import { uuid } from '../../util';
 
 export default {
 
@@ -20,6 +20,7 @@ export default {
     ],
 
     mounted() {
+        return;
 
         this.dropzone = new Dropzone(this.el, {
             url: this.url,
@@ -41,7 +42,7 @@ export default {
         this.dropzone.on('sending', function (file, xhr, data) {
 
             file.collection = this.collection;
-            file.uploadId = uniqueIdentifier();
+            file.uploadId = uuid();
 
             data.append('collection_name', this.collection);
             data.append('model_name', this.model.name);

@@ -25,7 +25,9 @@
                 class="media__alert">
                 {{ translate('noMedia') }}
             </div>
-            <upload-errors :collection="collection"></upload-errors>
+            <upload-errors
+                :collection="collection"
+            ></upload-errors>
             <div class="media__actions">
                 <button
                     class="js-add-media media__button"
@@ -36,7 +38,7 @@
                 <button
                     v-if="canBeCleared"
                     class="media__button--delete"
-                    @click.prevent="markCollectionForRemoval(collection)"
+                    @click.prevent="markCollectionForRemoval({ collection })"
                 >
                     {{ translate('clearCollection') }}
                     <i class="fa fa-remove media__input--button--delete__icon"></i>
@@ -51,6 +53,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Export from './export/export';
 import { getTypeOptions } from '../options/types';
 import MediaTable from './media/media-table';
@@ -62,13 +65,33 @@ import UploadTable from './upload/upload-table';
 
 export default {
 
+    store,
+
     props: {
-        collection: { required: true },
-        type: { required: true },
-        uploadUrl: { required: true },
-        model: { required: true },
-        initial: { default: () => [] },
-        data: { default: () => ({}) },
+        collection: {
+            type: String,
+            required: true,
+        },
+        type: {
+            type: String,
+            required: true,
+        },
+        uploadUrl: {
+            type: String,
+            required: true,
+        },
+        model: {
+            type: Object,
+            required: true,
+        },
+        initial: {
+            type: Array,
+            default: () => [],
+        },
+        data: {
+            type: Object,
+            default: () => ({}),
+        },
     },
 
     components: {
@@ -79,18 +102,16 @@ export default {
         UploadTable,
     },
 
-    directives: {
-        Upload,
-    },
-
-    store,
-
     computed: {
+        ...mapGetters([
+            'allMedia',
+            'allUploads',
+        ]),
         options() {
             return getTypeOptions(this.type);
         },
         media() {
-            return this.$store.getters.allMedia.filter(media => media.collection === this.collection);
+            return this.allMedia.filter(media => media.collection === this.collection);
         },
         hasMedia() {
             return this.media.length > 0;
@@ -99,7 +120,7 @@ export default {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
         },
         uploads() {
-            return this.$store.getters.allUploads.filter(upload => upload.collection === this.collection);
+            return this.allUploads.filter(upload => upload.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -122,14 +143,15 @@ export default {
     },
 
     methods: {
+        ...mapActions([
+            'addMedia',
+            'markCollectionForRemoval',
+        ]),
         translate,
-        markCollectionForRemoval(collection) {
-            return this.$store.dispatch('markCollectionForRemoval', { collection });
-        },
     },
 
     ready() {
-        this.$store.dispatch('addMedia', { media: this.initial });
+        this.addMedia({ media: this.initial });
     },
 
 };
