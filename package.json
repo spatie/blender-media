@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "vue": "^1.0.24",
-    "vuex": "2.0.0-rc.3"
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
@@ -60,7 +60,7 @@
     "postcss-nested": "^1.0.0",
     "postcss-simple-vars": "^2.0.0",
     "vue": "^1.0.25",
-    "vuex": "2.0.0-rc.1",
+    "vuex": "^2.0.0",
     "watchify": "^3.7.0"
   },
   "babel": {
