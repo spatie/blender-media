@@ -4,14 +4,14 @@
             :collection="collection"
             :model="model"
             :url="uploadUrl"
-            :multiple="options.multiple"
-            :accepts="options.accepts"
+            :multiple="settings.multiple"
+            :accepts="settings.accepts"
         >
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
                     :media="media"
-                    :options="options"
+                    :settings="settings"
                     :data="data"
                 ></media-table>
             </div>
@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import Export from './export/export';
-import { getTypeOptions } from '../options/types';
+import { getTypeSettings } from '../settings/types';
 import MediaTable from './media/media-table';
 import store from '../store';
 import translate from '../translations';
@@ -103,24 +103,22 @@ export default {
     },
 
     computed: {
-        ...mapGetters([
-            'allMedia',
-            'allUploads',
-        ]),
-        options() {
-            return getTypeOptions(this.type);
-        },
-        media() {
-            return this.allMedia.filter(media => media.collection === this.collection);
+        ...mapState({
+            media(state) {
+                return state.media.media.filter(m => m.collection === this.collection);
+            },
+            uploads(state) {
+                return state.uploads.uploads.filter(m => m.collection === this.collection);
+            },
+        }),
+        settings() {
+            return getTypeSettings(this.type);
         },
         hasMedia() {
             return this.media.length > 0;
         },
         hasActiveMedia() {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
-        },
-        uploads() {
-            return this.allUploads.filter(upload => upload.collection === this.collection);
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -129,7 +127,7 @@ export default {
             return ! this.hasMedia && ! this.hasUploads;
         },
         uploadButtonText() {
-            if (this.options.multiple) {
+            if (this.settings.multiple) {
                 return translate('addMedia');
             }
             return this.isEmpty ? translate('addMedia') : translate('replaceMedia');
@@ -138,7 +136,7 @@ export default {
             if (! this.hasActiveMedia) {
                 return false;
             }
-            return this.options.multiple;
+            return this.settings.multiple;
         },
     },
 
@@ -153,6 +151,5 @@ export default {
     ready() {
         this.addMedia({ media: this.initial });
     },
-
 };
 </script>
