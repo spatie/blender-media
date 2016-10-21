@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { find } from 'lodash';
+import { findOrFail } from '../src/util';
 import { mutations } from '../src/modules/media';
 
 const createMedia = id => ({
@@ -12,16 +12,6 @@ const createMedia = id => ({
     originalUrl: `/media/image_${id}.jpeg`,
     collection: 'images',
 });
-
-function getMedia(state, id) {
-    const media = find(state.media, { id });
-
-    if (! media) {
-        throw new Error(`Trying to retrieve media ${id} which doens't exist.`);
-    }
-
-    return media;
-}
 
 describe('media', () => {
 
@@ -37,7 +27,7 @@ describe('media', () => {
                 mutations.addMedia(state, { media });
 
                 assert.lengthOf(state.media, 1);
-                assert.equal(getMedia(state, 1), media);
+                assert.equal(findOrFail(state.media, { id: 1 }), media);
             });
 
             it('can add an array of media items', () => {
@@ -49,7 +39,7 @@ describe('media', () => {
                 mutations.addMedia(state, { media: [media1, media2] });
 
                 assert.lengthOf(state.media, 2);
-                assert.equal(getMedia(state, 1), media1);
+                assert.equal(findOrFail(state.media, { id: 1 }), media1);
                 assert.equal(state.media[1], media2);
             });
 
@@ -74,10 +64,9 @@ describe('media', () => {
                 const media = createMedia(1);
 
                 mutations.addMedia(state, { media });
-
                 mutations.renameMedia(state, { id: media.id, name: 'image_renamed' });
 
-                assert.equal(getMedia(state, 1).name, 'image_renamed');
+                assert.equal(findOrFail(state.media, { id: 1 }).name, 'image_renamed');
             });
         });
 
@@ -89,7 +78,6 @@ describe('media', () => {
                 const media = createMedia(1);
 
                 mutations.addMedia(state, { media });
-
                 mutations.markMediaForRemoval(state, { id: media.id });
 
                 assert.isTrue(state.media[0].markedForRemoval);
@@ -104,8 +92,8 @@ describe('media', () => {
 
                 mutations.markCollectionForRemoval(state, { collection: 'images' });
 
-                assert.isTrue(getMedia(state, 1).markedForRemoval);
-                assert.isTrue(getMedia(state, 2).markedForRemoval);
+                assert.isTrue(findOrFail(state.media, { id: 1 }).markedForRemoval);
+                assert.isTrue(findOrFail(state.media, { id: 2 }).markedForRemoval);
             });
 
         });
@@ -140,7 +128,7 @@ describe('media', () => {
                 assert.lengthOf(state.media, 1);
 
                 // Will throw if id 2 doesn't exist
-                getMedia(state, 2);
+                findOrFail(state.media, { id: 2 });
             });
 
         });
@@ -156,8 +144,8 @@ describe('media', () => {
                 mutations.addMedia(state, { media: [media1, media2] });
                 mutations.setMediaOrder(state, { order: { 1: 1, 2: 0 } });
 
-                assert.equal(getMedia(state, 1).orderColumn, 1);
-                assert.equal(getMedia(state, 2).orderColumn, 0);
+                assert.equal(findOrFail(state.media, { id: 1 }).orderColumn, 1);
+                assert.equal(findOrFail(state.media, { id: 2 }).orderColumn, 0);
             });
         });
 
@@ -169,10 +157,9 @@ describe('media', () => {
                 const media = createMedia(1);
 
                 mutations.addMedia(state, { media });
-
                 mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'bar' });
 
-                assert.equal(getMedia(state, 1).customProperties.foo, 'bar');
+                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo, 'bar');
             });
 
             it('can set a nested custom property up to one level deep', () => {
@@ -181,10 +168,9 @@ describe('media', () => {
                 const media = createMedia(1);
 
                 mutations.addMedia(state, { media });
-
                 mutations.updateCustomProperty(state, { id: media.id, property: 'foo.bar', value: 'baz' });
 
-                assert.equal(getMedia(state, 1).customProperties.foo.bar, 'baz');
+                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo.bar, 'baz');
             });
 
             it('can update an existing custom property', () => {
@@ -195,10 +181,9 @@ describe('media', () => {
                 media.customProperties = { foo: 'bar' };
 
                 mutations.addMedia(state, { media });
-
                 mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'baz' });
 
-                assert.equal(getMedia(state, 1).customProperties.foo, 'baz');
+                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo, 'baz');
             });
         });
     });

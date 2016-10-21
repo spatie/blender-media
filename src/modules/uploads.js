@@ -14,6 +14,7 @@ export const mutations = {
             progress: 0,
         });
     },
+
     updateUploadProgress(state, { id, progress }) {
         const upload = state.uploads.filter(upload => upload.id === id)[0];
 
@@ -23,13 +24,10 @@ export const mutations = {
 
         upload.progress = progress;
     },
+
     finishUpload(state, { id }) {
         state.uploads = state.uploads.filter(upload => upload.id !== id);
     },
 };
 
-export const getters = {
-    allUploads: state => state.uploads,
-};
-
-export default { state, mutations, getters };
+export default { state, mutations };

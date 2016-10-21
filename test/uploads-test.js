@@ -1,6 +1,6 @@
-import { getters, mutations } from '../src/modules/uploads';
 import { assert } from 'chai';
-import { values } from 'lodash';
+import { findOrFail } from '../src/util';
+import { mutations } from '../src/modules/uploads';
 
 describe('uploads', () => {
 
@@ -14,11 +14,11 @@ describe('uploads', () => {
 
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
 
-                assert.lengthOf(values(state.uploads), 1);
-                assert.equal(state.uploads[0].id, 1);
-                assert.equal(state.uploads[0].name, 'image.jpg');
-                assert.equal(state.uploads[0].collection, 'images');
-                assert.equal(state.uploads[0].progress, 0);
+                assert.lengthOf(state.uploads, 1);
+                assert.equal(findOrFail(state.uploads, { id: 1 }).id, 1);
+                assert.equal(findOrFail(state.uploads, { id: 1 }).name, 'image.jpg');
+                assert.equal(findOrFail(state.uploads, { id: 1 }).collection, 'images');
+                assert.equal(findOrFail(state.uploads, { id: 1 }).progress, 0);
             });
 
         });
@@ -32,7 +32,7 @@ describe('uploads', () => {
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
                 mutations.updateUploadProgress(state, { id: 1, progress: 50 });
 
-                assert.equal(state.uploads[0].progress, 50);
+                assert.equal(findOrFail(state.uploads, { id: 1 }).progress, 50);
             });
         });
 
@@ -45,25 +45,7 @@ describe('uploads', () => {
                 mutations.startUpload(state, { id: 1, name: 'image.jpg', collection: 'images' });
                 mutations.finishUpload(state, { id: 1 });
 
-                assert.lengthOf(values(state.uploads), 0);
-            });
-        });
-    });
-
-    describe('getters', () => {
-
-        describe('all', () => {
-
-            it('can get all uploads', () => {
-
-                const state = { uploads: [{ id: 1 }, { id: 2 }] };
-
-                const allUploads = getters.allUploads(state);
-
-                assert.lengthOf(allUploads, 2);
-                assert.equal(allUploads[0].id, 1);
-                assert.equal(allUploads[1].id, 2);
-
+                assert.lengthOf(state.uploads, 0);
             });
         });
     });
