@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 import { findOrFail } from '../src/util';
-import { mutations } from '../src/modules/media';
+import * as media from '../src/modules/media';
 
-const createMedia = id => ({
+const createMediaItem = id => ({
     id: id,
     name: `image_${id}`,
     fileName: `image_${id}.jpeg`,
@@ -14,176 +14,164 @@ const createMedia = id => ({
 
 describe('media', () => {
 
-    describe('mutations', () => {
+    let store;
 
-        describe('addMedia', () => {
+    beforeEach(() => store = media.createStore());
 
-            it('can add a single media item', () => {
+    describe('addMedia', () => {
 
-                const state = { media: [] };
-                const media = createMedia(1);
+        it('can add a single media item', () => {
 
-                mutations.addMedia(state, { media });
+            const mediaItem = createMediaItem(1);
 
-                assert.lengthOf(state.media, 1);
-                assert.equal(findOrFail(state.media, { id: 1 }), media);
-            });
+            store.commit(media.addMedia, { media: mediaItem });
 
-            it('can add an array of media items', () => {
-
-                const state = { media: [] };
-                const media1 = createMedia(1);
-                const media2 = createMedia(2);
-
-                mutations.addMedia(state, { media: [media1, media2] });
-
-                assert.lengthOf(state.media, 2);
-                assert.equal(findOrFail(state.media, { id: 1 }), media1);
-                assert.equal(state.media[1], media2);
-            });
-
-            it('can\'t add multiple media items with the same ids', () => {
-
-                const state = { media: [] };
-                const media = createMedia(1);
-
-                mutations.addMedia(state, { media });
-                mutations.addMedia(state, { media });
-
-                assert.lengthOf(state.media, 1);
-            });
-
+            assert.lengthOf(store.state.media, 1);
+            assert.equal(findOrFail(store.state.media, { id: 1 }), mediaItem);
         });
 
-        describe('renameMedia', () => {
+        it('can add an array of media items', () => {
 
-            it('can rename a media item', () => {
+            const mediaItem1 = createMediaItem(1);
+            const mediaItem2 = createMediaItem(2);
 
-                const state = { media: [] };
-                const media = createMedia(1);
+            store.commit(media.addMedia, { media: [mediaItem1, mediaItem2] });
 
-                mutations.addMedia(state, { media });
-                mutations.renameMedia(state, { id: media.id, name: 'image_renamed' });
-
-                assert.equal(findOrFail(state.media, { id: 1 }).name, 'image_renamed');
-            });
+            assert.lengthOf(store.state.media, 2);
+            assert.equal(findOrFail(store.state.media, { id: 1 }), mediaItem1);
+            assert.equal(store.state.media[1], mediaItem2);
         });
 
-        describe('markMediaForRemoval', () => {
+        it('can\'t add multiple media items with the same ids', () => {
 
-            it('can mark a media item for removal', () => {
+            const mediaItem = createMediaItem(1);
 
-                const state = { media: [] };
-                const media = createMedia(1);
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.addMedia, { media: mediaItem });
 
-                mutations.addMedia(state, { media });
-                mutations.markMediaForRemoval(state, { id: media.id });
-
-                assert.isTrue(state.media[0].markedForRemoval);
-            });
+            assert.lengthOf(store.state.media, 1);
         });
 
-        describe('markAllMediaForRemoval', () => {
+    });
 
-            it('can mark an entire set for removal', () => {
+    describe('renameMedia', () => {
 
-                const state = { media: [createMedia(1), createMedia(2)] };
+        it('can rename a media item', () => {
 
-                mutations.markAllMediaForRemoval(state);
+            const mediaItem = createMediaItem(1);
 
-                assert.isTrue(findOrFail(state.media, { id: 1 }).markedForRemoval);
-                assert.isTrue(findOrFail(state.media, { id: 2 }).markedForRemoval);
-            });
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.renameMedia, { id: mediaItem.id, name: 'image_renamed' });
 
+            assert.equal(findOrFail(store.state.media, { id: 1 }).name, 'image_renamed');
+        });
+    });
+
+    describe('markMediaForRemoval', () => {
+
+        it('can mark a media item for removal', () => {
+
+            const mediaItem = createMediaItem(1);
+
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.markMediaForRemoval, { id: mediaItem.id });
+
+            assert.isTrue(store.state.media[0].markedForRemoval);
+        });
+    });
+
+    describe('markAllMediaForRemoval', () => {
+
+        it('can mark an entire set for removal', () => {
+
+            store.commit(media.addMedia, { media: [createMediaItem(1), createMediaItem(2)] });
+            store.commit(media.markAllMediaForRemoval);
+
+            assert.isTrue(findOrFail(store.state.media, { id: 1 }).markedForRemoval);
+            assert.isTrue(findOrFail(store.state.media, { id: 2 }).markedForRemoval);
         });
 
-        describe('restoreMedia', () => {
+    });
 
-            it('can restore a media item that\'s marked for removal', () => {
+    describe('restoreMedia', () => {
 
-                const state = { media: [] };
-                const media = createMedia(1);
+        it('can restore a media item that\'s marked for removal', () => {
 
-                mutations.addMedia(state, { media });
-                mutations.markMediaForRemoval(state, { id: media.id });
-                mutations.restoreMedia(state, { id: media.id });
+            const mediaItem = createMediaItem(1);
 
-                assert.isFalse(state.media[0].markedForRemoval);
-            });
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.markMediaForRemoval, { id: mediaItem.id });
+            store.commit(media.restoreMedia, { id: mediaItem.id });
+
+            assert.isFalse(store.state.media[0].markedForRemoval);
+        });
+    });
+
+    describe('replaceMedia', () => {
+
+        it('can replace an existing media item with a new item', () => {
+
+            const oldItems = createMediaItem(1);
+            const newItems = createMediaItem(2);
+
+            store.commit(media.addMedia, { media: oldItems });
+            store.commit(media.replaceMedia, { media: newItems });
+
+            assert.lengthOf(store.state.media, 1);
+
+            // Will throw if id 2 doesn't exist
+            findOrFail(store.state.media, { id: 2 });
         });
 
-        describe('replaceMedia', () => {
+    });
 
-            it('can replace an existing media item with a new item', () => {
+    describe('setMediaOrder', () => {
 
-                const state = { media: [] };
+        it('can reorder media', () => {
 
-                const oldMedia = createMedia(1);
-                const newMedia = createMedia(2);
+            const mediaItem1 = createMediaItem(1);
+            const mediaItem2 = createMediaItem(2);
 
-                mutations.addMedia(state, { media: oldMedia });
-                mutations.replaceMedia(state, { media: newMedia });
+            store.commit(media.addMedia, { media: [mediaItem1, mediaItem2] });
+            store.commit(media.setMediaOrder, { order: { 1: 1, 2: 0 } });
 
-                assert.lengthOf(state.media, 1);
+            assert.equal(findOrFail(store.state.media, { id: 1 }).orderColumn, 1);
+            assert.equal(findOrFail(store.state.media, { id: 2 }).orderColumn, 0);
+        });
+    });
 
-                // Will throw if id 2 doesn't exist
-                findOrFail(state.media, { id: 2 });
-            });
+    describe('updateCustomProperty', () => {
 
+        it('can set a new custom property', () => {
+
+            const mediaItem = createMediaItem(1);
+
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo', value: 'bar' });
+
+            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo, 'bar');
         });
 
-        describe('setMediaOrder', () => {
+        it('can set a nested custom property up to one level deep', () => {
 
-            it('can reorder media', () => {
+            const mediaItem = createMediaItem(1);
 
-                const state = { media: [] };
-                const media1 = createMedia(1);
-                const media2 = createMedia(2);
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo.bar', value: 'baz' });
 
-                mutations.addMedia(state, { media: [media1, media2] });
-                mutations.setMediaOrder(state, { order: { 1: 1, 2: 0 } });
-
-                assert.equal(findOrFail(state.media, { id: 1 }).orderColumn, 1);
-                assert.equal(findOrFail(state.media, { id: 2 }).orderColumn, 0);
-            });
+            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo.bar, 'baz');
         });
 
-        describe('updateCustomProperty', () => {
+        it('can update an existing custom property', () => {
 
-            it('can set a new custom property', () => {
+            const mediaItem = createMediaItem(1);
 
-                const state = { media: [] };
-                const media = createMedia(1);
+            media.customProperties = { foo: 'bar' };
 
-                mutations.addMedia(state, { media });
-                mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'bar' });
+            store.commit(media.addMedia, { media: mediaItem });
+            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo', value: 'baz' });
 
-                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo, 'bar');
-            });
-
-            it('can set a nested custom property up to one level deep', () => {
-
-                const state = { media: [] };
-                const media = createMedia(1);
-
-                mutations.addMedia(state, { media });
-                mutations.updateCustomProperty(state, { id: media.id, property: 'foo.bar', value: 'baz' });
-
-                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo.bar, 'baz');
-            });
-
-            it('can update an existing custom property', () => {
-
-                const state = { media: [] };
-                const media = createMedia(1);
-
-                media.customProperties = { foo: 'bar' };
-
-                mutations.addMedia(state, { media });
-                mutations.updateCustomProperty(state, { id: media.id, property: 'foo', value: 'baz' });
-
-                assert.equal(findOrFail(state.media, { id: 1 }).customProperties.foo, 'baz');
-            });
+            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo, 'baz');
         });
     });
 });

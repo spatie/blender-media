@@ -9,7 +9,7 @@
         <a
             href="#"
             class="media__alert__delete"
-            @click.prevent="clearErrors(collection)"
+            @click.prevent="clearError"
         >
             <i class="fa fa-remove"></i>
         </a>
@@ -17,20 +17,26 @@
 </template>
 
 <script>
+import inject from '../../mixins/inject';
+
 export default {
 
-    methods: {
-        clearErrors(collection) {
-            this.$store.commit('clearError', { collection });
-        },
-    },
+    mixins: [
+        inject('uploads'),
+    ],
 
     computed: {
         error() {
-            return this.$store.state.uploads.error;
+            return this.$uploads.error;
         },
         hasError() {
             return this.error !== '';
+        },
+    },
+
+    methods: {
+        clearError() {
+            this.$uploads.clearError();
         },
     },
 };

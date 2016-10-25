@@ -33,3 +33,13 @@ export function uuid() {
         return v.toString(16);
     });
 }
+
+export class Store {
+    constructor(state) {
+        this.state = state;
+    }
+
+    commit(mutation, payload = {}) {
+        mutation(this.state, payload);
+    }
+}

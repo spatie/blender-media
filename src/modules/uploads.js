@@ -1,38 +1,38 @@
-const state = {
-    error: '',
-    uploads: [],
-};
+import { Store } from '../util';
 
-export const mutations = {
-    startUpload(state, { id, name }) {
-        state.uploads.push({
-            id,
-            name,
-            progress: 0,
-        });
-    },
+export function createStore() {
+    return new Store({
+        error: '',
+        uploads: [],
+    });
+}
 
-    updateUploadProgress(state, { id, progress }) {
-        const upload = state.uploads.filter(upload => upload.id === id)[0];
+export function startUpload(state, { id, name }) {
+    state.uploads.push({
+        id,
+        name,
+        progress: 0,
+    });
+}
 
-        if (! upload) {
-            return;
-        }
+export function updateUploadProgress(state, { id, progress }) {
+    const upload = state.uploads.filter(upload => upload.id === id)[0];
 
-        upload.progress = progress;
-    },
+    if (! upload) {
+        return;
+    }
 
-    finishUpload(state, { id }) {
-        state.uploads = state.uploads.filter(upload => upload.id !== id);
-    },
+    upload.progress = progress;
+}
 
-    setError(state, { message }) {
-        state.error = message;
-    },
+export function finishUpload(state, { id }) {
+    state.uploads = state.uploads.filter(upload => upload.id !== id);
+}
 
-    clearError(state) {
-        state.error = '';
-    },
-};
+export function setError(state, { message }) {
+    state.error = message;
+}
 
-export default { state, mutations };
+export function clearError(state) {
+    state.error = '';
+}

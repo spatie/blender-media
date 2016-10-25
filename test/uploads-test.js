@@ -1,86 +1,74 @@
 import { assert } from 'chai';
 import { findOrFail } from '../src/util';
-import { mutations } from '../src/modules/uploads';
+import * as uploads from '../src/modules/uploads';
 
 describe('uploads', () => {
 
-    describe('mutations', () => {
+    let store;
 
-        describe('startUpload', () => {
+    beforeEach(() => store = uploads.createStore());
 
-            it('can start an upload', () => {
+    describe('startUpload', () => {
 
-                const state = { uploads: [] };
+        it('can start an upload', () => {
 
-                mutations.startUpload(state, { id: 1, name: 'image.jpg' });
+            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
 
-                assert.lengthOf(state.uploads, 1);
-                assert.equal(findOrFail(state.uploads, { id: 1 }).id, 1);
-                assert.equal(findOrFail(state.uploads, { id: 1 }).name, 'image.jpg');
-                assert.equal(findOrFail(state.uploads, { id: 1 }).progress, 0);
-            });
+            assert.lengthOf(store.state.uploads, 1);
+            assert.equal(findOrFail(store.state.uploads, { id: 1 }).id, 1);
+            assert.equal(findOrFail(store.state.uploads, { id: 1 }).name, 'image.jpg');
+            assert.equal(findOrFail(store.state.uploads, { id: 1 }).progress, 0);
+        });
+    });
 
+    describe('updateUploadProgress', () => {
+
+        it('can update an upload\'s progress', () => {
+
+            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
+            store.commit(uploads.updateUploadProgress, { id: 1, progress: 50 });
+
+            assert.equal(findOrFail(store.state.uploads, { id: 1 }).progress, 50);
+        });
+    });
+
+    describe('finishUpload', () => {
+
+        it('can finish an upload', () => {
+
+            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
+            store.commit(uploads.finishUpload, { id: 1 });
+
+            assert.lengthOf(store.state.uploads, 0);
+        });
+    });
+
+    describe('setError', () => {
+
+        it('can add an error', () => {
+
+            store.commit(uploads.setError, { message: 'File too large' });
+
+            assert.equal(store.state.error, 'File too large');
         });
 
-        describe('updateUploadProgress', () => {
+        it('only holds the last error', () => {
 
-            it('can update an upload\'s progress', () => {
+            store.commit(uploads.setError, { message: 'File too large' });
+            store.commit(uploads.setError, { message: 'Conversion error' });
 
-                const state = { uploads: [] };
-
-                mutations.startUpload(state, { id: 1, name: 'image.jpg' });
-                mutations.updateUploadProgress(state, { id: 1, progress: 50 });
-
-                assert.equal(findOrFail(state.uploads, { id: 1 }).progress, 50);
-            });
+            assert.equal(store.state.error, 'Conversion error');
         });
+    });
 
-        describe('finishUpload', () => {
+    describe('clearError', () => {
 
-            it('can finish an upload', () => {
+        it('can clear the error', () => {
 
-                const state = { uploads: [] };
+            store.commit(uploads.setError, { message: 'File too large' });
+            store.commit(uploads.clearError);
 
-                mutations.startUpload(state, { id: 1, name: 'image.jpg' });
-                mutations.finishUpload(state, { id: 1 });
-
-                assert.lengthOf(state.uploads, 0);
-            });
-        });
-
-        describe('setError', () => {
-
-            it('can add an error', () => {
-
-                const state = { error: '' };
-
-                mutations.setError(state, { message: 'File too large' });
-
-                assert.equal(state.error, 'File too large');
-            });
-
-            it('only holds the last error', () => {
-
-                const state = { error: '' };
-
-                mutations.setError(state, { message: 'File too large' });
-                mutations.setError(state, { message: 'Conversion error' });
-
-                assert.equal(state.error, 'Conversion error');
-            });
-        });
-
-        describe('clearError', () => {
-
-            it('can clear the error', () => {
-
-                const state = { error: '' };
-
-                mutations.setError(state, { message: 'File too large' });
-                mutations.clearError(state);
-
-                assert.equal(state.error, '');
-            });
+            assert.equal(store.state.error, '');
         });
     });
 });

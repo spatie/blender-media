@@ -3,6 +3,7 @@
       "es2015"
   ],
   "plugins": [
+      "transform-class-properties",
       "transform-node-env-inline",
       "transform-object-rest-spread"
   ]

@@ -51,9 +51,12 @@
 </template>
 
 <script>
-import createStore from '../createStore';
+import { createStore as createMediaStore } from '../modules/media';
+import { addMedia, markAllMediaForRemoval } from '../modules/media';
+import { createStore as createUploadsStore } from '../modules/uploads';
 import Export from './export/export';
 import { getTypeSettings } from '../settings/types';
+import inject from '../mixins/inject';
 import MediaTable from './media/MediaTable';
 import translate from '../translations';
 import Upload from './upload/upload';
@@ -97,12 +100,21 @@ export default {
         UploadTable,
     },
 
+    mixins: [
+        inject('media', 'uploads'),
+    ],
+
+    beforeCreate() {
+        this.$options.media = createMediaStore();
+        this.$options.uploads = createUploadsStore();
+    },
+
     computed: {
         settings() {
             return getTypeSettings(this.type);
         },
         media() {
-            return this.$store.state.media.media;
+            return this.$media.state.media;
         },
         hasMedia() {
             return this.media.length > 0;
@@ -111,7 +123,7 @@ export default {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
         },
         uploads() {
-            return this.$store.state.uploads.uploads;
+            return this.$uploads.state.uploads;
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -135,16 +147,12 @@ export default {
 
     methods: {
         addMedia(media) {
-            this.$store.commit('addMedia', { media });
+            this.$media.commit(addMedia, { media });
         },
         markAllMediaForRemoval() {
-            this.$store.commit('markAllMediaForRemoval');
+            this.$media.commit(markAllMediaForRemoval);
         },
         translate,
-    },
-
-    beforeCreate() {
-        this.$store = createStore();
     },
 
     created() {
