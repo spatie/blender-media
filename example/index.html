@@ -15,6 +15,25 @@
     <div id="app">
       <form>
         <media
+          collection="download"
+          type="download"
+          upload-url="/upload"
+          :model="{ name: 'MyModel', id: 1 }"
+          :initial='[
+            {
+              "id": 3,
+              "name": "image_3",
+              "fileName": "image_3.jpeg",
+              "customProperties": {},
+              "orderColumn": 3,
+              "thumbUrl": "/media/image_3.jpeg",
+              "originalUrl": "/media/image_3.jpeg",
+              "collection": "download"
+            }
+          ]'
+          :data="{ locales: ['nl', 'en'] }"
+        ></media>
+        <media
           collection="images"
           type="images"
           upload-url="/upload"
@@ -41,25 +60,6 @@
               "collection": "images"
             }
           ]'
-        ></media>
-        <media
-          collection="download"
-          type="download"
-          upload-url="/upload"
-          :model="{ name: 'MyModel', id: 1 }"
-          :initial='[
-            {
-              "id": 3,
-              "name": "image_3",
-              "fileName": "image_3.jpeg",
-              "customProperties": {},
-              "orderColumn": 3,
-              "thumbUrl": "/media/image_3.jpeg",
-              "originalUrl": "/media/image_3.jpeg",
-              "collection": "download"
-            }
-          ]'
-          :data="{ locales: ['nl', 'en'] }"
         ></media>
       </form>
     </div>

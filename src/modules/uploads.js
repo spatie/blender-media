@@ -1,16 +1,13 @@
-import { values } from 'lodash';
-import Vue from 'vue';
-
 const state = {
+    error: '',
     uploads: [],
 };
 
 export const mutations = {
-    startUpload(state, { id, name, collection }) {
+    startUpload(state, { id, name }) {
         state.uploads.push({
             id,
             name,
-            collection,
             progress: 0,
         });
     },
@@ -27,6 +24,14 @@ export const mutations = {
 
     finishUpload(state, { id }) {
         state.uploads = state.uploads.filter(upload => upload.id !== id);
+    },
+
+    setError(state, { message }) {
+        state.error = message;
+    },
+
+    clearError(state) {
+        state.error = '';
     },
 };
 

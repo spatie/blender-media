@@ -45,6 +45,5 @@ export default {
             return getClassNameForExtension(upload.name);
         },
     },
-    
 };
 </script>

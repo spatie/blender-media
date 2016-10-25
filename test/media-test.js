@@ -10,7 +10,6 @@ const createMedia = id => ({
     orderColumn: id,
     thumbUrl: `/media/image_${id}.jpeg`,
     originalUrl: `/media/image_${id}.jpeg`,
-    collection: 'images',
 });
 
 describe('media', () => {
@@ -84,13 +83,13 @@ describe('media', () => {
             });
         });
 
-        describe('markCollectionForRemoval', () => {
+        describe('markAllMediaForRemoval', () => {
 
-            it('can mark an entire collection for removal', () => {
+            it('can mark an entire set for removal', () => {
 
                 const state = { media: [createMedia(1), createMedia(2)] };
 
-                mutations.markCollectionForRemoval(state, { collection: 'images' });
+                mutations.markAllMediaForRemoval(state);
 
                 assert.isTrue(findOrFail(state.media, { id: 1 }).markedForRemoval);
                 assert.isTrue(findOrFail(state.media, { id: 2 }).markedForRemoval);
@@ -123,7 +122,7 @@ describe('media', () => {
                 const newMedia = createMedia(2);
 
                 mutations.addMedia(state, { media: oldMedia });
-                mutations.replaceMedia(state, { collection: 'images', media: newMedia });
+                mutations.replaceMedia(state, { media: newMedia });
 
                 assert.lengthOf(state.media, 1);
 

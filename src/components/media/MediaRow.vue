@@ -3,7 +3,7 @@
         <td class="media__column--drag">
            <i
               class="js-handle fa fa-arrows-v media__column--drag__icon"
-              :class="{ '-is-disabled' : media.markedForRemoval || !options.multiple }"
+              :class="{ '-is-disabled' : media.markedForRemoval || !settings.multiple }"
             ></i>
         </td>
         <td class="media__column--thumb">
@@ -14,11 +14,12 @@
             </thumb>
         </td>
         <td class="media__column--editor">
-            <div
-                :is="options.editor"
+            {{ media.name }}
+            <!--<div
+                :is="settings.editor"
                 :media="media"
                 :data="data"
-            ></div>
+            ></div>-->
         </td>
         <td class="media__column--actions">
             <remove-media :media="media"></remove-media>
@@ -27,19 +28,16 @@
 </template>
 
 <script>
-import { assign } from 'lodash';
-import { getEditors } from '../../options/editors';
-import RemoveMedia from './remove-media';
+import RemoveMedia from './RemoveMedia';
 import Thumb from './thumb';
 
 export default {
 
-    props: ['media', 'options', 'data'],
+    props: ['media', 'settings', 'data'],
 
-    components: assign({
+    components: {
         RemoveMedia,
         Thumb,
-    }, getEditors()),
-
+    },
 };
 </script>

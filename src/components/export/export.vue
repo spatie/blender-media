@@ -1,5 +1,5 @@
 <template>
-    <div v-show="false">
+    <div style="display: none;">
         <textarea
             :name="collection"
             :value="data"

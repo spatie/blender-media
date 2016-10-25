@@ -5,10 +5,6 @@ const state = {
     media: [],
 };
 
-function getCollection(state, collection) {
-    return state.media.filter(m => m.collection === collection);
-}
-
 export const mutations = {
     addMedia(state, { media }) {
         if (! Array.isArray(media)) {
@@ -27,8 +23,8 @@ export const mutations = {
         findOrFail(state.media, { id }).markedForRemoval = true;
     },
 
-    markCollectionForRemoval(state, { collection }) {
-        getCollection(state, collection).forEach((media) => {
+    markAllMediaForRemoval(state) {
+        state.media.forEach((media) => {
             mutations.markMediaForRemoval(state, { id: media.id });
         });
     },
@@ -37,8 +33,8 @@ export const mutations = {
         findOrFail(state.media, { id }).markedForRemoval = false;
     },
 
-    replaceMedia(state, { collection, media }) {
-        state.media = state.media.filter(m => m.collection !== collection);
+    replaceMedia(state, { media }) {
+        state.media = [];
         mutations.addMedia(state, { media });
     },
 

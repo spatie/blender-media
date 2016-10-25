@@ -1,12 +1,12 @@
 <template>
     <div class="media">
-        <upload
+        <!--<upload
             :collection="collection"
             :model="model"
             :url="uploadUrl"
             :multiple="settings.multiple"
             :accepts="settings.accepts"
-        >
+        >-->
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
@@ -25,9 +25,7 @@
                 class="media__alert">
                 {{ translate('noMedia') }}
             </div>
-            <upload-errors
-                :collection="collection"
-            ></upload-errors>
+            <upload-error></upload-error>
             <div class="media__actions">
                 <button
                     class="js-add-media media__button"
@@ -38,7 +36,7 @@
                 <button
                     v-if="canBeCleared"
                     class="media__button--delete"
-                    @click.prevent="markCollectionForRemoval({ collection })"
+                    @click.prevent="markAllMediaForRemoval({ collection })"
                 >
                     {{ translate('clearCollection') }}
                     <i class="fa fa-remove media__input--button--delete__icon"></i>
@@ -48,24 +46,21 @@
                 :collection="collection"
                 :media="media"
             ></export>
-        </upload>
+        <!-- </upload> -->
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import createStore from '../createStore';
 import Export from './export/export';
 import { getTypeSettings } from '../settings/types';
-import MediaTable from './media/media-table';
-import store from '../store';
+import MediaTable from './media/MediaTable';
 import translate from '../translations';
 import Upload from './upload/upload';
-import UploadErrors from './upload/upload-errors';
-import UploadTable from './upload/upload-table';
+import UploadError from './upload/UploadError';
+import UploadTable from './upload/UploadTable';
 
 export default {
-
-    store,
 
     props: {
         collection: {
@@ -98,27 +93,25 @@ export default {
         Export,
         MediaTable,
         Upload,
-        UploadErrors,
+        UploadError,
         UploadTable,
     },
 
     computed: {
-        ...mapState({
-            media(state) {
-                return state.media.media.filter(m => m.collection === this.collection);
-            },
-            uploads(state) {
-                return state.uploads.uploads.filter(m => m.collection === this.collection);
-            },
-        }),
         settings() {
             return getTypeSettings(this.type);
+        },
+        media() {
+            return this.$store.state.media.media;
         },
         hasMedia() {
             return this.media.length > 0;
         },
         hasActiveMedia() {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
+        },
+        uploads() {
+            return this.$store.state.uploads.uploads;
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -141,15 +134,21 @@ export default {
     },
 
     methods: {
-        ...mapActions([
-            'addMedia',
-            'markCollectionForRemoval',
-        ]),
+        addMedia(media) {
+            this.$store.commit('addMedia', { media });
+        },
+        markAllMediaForRemoval() {
+            this.$store.commit('markAllMediaForRemoval');
+        },
         translate,
     },
 
-    ready() {
-        this.addMedia({ media: this.initial });
+    beforeCreate() {
+        this.$store = createStore();
+    },
+
+    created() {
+        this.addMedia(this.initial);
     },
 };
 </script>

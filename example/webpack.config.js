@@ -1,10 +1,12 @@
+const path = require('path');
+
 module.exports = {
     context: __dirname,
     entry: './app.js',
     output: {
-        path: __dirname + '/build',
+        path: path.resolve(__dirname, 'build'),
         filename: 'app.js',
-        publicPath: '/build',
+        publicPath: '/build/',
     },
     module: {
         loaders: [

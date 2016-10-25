@@ -48,8 +48,8 @@ export default {
             data.append('model_name', this.model.name);
             data.append('model_id', this.model.id);
 
-            this.vm.$store.dispatch('clearErrors', { collection: this.collection });
-            this.vm.$store.dispatch(
+            this.vm.$store.commit('clearErrors', { collection: this.collection });
+            this.vm.$store.commit(
                 'startUpload',
                 { id: file.uploadId, name: file.name, collection: this.collection }
             );
@@ -57,27 +57,27 @@ export default {
         }.bind(this));
 
         this.dropzone.on('uploadprogress', function (file) {
-            this.vm.$store.dispatch(
+            this.vm.$store.commit(
                 'updateUploadProgress',
                 { id: file.uploadId, progress: file.upload.progress }
             );
         }.bind(this));
 
         this.dropzone.on('success', function (file, response) {
-            this.vm.options.multiple ?
-                this.vm.$store.dispatch('addMedia', { media: response }) :
-                this.vm.$store.dispatch('replaceMedia', { collection: this.collection, media: response });
+            this.vm.settings.multiple ?
+                this.vm.$store.commit('addMedia', { media: response }) :
+                this.vm.$store.commit('replaceMedia', { collection: this.collection, media: response });
         }.bind(this));
 
         this.dropzone.on('error', function () {
-            this.vm.$store.dispatch(
+            this.vm.$store.commit(
                 'addError',
                 { collection: this.collection, message: translate('errors.fail') }
             );
         }.bind(this));
 
         this.dropzone.on('complete', function (file) {
-            this.vm.$store.dispatch('finishUpload', { id: file.uploadId });
+            this.vm.$store.commit('finishUpload', { id: file.uploadId });
         }.bind(this));
     },
 

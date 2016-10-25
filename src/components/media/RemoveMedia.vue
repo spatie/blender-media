@@ -28,12 +28,11 @@ export default {
 
     methods: {
         markMediaForRemoval(media) {
-            this.$store.dispatch('markMediaForRemoval', { id: media.id });
+            this.$store.commit('markMediaForRemoval', { id: media.id });
         },
         restoreMedia(media) {
-            this.$store.dispatch('restoreMedia', { id: media.id });
+            this.$store.commit('restoreMedia', { id: media.id });
         },
     },
-
 };
 </script>

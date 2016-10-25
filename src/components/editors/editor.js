@@ -15,10 +15,10 @@ export default {
 
     methods: {
         rename(name) {
-            this.$store.dispatch('renameMedia', { id: this.media.id, name });
+            this.$store.commit('renameMedia', { id: this.media.id, name });
         },
         updateCustomProperty(property, value) {
-            this.$store.dispatch(
+            this.$store.commit(
                 'updateCustomProperty',
                 { id: this.media.id, property, value }
             );

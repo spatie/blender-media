@@ -19,22 +19,19 @@
 <script>
 export default {
 
-    props: ['collection'],
-
     methods: {
         clearErrors(collection) {
-            this.$store.dispatch('clearErrors', { collection });
+            this.$store.commit('clearError', { collection });
         },
     },
 
     computed: {
         error() {
-            return this.$store.getters.allErrors[this.collection] || '';
+            return this.$store.state.uploads.error;
         },
         hasError() {
-            return !! this.error;
+            return this.error !== '';
         },
     },
-
 };
 </script>
