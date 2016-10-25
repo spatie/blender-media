@@ -103,17 +103,10 @@ export default {
         UploadTable,
     },
 
-    data() {
-        return {
-            mediaStore: new Vue(Media),
-            uploadStore: new Vue(Uploads),
-        };
-    },
-
     mixins: [
-        expose(vm => ({
-            media: vm.mediaStore,
-            uploads: vm.uploadStore,
+        expose(() => ({
+            media: new Vue(Media),
+            uploads: new Vue(Uploads),
         })),
         inject('media', 'uploads'),
     ],

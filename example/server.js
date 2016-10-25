@@ -36,4 +36,4 @@ app.post('/upload', upload.any(), (req, res) => {
 
 app.listen(4000);
 
-console.log('Server running at http://localhost:4000');
+console.log('Server running at http://localhost:2000');
