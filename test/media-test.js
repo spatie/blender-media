@@ -41,17 +41,6 @@ describe('media', () => {
             assert.deepEqual(store.find(1), { ...media1, markedForRemoval: false });
             assert.deepEqual(store.find(2), { ...media2, markedForRemoval: false });
         });
-
-        it('can\'t add multiple media items with the same ids', () => {
-
-            const media = createMedia(1);
-
-            store.addMedia(media);
-            store.addMedia(media);
-
-            assert.lengthOf(store.media, 1);
-        });
-
     });
 
     describe('renameMedia', () => {
@@ -125,7 +114,7 @@ describe('media', () => {
 
     });
 
-    describe('setMediaOrder', () => {
+    describe('setNewOrder', () => {
 
         it('can reorder media', () => {
 
@@ -133,7 +122,7 @@ describe('media', () => {
             const media2 = createMedia(2);
 
             store.addMedia([media1, media2]);
-            store.setMediaOrder({ 1: 1, 2: 0 });
+            store.setNewOrder({ 1: 1, 2: 0 });
 
             assert.equal(store.find(1).orderColumn, 1);
             assert.equal(store.find(2).orderColumn, 0);

@@ -6,6 +6,7 @@
 
 <script>
 import Dropzone from 'dropzone';
+import inject from '../../mixins/inject';
 import translate from '../../translations';
 import { uuid } from '../../util';
 
@@ -17,17 +18,20 @@ export default {
         'url',
         'multiple',
         'accepts',
+        'button',
+    ],
+
+    mixins: [
+        inject('media', 'uploads'),
     ],
 
     mounted() {
-        return;
-
-        this.dropzone = new Dropzone(this.el, {
+        this.dropzone = new Dropzone(this.$el, {
             url: this.url,
             uploadMultiple: this.multiple,
             acceptedFiles: this.accepts,
             parallelUploads: 10,
-            clickable: this.$el.querySelector('.js-add-media'),
+            clickable: this.button(this.$parent),
 
             previewsContainer: false,
             previewTemplate: false,
@@ -37,10 +41,7 @@ export default {
             dictResponseError: translate('errors.fail'),
         });
 
-        // For some odd reason `bind` is necessary, arrow functions aren't working.
-
         this.dropzone.on('sending', function (file, xhr, data) {
-
             file.collection = this.collection;
             file.uploadId = uuid();
 
@@ -48,42 +49,31 @@ export default {
             data.append('model_name', this.model.name);
             data.append('model_id', this.model.id);
 
-            this.vm.$store.commit('clearErrors', { collection: this.collection });
-            this.vm.$store.commit(
-                'startUpload',
-                { id: file.uploadId, name: file.name, collection: this.collection }
-            );
-
+            this.$uploads.clearError();
+            this.$uploads.startUpload(file.uploadId, file.name);
         }.bind(this));
 
         this.dropzone.on('uploadprogress', function (file) {
-            this.vm.$store.commit(
-                'updateUploadProgress',
-                { id: file.uploadId, progress: file.upload.progress }
-            );
+            this.$uploads.updateUploadProgress(file.uploadId, file.upload.progress);
         }.bind(this));
 
         this.dropzone.on('success', function (file, response) {
-            this.vm.settings.multiple ?
-                this.vm.$store.commit('addMedia', { media: response }) :
-                this.vm.$store.commit('replaceMedia', { collection: this.collection, media: response });
+            this.multiple ?
+                this.$media.addMedia(response) :
+                this.$media.replaceMedia(response);
         }.bind(this));
 
         this.dropzone.on('error', function () {
-            this.vm.$store.commit(
-                'addError',
-                { collection: this.collection, message: translate('errors.fail') }
-            );
+            this.$uploads.setError(translate('errors.fail'));
         }.bind(this));
 
         this.dropzone.on('complete', function (file) {
-            this.vm.$store.commit('finishUpload', { id: file.uploadId });
+            this.$uploads.finishUpload(file.uploadId);
         }.bind(this));
     },
 
     beforeDestroy() {
         this.dropzone.destroy();
     },
-
 };
 </script>

@@ -1,12 +1,13 @@
 <template>
     <div class="media">
-        <!--<upload
+        <upload
             :collection="collection"
             :model="model"
             :url="uploadUrl"
             :multiple="settings.multiple"
             :accepts="settings.accepts"
-        >-->
+            :button="vm => vm.$refs.addMedia"
+        >
             <div v-if="hasMedia">
                 <media-table
                     :collection="collection"
@@ -28,7 +29,8 @@
             <upload-error></upload-error>
             <div class="media__actions">
                 <button
-                    class="js-add-media media__button"
+                    class="media__button"
+                    ref="addMedia"
                     @click.prevent
                 >
                     {{ uploadButtonText }}
@@ -46,7 +48,7 @@
                 :collection="collection"
                 :media="media"
             ></export>
-        <!-- </upload> -->
+        </upload>
     </div>
 </template>
 
@@ -130,7 +132,7 @@ export default {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
         },
         uploads() {
-            return this.$uploads.state.uploads;
+            return this.$uploads.uploads;
         },
         hasUploads() {
             return this.uploads.length > 0;

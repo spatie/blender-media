@@ -1,6 +1,5 @@
 import { findOrFail } from '../util';
 import { forIn } from 'lodash';
-import Vue from 'vue';
 
 export default {
 
@@ -20,9 +19,9 @@ export default {
                 media = [media];
             }
 
-            this.media = this.media
-                .filter(m => m.id === media.id)
-                .concat(media.map(m => ({ ...m, markedForRemoval: false })));
+            this.media = this.media.concat(
+                media.map(m => ({ ...m, markedForRemoval: false }))
+            );
         },
 
         markAllMediaForRemoval() {
@@ -40,10 +39,14 @@ export default {
         },
 
         replaceMedia(media) {
-            this.media = [media];
+            if (! Array.isArray(media)) {
+                media = [media];
+            }
+
+            this.media = media;
         },
 
-        setMediaOrder(order) {
+        setNewOrder(order) {
             forIn(order, (order, mediaId) => {
                 this.find(parseInt(mediaId)).orderColumn = order;
             });
