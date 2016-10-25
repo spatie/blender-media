@@ -5,14 +5,14 @@
                 class="media__input--text"
                 :disabled="media.markedForRemoval"
                 type="text"
-                v-model="name"
+                v-model="media.name"
                 @keydown.enter.prevent="blurInput"
             >
         </span>
         <span class="media__editor__column">
             <label
                 class="media__input__label"
-                v-for="(locale, toggled) in locales"
+                v-for="(toggled, locale) in locales"
             >
                 {{ locale }}
                 <input
@@ -29,11 +29,15 @@
 
 <script>
 import { assign, keys, pick } from 'lodash';
-import editor from './editor';
+import inject from '../../mixins/inject';
 
 export default {
 
-    mixins: [editor],
+    props: ['media', 'data'],
+
+    mixins: [
+        inject('media'),
+    ],
 
     computed: {
         locales() {
@@ -45,11 +49,12 @@ export default {
         blurInput(event) {
             event.target.blur();
         },
+
         toggleLocale(locale) {
             this.updateCustomProperty(`locales.${locale}`, !this.locales[locale]);
         },
-        normalizeLocales() {
 
+        normalizeLocales() {
             const locales = this.data.locales.reduce((locales, locale) => {
                 locales[locale] = true;
                 return locales;
@@ -60,11 +65,18 @@ export default {
                 keys(locales)
             ));
         },
+
+        updateCustomProperty(property, value) {
+            this.$media.updateCustomProperty(this.media.id, property, value);
+        },
+
+        customProperty(name, fallback = null) {
+            return this.media.customProperties[name] || fallback;
+        },
     },
 
-    ready() {
+    created() {
         this.normalizeLocales();
     },
-
 };
 </script>

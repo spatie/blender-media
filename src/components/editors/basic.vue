@@ -5,7 +5,7 @@
                 class="media__input--text"
                 :disabled="media.markedForRemoval"
                 type="text"
-                v-model="name"
+                v-model="media.name"
                 @keydown.enter.prevent="blurInput"
             />
         </span>
@@ -13,17 +13,14 @@
 </template>
 
 <script>
-import editor from './editor';
-
 export default {
 
-    mixins: [editor],
+    props: ['media'],
 
     methods: {
         blurInput(event) {
             event.target.blur();
         },
     },
-
 };
 </script>

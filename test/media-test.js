@@ -43,19 +43,6 @@ describe('media', () => {
         });
     });
 
-    describe('renameMedia', () => {
-
-        it('can rename a media item', () => {
-
-            const media = createMedia(1);
-
-            store.addMedia(media);
-            store.renameMedia(media.id, 'image_renamed');
-
-            assert.equal(store.find(1).name, 'image_renamed');
-        });
-    });
-
     describe('markMediaForRemoval', () => {
 
         it('can mark a media item for removal', () => {

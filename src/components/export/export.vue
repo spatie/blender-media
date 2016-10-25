@@ -2,7 +2,7 @@
     <div style="display: none;">
         <textarea
             :name="collection"
-            :value="data"
+            v-model="data"
         ></textarea>
     </div>
 </template>

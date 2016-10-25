@@ -14,12 +14,11 @@
             </thumb>
         </td>
         <td class="media__column--editor">
-            {{ media.name }}
-            <!--<div
-                :is="settings.editor"
+            <media-editor
+                :type="settings.editor"
                 :media="media"
                 :data="data"
-            ></div>-->
+            ></media-editor>
         </td>
         <td class="media__column--actions">
             <remove-media :media="media"></remove-media>
@@ -28,6 +27,7 @@
 </template>
 
 <script>
+import MediaEditor from './MediaEditor';
 import RemoveMedia from './RemoveMedia';
 import Thumb from './thumb';
 
@@ -36,6 +36,7 @@ export default {
     props: ['media', 'settings', 'data'],
 
     components: {
+        MediaEditor,
         RemoveMedia,
         Thumb,
     },

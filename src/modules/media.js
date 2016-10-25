@@ -52,10 +52,6 @@ export default {
             });
         },
 
-        renameMedia(id, name) {
-            this.find(id).name = name;
-        },
-
         updateCustomProperty(id, property, value) {
             const media = this.find(id);
             const [namespace, key] = property.split('.');
