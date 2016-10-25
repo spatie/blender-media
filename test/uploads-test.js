@@ -1,23 +1,24 @@
 import { assert } from 'chai';
 import { findOrFail } from '../src/util';
-import * as uploads from '../src/modules/uploads';
+import Uploads from '../src/modules/uploads';
+import Vue from 'vue';
 
 describe('uploads', () => {
 
     let store;
 
-    beforeEach(() => store = uploads.createStore());
+    beforeEach(() => store = new Vue(Uploads));
 
     describe('startUpload', () => {
 
         it('can start an upload', () => {
 
-            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
+            store.startUpload(1, 'image.jpg');
 
-            assert.lengthOf(store.state.uploads, 1);
-            assert.equal(findOrFail(store.state.uploads, { id: 1 }).id, 1);
-            assert.equal(findOrFail(store.state.uploads, { id: 1 }).name, 'image.jpg');
-            assert.equal(findOrFail(store.state.uploads, { id: 1 }).progress, 0);
+            assert.lengthOf(store.uploads, 1);
+            assert.equal(findOrFail(store.uploads, { id: 1 }).id, 1);
+            assert.equal(findOrFail(store.uploads, { id: 1 }).name, 'image.jpg');
+            assert.equal(findOrFail(store.uploads, { id: 1 }).progress, 0);
         });
     });
 
@@ -25,10 +26,10 @@ describe('uploads', () => {
 
         it('can update an upload\'s progress', () => {
 
-            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
-            store.commit(uploads.updateUploadProgress, { id: 1, progress: 50 });
+            store.startUpload(1, 'image.jpg');
+            store.updateUploadProgress(1, 50);
 
-            assert.equal(findOrFail(store.state.uploads, { id: 1 }).progress, 50);
+            assert.equal(findOrFail(store.uploads, { id: 1 }).progress, 50);
         });
     });
 
@@ -36,10 +37,10 @@ describe('uploads', () => {
 
         it('can finish an upload', () => {
 
-            store.commit(uploads.startUpload, { id: 1, name: 'image.jpg' });
-            store.commit(uploads.finishUpload, { id: 1 });
+            store.startUpload(1, 'image.jpg');
+            store.finishUpload(1);
 
-            assert.lengthOf(store.state.uploads, 0);
+            assert.lengthOf(store.uploads, 0);
         });
     });
 
@@ -47,17 +48,17 @@ describe('uploads', () => {
 
         it('can add an error', () => {
 
-            store.commit(uploads.setError, { message: 'File too large' });
+            store.setError('File too large');
 
-            assert.equal(store.state.error, 'File too large');
+            assert.equal(store.error, 'File too large');
         });
 
         it('only holds the last error', () => {
 
-            store.commit(uploads.setError, { message: 'File too large' });
-            store.commit(uploads.setError, { message: 'Conversion error' });
+            store.setError('File too large');
+            store.setError('Conversion error');
 
-            assert.equal(store.state.error, 'Conversion error');
+            assert.equal(store.error, 'Conversion error');
         });
     });
 
@@ -65,10 +66,10 @@ describe('uploads', () => {
 
         it('can clear the error', () => {
 
-            store.commit(uploads.setError, { message: 'File too large' });
-            store.commit(uploads.clearError);
+            store.setError('File too large');
+            store.clearError();
 
-            assert.equal(store.state.error, '');
+            assert.equal(store.error, '');
         });
     });
 });

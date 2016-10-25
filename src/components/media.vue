@@ -51,17 +51,18 @@
 </template>
 
 <script>
-import { createStore as createMediaStore } from '../modules/media';
-import { addMedia, markAllMediaForRemoval } from '../modules/media';
-import { createStore as createUploadsStore } from '../modules/uploads';
+import Media from '../modules/Media';
+import Uploads from '../modules/Uploads';
 import Export from './export/export';
-import { getTypeSettings } from '../settings/types';
 import inject from '../mixins/inject';
+import expose from '../mixins/expose';
+import { getTypeSettings } from '../settings/types';
 import MediaTable from './media/MediaTable';
 import translate from '../translations';
 import Upload from './upload/upload';
 import UploadError from './upload/UploadError';
 import UploadTable from './upload/UploadTable';
+import Vue from 'vue';
 
 export default {
 
@@ -100,21 +101,27 @@ export default {
         UploadTable,
     },
 
+    data() {
+        return {
+            mediaStore: new Vue(Media),
+            uploadStore: new Vue(Uploads),
+        };
+    },
+
     mixins: [
+        expose(vm => ({
+            media: vm.mediaStore,
+            uploads: vm.uploadStore,
+        })),
         inject('media', 'uploads'),
     ],
-
-    beforeCreate() {
-        this.$options.media = createMediaStore();
-        this.$options.uploads = createUploadsStore();
-    },
 
     computed: {
         settings() {
             return getTypeSettings(this.type);
         },
         media() {
-            return this.$media.state.media;
+            return this.$media.media;
         },
         hasMedia() {
             return this.media.length > 0;
@@ -146,17 +153,14 @@ export default {
     },
 
     methods: {
-        addMedia(media) {
-            this.$media.commit(addMedia, { media });
-        },
         markAllMediaForRemoval() {
-            this.$media.commit(markAllMediaForRemoval);
+            this.$media.markAllMediaForRemoval();
         },
         translate,
     },
 
     created() {
-        this.addMedia(this.initial);
+        this.$media.addMedia(this.initial);
     },
 };
 </script>

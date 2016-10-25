@@ -1,6 +1,10 @@
 function resolveDependency(key, vm) {
-    if (key in vm.$options) {
-        return vm.$options[key];
+    if (`$${key}` in vm) {
+        return vm[`$${key}`];
+    }
+
+    if (key in (vm.$exposes || {})) {
+        return vm.$exposes[key];
     }
 
     if (vm.$options.parent) {

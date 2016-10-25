@@ -22,16 +22,22 @@
 </template>
 
 <script>
+import inject from '../../mixins/inject';
+
 export default {
 
     props: ['media'],
 
+    mixins: [
+        inject('media'),
+    ],
+
     methods: {
         markMediaForRemoval(media) {
-            this.$store.commit('markMediaForRemoval', { id: media.id });
+            this.$media.markMediaForRemoval(media.id);
         },
         restoreMedia(media) {
-            this.$store.commit('restoreMedia', { id: media.id });
+            this.$media.restoreMedia(media.id);
         },
     },
 };

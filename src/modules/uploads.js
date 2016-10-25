@@ -1,38 +1,37 @@
-import { Store } from '../util';
+export default {
 
-export function createStore() {
-    return new Store({
-        error: '',
-        uploads: [],
-    });
-}
+    data() {
+        return {
+            error: '',
+            uploads: [],
+        };
+    },
 
-export function startUpload(state, { id, name }) {
-    state.uploads.push({
-        id,
-        name,
-        progress: 0,
-    });
-}
+    methods: {
+        startUpload(id, name) {
+            this.uploads.push({ id, name, progress: 0 });
+        },
 
-export function updateUploadProgress(state, { id, progress }) {
-    const upload = state.uploads.filter(upload => upload.id === id)[0];
+        updateUploadProgress(id, progress) {
+            const upload = this.uploads.filter(upload => upload.id === id)[0];
 
-    if (! upload) {
-        return;
-    }
+            if (! upload) {
+                return;
+            }
 
-    upload.progress = progress;
-}
+            upload.progress = progress;
+        },
 
-export function finishUpload(state, { id }) {
-    state.uploads = state.uploads.filter(upload => upload.id !== id);
-}
+        finishUpload(id) {
+            this.uploads = this.uploads.filter(upload => upload.id !== id);
+        },
 
-export function setError(state, { message }) {
-    state.error = message;
-}
+        setError(message) {
+            this.error = message;
+        },
 
-export function clearError(state) {
-    state.error = '';
-}
+        clearError() {
+            this.error = '';
+        },
+    },
+};

@@ -1,63 +1,72 @@
 import { findOrFail } from '../util';
 import { forIn } from 'lodash';
-import { Store } from '../util';
+import Vue from 'vue';
 
-export function createStore() {
-    return new Store({
-        media: [],
-    });
-}
+export default {
 
-export function addMedia(state, { media }) {
-    if (! Array.isArray(media)) {
-        media = [media];
-    }
-    state.media = state.media
-        .filter(m => m.id === media.id)
-        .concat(media);
-}
+    data() {
+        return {
+            media: [],
+        };
+    },
 
-export function renameMedia(state, { id, name }) {
-    findOrFail(state.media, { id }).name = name;
-}
+    methods: {
+        find(id) {
+            return findOrFail(this.media, { id });
+        },
 
-export function markMediaForRemoval(state, { id }) {
-    findOrFail(state.media, { id }).markedForRemoval = true;
-}
+        addMedia(media) {
+            if (! Array.isArray(media)) {
+                media = [media];
+            }
 
-export function markAllMediaForRemoval(state) {
-    state.media.forEach((media) => {
-        markMediaForRemoval(state, { id: media.id });
-    });
-}
+            this.media = this.media
+                .filter(m => m.id === media.id)
+                .concat(media.map(m => ({ ...m, markedForRemoval: false })));
+        },
 
-export function restoreMedia(state, { id }) {
-    findOrFail(state.media, { id }).markedForRemoval = false;
-}
+        markAllMediaForRemoval() {
+            this.media.forEach((media) => {
+                this.markMediaForRemoval(media.id);
+            });
+        },
 
-export function replaceMedia(state, { media }) {
-    state.media = [];
-    addMedia(state, { media });
-}
+        markMediaForRemoval(id) {
+            this.find(id).markedForRemoval = true;
+        },
 
-export function setMediaOrder(state, { order }) {
-    forIn(order, (order, mediaId) => {
-        findOrFail(state.media, { id: parseInt(mediaId) }).orderColumn = order;
-    });
-}
+        restoreMedia(id) {
+            this.find(id).markedForRemoval = false;
+        },
 
-export function updateCustomProperty(state, { id, property, value }) {
-    const media = findOrFail(state.media, { id });
-    const [namespace, key] = property.split('.');
+        replaceMedia(media) {
+            this.media = [media];
+        },
 
-    if (! key) {
-        media.customProperties[namespace] = value;
-        return;
-    }
+        setMediaOrder(order) {
+            forIn(order, (order, mediaId) => {
+                this.find(parseInt(mediaId)).orderColumn = order;
+            });
+        },
 
-    if (! media.customProperties[namespace]) {
-        media.customProperties[namespace] = {};
-    }
+        renameMedia(id, name) {
+            this.find(id).name = name;
+        },
 
-    media.customProperties[namespace][key] = value;
-}
+        updateCustomProperty(id, property, value) {
+            const media = this.find(id);
+            const [namespace, key] = property.split('.');
+
+            if (! key) {
+                media.customProperties[namespace] = value;
+                return;
+            }
+
+            if (! media.customProperties[namespace]) {
+                media.customProperties[namespace] = {};
+            }
+
+            media.customProperties[namespace][key] = value;
+        },
+    },
+};

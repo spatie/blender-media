@@ -1,8 +1,8 @@
 import { assert } from 'chai';
-import { findOrFail } from '../src/util';
-import * as media from '../src/modules/media';
+import Media from '../src/modules/media';
+import Vue from 'vue';
 
-const createMediaItem = id => ({
+const createMedia = id => ({
     id: id,
     name: `image_${id}`,
     fileName: `image_${id}.jpeg`,
@@ -16,40 +16,40 @@ describe('media', () => {
 
     let store;
 
-    beforeEach(() => store = media.createStore());
+    beforeEach(() => store = new Vue(Media));
 
     describe('addMedia', () => {
 
         it('can add a single media item', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
+            store.addMedia(media);
 
-            assert.lengthOf(store.state.media, 1);
-            assert.equal(findOrFail(store.state.media, { id: 1 }), mediaItem);
+            assert.lengthOf(store.media, 1);
+            assert.deepEqual(store.find(1), { ...media, markedForRemoval: false });
         });
 
         it('can add an array of media items', () => {
 
-            const mediaItem1 = createMediaItem(1);
-            const mediaItem2 = createMediaItem(2);
+            const media1 = createMedia(1);
+            const media2 = createMedia(2);
 
-            store.commit(media.addMedia, { media: [mediaItem1, mediaItem2] });
+            store.addMedia([media1, media2]);
 
-            assert.lengthOf(store.state.media, 2);
-            assert.equal(findOrFail(store.state.media, { id: 1 }), mediaItem1);
-            assert.equal(store.state.media[1], mediaItem2);
+            assert.lengthOf(store.media, 2);
+            assert.deepEqual(store.find(1), { ...media1, markedForRemoval: false });
+            assert.deepEqual(store.find(2), { ...media2, markedForRemoval: false });
         });
 
         it('can\'t add multiple media items with the same ids', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.addMedia, { media: mediaItem });
+            store.addMedia(media);
+            store.addMedia(media);
 
-            assert.lengthOf(store.state.media, 1);
+            assert.lengthOf(store.media, 1);
         });
 
     });
@@ -58,12 +58,12 @@ describe('media', () => {
 
         it('can rename a media item', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.renameMedia, { id: mediaItem.id, name: 'image_renamed' });
+            store.addMedia(media);
+            store.renameMedia(media.id, 'image_renamed');
 
-            assert.equal(findOrFail(store.state.media, { id: 1 }).name, 'image_renamed');
+            assert.equal(store.find(1).name, 'image_renamed');
         });
     });
 
@@ -71,12 +71,12 @@ describe('media', () => {
 
         it('can mark a media item for removal', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.markMediaForRemoval, { id: mediaItem.id });
+            store.addMedia(media);
+            store.markMediaForRemoval(media.id);
 
-            assert.isTrue(store.state.media[0].markedForRemoval);
+            assert.isTrue(store.media[0].markedForRemoval);
         });
     });
 
@@ -84,11 +84,11 @@ describe('media', () => {
 
         it('can mark an entire set for removal', () => {
 
-            store.commit(media.addMedia, { media: [createMediaItem(1), createMediaItem(2)] });
-            store.commit(media.markAllMediaForRemoval);
+            store.addMedia([createMedia(1), createMedia(2)]);
+            store.markAllMediaForRemoval();
 
-            assert.isTrue(findOrFail(store.state.media, { id: 1 }).markedForRemoval);
-            assert.isTrue(findOrFail(store.state.media, { id: 2 }).markedForRemoval);
+            assert.isTrue(store.find(1).markedForRemoval);
+            assert.isTrue(store.find(2).markedForRemoval);
         });
 
     });
@@ -97,13 +97,13 @@ describe('media', () => {
 
         it('can restore a media item that\'s marked for removal', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.markMediaForRemoval, { id: mediaItem.id });
-            store.commit(media.restoreMedia, { id: mediaItem.id });
+            store.addMedia(media);
+            store.markMediaForRemoval(media.id);
+            store.restoreMedia(media.id);
 
-            assert.isFalse(store.state.media[0].markedForRemoval);
+            assert.isFalse(store.media[0].markedForRemoval);
         });
     });
 
@@ -111,16 +111,16 @@ describe('media', () => {
 
         it('can replace an existing media item with a new item', () => {
 
-            const oldItems = createMediaItem(1);
-            const newItems = createMediaItem(2);
+            const oldMedia = createMedia(1);
+            const newMedia = createMedia(2);
 
-            store.commit(media.addMedia, { media: oldItems });
-            store.commit(media.replaceMedia, { media: newItems });
+            store.addMedia(oldMedia);
+            store.replaceMedia(newMedia);
 
-            assert.lengthOf(store.state.media, 1);
+            assert.lengthOf(store.media, 1);
 
             // Will throw if id 2 doesn't exist
-            findOrFail(store.state.media, { id: 2 });
+            store.find(2);
         });
 
     });
@@ -129,14 +129,14 @@ describe('media', () => {
 
         it('can reorder media', () => {
 
-            const mediaItem1 = createMediaItem(1);
-            const mediaItem2 = createMediaItem(2);
+            const media1 = createMedia(1);
+            const media2 = createMedia(2);
 
-            store.commit(media.addMedia, { media: [mediaItem1, mediaItem2] });
-            store.commit(media.setMediaOrder, { order: { 1: 1, 2: 0 } });
+            store.addMedia([media1, media2]);
+            store.setMediaOrder({ 1: 1, 2: 0 });
 
-            assert.equal(findOrFail(store.state.media, { id: 1 }).orderColumn, 1);
-            assert.equal(findOrFail(store.state.media, { id: 2 }).orderColumn, 0);
+            assert.equal(store.find(1).orderColumn, 1);
+            assert.equal(store.find(2).orderColumn, 0);
         });
     });
 
@@ -144,34 +144,34 @@ describe('media', () => {
 
         it('can set a new custom property', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo', value: 'bar' });
+            store.addMedia(media);
+            store.updateCustomProperty(media.id, 'foo', 'bar');
 
-            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo, 'bar');
+            assert.equal(store.find(1).customProperties.foo, 'bar');
         });
 
         it('can set a nested custom property up to one level deep', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo.bar', value: 'baz' });
+            store.addMedia(media);
+            store.updateCustomProperty(media.id, 'foo.bar', 'baz');
 
-            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo.bar, 'baz');
+            assert.equal(store.find(1).customProperties.foo.bar, 'baz');
         });
 
         it('can update an existing custom property', () => {
 
-            const mediaItem = createMediaItem(1);
+            const media = createMedia(1);
 
             media.customProperties = { foo: 'bar' };
 
-            store.commit(media.addMedia, { media: mediaItem });
-            store.commit(media.updateCustomProperty, { id: mediaItem.id, property: 'foo', value: 'baz' });
+            store.addMedia(media);
+            store.updateCustomProperty(media.id, 'foo', 'baz');
 
-            assert.equal(findOrFail(store.state.media, { id: 1 }).customProperties.foo, 'baz');
+            assert.equal(store.find(1).customProperties.foo, 'baz');
         });
     });
 });
