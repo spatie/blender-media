@@ -2,12 +2,10 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
-## 2.1.1
-- Require Vuex ^2.0.0
-- Custom property fixes
-
-## 2.1.0
-- Updated Vuex to 2.0.0-rc
+## 3.0.0
+- Vue 2.0
+- Removed Vuex dependency
+- No breaking changes in the code!
 
 ## 2.0.1
 - Treat svg's like images for thumbs

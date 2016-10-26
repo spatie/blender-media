@@ -1,4 +1,5 @@
 "use strict";
+
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -35,4 +36,4 @@ app.post('/upload', upload.any(), (req, res) => {
 
 app.listen(4000);
 
-console.log('Server running at http://localhost:4000');
+console.log('Server running at http://localhost:2000');

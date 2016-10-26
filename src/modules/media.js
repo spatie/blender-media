@@ -1,104 +1,71 @@
-import { forIn, values } from 'lodash';
-import { makeActions } from '../helpers';
-import Vue from 'vue';
+import { findOrFail } from '../util';
+import { forIn } from 'lodash';
 
-const state = {
-    media: {},
-};
+export default {
 
-export const mutations = {
-
-    addMedia(state, { media }) {
-
-        if (! Array.isArray(media)) {
-            media = [media];
-        }
-
-        media.forEach(media => Vue.set(state.media, media.id, media));
+    data() {
+        return {
+            media: [],
+        };
     },
 
-    renameMedia(state, { id, name }) {
+    methods: {
+        find(id) {
+            return findOrFail(this.media, { id });
+        },
 
-        if (! state.media[id]) {
-            return;
-        }
-
-        state.media[id].name = name;
-    },
-
-    markMediaForRemoval(state, { id }) {
-
-        if (! state.media[id]) {
-            return;
-        }
-
-        Vue.set(state.media[id], 'markedForRemoval', true);
-    },
-
-    markCollectionForRemoval(state, { collection }) {
-        forIn(state.media, (media) => {
-            if (media.collection === collection) {
-                mutations.markMediaForRemoval(state, { id: media.id });
+        addMedia(media) {
+            if (! Array.isArray(media)) {
+                media = [media];
             }
-        });
-    },
 
-    restoreMedia(state, { id }) {
+            this.media = this.media.concat(
+                media.map(m => ({ ...m, markedForRemoval: false }))
+            );
+        },
 
-        if (! state.media[id]) {
-            return;
-        }
+        markAllMediaForRemoval() {
+            this.media.forEach((media) => {
+                this.markMediaForRemoval(media.id);
+            });
+        },
 
-        Vue.set(state.media[id], 'markedForRemoval', false);
-    },
+        markMediaForRemoval(id) {
+            this.find(id).markedForRemoval = true;
+        },
 
-    replaceMedia(state, { collection, media }) {
-        mutations.clearCollection(state, { collection });
-        mutations.addMedia(state, { media });
-    },
+        restoreMedia(id) {
+            this.find(id).markedForRemoval = false;
+        },
 
-    clearCollection(state, { collection }) {
-        forIn(state.media, (media, id) => {
-            if (media.collection === collection) {
-                Vue.delete(state.media, id);
+        replaceMedia(media) {
+            if (! Array.isArray(media)) {
+                media = [media];
             }
-        });
+
+            this.media = media;
+        },
+
+        setNewOrder(order) {
+            forIn(order, (order, mediaId) => {
+                this.find(parseInt(mediaId)).orderColumn = order;
+            });
+        },
+
+        updateCustomProperty(id, property, value) {
+            const media = this.find(id);
+            const [namespace, key] = property.split('.');
+
+            if (! key) {
+                media.customProperties[namespace] = value;
+                return;
+            }
+
+            if (! media.customProperties[namespace]) {
+                media.customProperties[namespace] = {};
+            }
+
+            media.customProperties[namespace][key] = value;
+        },
     },
-
-    setMediaOrder(state, { order }) {
-        forIn(order, (order, mediaId) => {
-            state.media[mediaId].orderColumn = order;
-        });
-    },
-
-    updateCustomProperty(state, { id, property, value }) {
-
-        if (! state.media[id]) {
-            return;
-        }
-
-        const [ namespace, key ] = property.split('.');
-
-        if (! key) {
-            Vue.set(state.media[id].customProperties, namespace, value);
-            return;
-        }
-
-        if (! state.media[id].customProperties[namespace]) {
-            Vue.set(state.media[id].customProperties, namespace, {});
-        }
-
-        Vue.set(state.media[id].customProperties[namespace], key, value);
-    },
-
 };
-
-export const actions = {
-    ...makeActions(mutations),
-};
-
-export const getters = {
-    allMedia: state => values(state.media),
-};
-
-export default { state, mutations, actions, getters };

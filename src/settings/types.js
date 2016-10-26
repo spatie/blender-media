@@ -18,9 +18,8 @@ export const extendType = (name, options) => {
     assign(types[name], options);
 };
 
-export const getTypeOptions = name => {
-
-    if (!types[name]) {
+export const getTypeSettings = name => {
+    if (! types[name]) {
         throw new Error(`Media component type \`${name}\` doesn't exist`);
     }
 

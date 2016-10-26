@@ -12,55 +12,57 @@
     </style>
   </head>
   <body>
-  <form>
-    <media
-      collection="images"
-      type="images"
-      upload-url="/upload"
-      :model="{ name: 'MyModel', id: 1 }"
-      :initial='[
-        {
-          "id": 1,
-          "name": "image_1",
-          "fileName": "image_1.jpeg",
-          "customProperties": {},
-          "orderColumn": 1,
-          "thumbUrl": "/media/image_1.jpeg",
-          "originalUrl": "/media/image_1.jpeg",
-          "collection": "images"
-        },
-        {
-          "id": 2,
-          "name": "image_2",
-          "fileName": "image_2.jpeg",
-          "customProperties": {},
-          "orderColumn": 2,
-          "thumbUrl": "/media/image_2.jpeg",
-          "originalUrl": "/media/image_2.jpeg",
-          "collection": "images"
-        }
-      ]'
-    ></media>
-    <media
-      collection="download"
-      type="download"
-      upload-url="/upload"
-      :model="{ name: 'MyModel', id: 1 }"
-      :initial='[
-        {
-          "id": 3,
-          "name": "image_3",
-          "fileName": "image_3.jpeg",
-          "customProperties": {},
-          "orderColumn": 3,
-          "thumbUrl": "/media/image_3.jpeg",
-          "originalUrl": "/media/image_3.jpeg",
-          "collection": "download"
-        }
-      ]'
-      :data="{ locales: ['nl', 'en'] }"
-    ></media>
-    </form>
-    <script src="/build/index.js"></script>
+    <div id="app">
+      <form>
+        <media
+          collection="download"
+          type="download"
+          upload-url="http://localhost:4000/upload"
+          :model="{ name: 'MyModel', id: 1 }"
+          :initial='[
+            {
+              "id": 3,
+              "name": "image_3",
+              "fileName": "image_3.jpeg",
+              "customProperties": {},
+              "orderColumn": 3,
+              "thumbUrl": "/media/image_3.jpeg",
+              "originalUrl": "/media/image_3.jpeg",
+              "collection": "download"
+            }
+          ]'
+          :data="{ locales: ['nl', 'en'] }"
+        ></media>
+        <media
+          collection="images"
+          type="images"
+          upload-url="http://localhost:4000/upload"
+          :model="{ name: 'MyModel', id: 1 }"
+          :initial='[
+            {
+              "id": 1,
+              "name": "image_1",
+              "fileName": "image_1.jpeg",
+              "customProperties": {},
+              "orderColumn": 1,
+              "thumbUrl": "/media/image_1.jpeg",
+              "originalUrl": "/media/image_1.jpeg",
+              "collection": "images"
+            },
+            {
+              "id": 2,
+              "name": "image_2",
+              "fileName": "image_2.jpeg",
+              "customProperties": {},
+              "orderColumn": 2,
+              "thumbUrl": "/media/image_2.jpeg",
+              "originalUrl": "/media/image_2.jpeg",
+              "collection": "images"
+            }
+          ]'
+        ></media>
+      </form>
+    </div>
+  <script src="/build/app.js"></script>
   </body>
 </html>

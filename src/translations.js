@@ -41,14 +41,13 @@ const language = (() => {
 })();
 
 export const translate = (key, parameters = {}) => {
-
     const translation = translations[language][key];
 
-    if (!translation) {
+    if (! translation) {
         return key;
     }
 
-    return translation.replace(/:[\w]+/g, (key => parameters[key.slice(1)] || key));
+    return translation.replace(/:[\w]+/g, key => parameters[key.slice(1)] || key);
 };
 
 export default translate;

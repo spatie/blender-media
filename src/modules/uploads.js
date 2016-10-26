@@ -1,42 +1,37 @@
-import { makeActions } from '../helpers';
-import { values } from 'lodash';
-import Vue from 'vue';
+export default {
 
-const state = {
-    uploads: {},
-};
-
-export const mutations = {
-
-    startUpload(state, { id, name, collection }) {
-
-        Vue.set(state.uploads, id, {
-            id,
-            name,
-            collection,
-            progress: 0,
-        });
+    data() {
+        return {
+            error: '',
+            uploads: [],
+        };
     },
 
-    updateUploadProgress(state, { id, progress }) {
+    methods: {
+        startUpload(id, name) {
+            this.uploads.push({ id, name, progress: 0 });
+        },
 
-        if (!state.uploads[id]) return;
+        updateUploadProgress(id, progress) {
+            const upload = this.uploads.filter(upload => upload.id === id)[0];
 
-        state.uploads[id].progress = progress;
+            if (! upload) {
+                return;
+            }
+
+            upload.progress = progress;
+        },
+
+        finishUpload(id) {
+            this.uploads = this.uploads.filter(upload => upload.id !== id);
+        },
+
+        setError(message) {
+            this.error = message;
+        },
+
+        clearError() {
+            this.error = '';
+        },
     },
-
-    finishUpload(state, { id }) {
-        Vue.delete(state.uploads, id);
-    },
-
 };
-
-export const actions = {
-    ...makeActions(mutations),
-};
-
-export const getters = {
-    allUploads: state => values(state.uploads),
-};
-
-export default { state, mutations, actions, getters };
