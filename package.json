@@ -6,7 +6,7 @@
   "scripts": {
     "build": " npm run build:js; npm run build:css",
     "build:css": "postcss -c postcss.conf.js -o ./dist/css/media.css",
-    "build:js": "NODE_ENV=production babel src -d dist",
+    "build:js": "rm -rf dist && NODE_ENV=production babel src -d dist",
     "dev": "concurrently \"npm run dev:js\" \"npm run dev:css\"",
     "dev:css": "postcss -c postcss.conf.js -o ./example/build/media.css -w",
     "dev:js": "NODE_ENV=development webpack-dev-server --config example/webpack.config.js",
