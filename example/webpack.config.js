@@ -1,34 +1,27 @@
 const path = require('path');
+const config = Object.assign({}, require('../webpack.base'));
 
-module.exports = {
-    context: __dirname,
-    entry: './app.js',
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'app.js',
-        publicPath: '/build/',
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.vue$/,
-                loaders: ['vue'],
-            },
-            {
-                test: /\.js/,
-                loaders: ['babel'],
-                exclude: ['node_modules'],
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.js', '.vue'],
-        alias: {
-            vue: 'vue/dist/vue.js',
-        },
-    },
-    devServer: {
-        contentBase: __dirname,
-        port: 2000,
+config.context = __dirname;
+
+config.entry = './app.js';
+
+config.output = {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'app.js',
+    publicPath: '/build/',
+};
+
+config.resolve = {
+    alias: {
+        vue: 'vue/dist/vue.js',
     },
 };
+
+config.devServer = {
+    contentBase: __dirname,
+    port: 2000,
+};
+
+console.log(config);
+
+module.exports = config;

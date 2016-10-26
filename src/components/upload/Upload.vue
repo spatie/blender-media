@@ -18,7 +18,6 @@ export default {
         'url',
         'multiple',
         'accepts',
-        'button',
     ],
 
     mixins: [
@@ -31,7 +30,7 @@ export default {
             uploadMultiple: this.multiple,
             acceptedFiles: this.accepts,
             parallelUploads: 10,
-            clickable: this.button(this.$parent),
+            clickable: this.$parent.$refs.addMedia,
 
             previewsContainer: false,
             previewTemplate: false,

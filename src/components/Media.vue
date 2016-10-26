@@ -6,7 +6,6 @@
             :url="uploadUrl"
             :multiple="settings.multiple"
             :accepts="settings.accepts"
-            :button="vm => vm.$refs.addMedia"
         >
             <div v-if="hasMedia">
                 <media-table
