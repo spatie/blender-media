@@ -2,6 +2,11 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.0.0
+- Vue 2.0
+- Removed Vuex dependency
+- No breaking changes in the code!
+
 ## 2.0.1
 - Treat svg's like images for thumbs
 - Hide clear collection when irrelevant 
