@@ -2,3 +2,9 @@ language: node_js
 node_js:
   - 'stable'
 
+before_script:
+  - travis_retry composer self-update
+  - yarn install
+
+script:
+ - npm run test
