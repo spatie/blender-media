@@ -11,17 +11,13 @@ config.output = {
     publicPath: '/build/',
 };
 
-config.resolve = {
-    alias: {
-        vue: 'vue/dist/vue.js',
-    },
+config.resolve.alias = {
+    vue: 'vue/dist/vue.js',
 };
 
 config.devServer = {
     contentBase: __dirname,
     port: 2000,
 };
-
-console.log(config);
 
 module.exports = config;
