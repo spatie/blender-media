@@ -57,15 +57,16 @@ export default {
             const [namespace, key] = property.split('.');
 
             if (! key) {
-                media.customProperties[namespace] = value;
+                // If there's no key, the namespace variable holds the key instead
+                this.$set(media.customProperties, namespace, value);
                 return;
             }
 
-            if (! media.customProperties[namespace]) {
-                media.customProperties[namespace] = {};
+            if (! media.customProperties.hasOwnProperty(namespace)) {
+                this.$set(media.customProperties, namespace, {});
             }
 
-            media.customProperties[namespace][key] = value;
+            this.$set(media.customProperties[namespace], key, value);
         },
     },
 };

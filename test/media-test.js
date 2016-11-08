@@ -6,7 +6,7 @@ const createMedia = id => ({
     id: id,
     name: `image_${id}`,
     fileName: `image_${id}.jpeg`,
-    customProperties: [],
+    customProperties: {},
     orderColumn: id,
     thumbUrl: `/media/image_${id}.jpeg`,
     originalUrl: `/media/image_${id}.jpeg`,
