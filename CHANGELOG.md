@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.0.1
+- Export `expose` and `inject`
+
 ## 3.0.0
 - Vue 2.0
 - Removed Vuex dependency
