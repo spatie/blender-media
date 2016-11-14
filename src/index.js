@@ -12,3 +12,5 @@ export {
     expose,
     inject,
 };
+
+export default Media;
