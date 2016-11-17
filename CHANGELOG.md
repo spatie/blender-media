@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.0.5
+- CSS Typo
+
 ## 3.0.4
 - Add editor styles
 
