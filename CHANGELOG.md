@@ -2,7 +2,10 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
-## 3.0.2
+## 3.0.4
+- Add editor styles
+
+## 3.0.3
 - Fixed `Media` export issue
 
 ## 3.0.2

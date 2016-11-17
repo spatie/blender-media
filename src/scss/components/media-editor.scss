@@ -24,4 +24,8 @@
   &.-stretch {
     flex-grow: 1;
   }
+
+  &.-stacked {
+    dsiaply: block;
+  }
 }
