@@ -16,7 +16,7 @@
 <script>
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
-import inject from '../../mixins/inject';
+import { inject } from 'vue-expose-inject';
 import { matches } from '../../util';
 import MediaRow from './MediaRow';
 import { sortBy } from 'lodash';
@@ -28,10 +28,6 @@ export default {
     components: {
         MediaRow,
     },
-
-    mixins: [
-        inject('media'),
-    ],
 
     mounted() {
         this.sortable = dragula([this.$el], {
@@ -50,7 +46,7 @@ export default {
                     return order;
                 }, {});
 
-            this.$media.setNewOrder(order);
+            this.store.setNewOrder(order);
         }.bind(this));
     },
 
@@ -59,6 +55,7 @@ export default {
     },
 
     computed: {
+        ...inject(['store']),
         orderedMedia() {
             return sortBy(this.media, 'orderColumn');
         },

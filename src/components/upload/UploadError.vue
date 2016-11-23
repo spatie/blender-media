@@ -17,17 +17,14 @@
 </template>
 
 <script>
-import inject from '../../mixins/inject';
+import { inject } from 'vue-expose-inject';
 
 export default {
 
-    mixins: [
-        inject('uploads'),
-    ],
-
     computed: {
+        ...inject(['store']),
         error() {
-            return this.$uploads.error;
+            return this.store.error;
         },
         hasError() {
             return this.error !== '';
@@ -36,7 +33,7 @@ export default {
 
     methods: {
         clearError() {
-            this.$uploads.clearError();
+            this.store.clearError();
         },
     },
 };

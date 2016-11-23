@@ -29,15 +29,10 @@
 
 <script>
 import { assign, keys, pick } from 'lodash';
-import inject from '../../mixins/inject';
 
 export default {
 
     props: ['media', 'data'],
-
-    mixins: [
-        inject('media'),
-    ],
 
     computed: {
         locales() {
@@ -67,7 +62,7 @@ export default {
         },
 
         updateCustomProperty(property, value) {
-            this.$media.updateCustomProperty(this.media.id, property, value);
+            this.store.updateCustomProperty(this.media.id, property, value);
         },
 
         customProperty(name, fallback = null) {

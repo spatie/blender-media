@@ -52,18 +52,16 @@
 </template>
 
 <script>
-import Media from '../modules/Media';
-import Uploads from '../modules/Uploads';
-import Export from './export/export';
-import inject from '../mixins/inject';
-import expose from '../mixins/expose';
+import { expose, inject } from 'vue-expose-inject';
 import { getTypeSettings } from '../settings/types';
-import MediaTable from './media/MediaTable';
+import createStore from '../store';
 import translate from '../translations';
+
+import Export from './export/export';
+import MediaTable from './media/MediaTable';
 import Upload from './upload/upload';
 import UploadError from './upload/UploadError';
 import UploadTable from './upload/UploadTable';
-import Vue from 'vue';
 
 export default {
 
@@ -102,20 +100,22 @@ export default {
         UploadTable,
     },
 
-    mixins: [
-        expose(() => ({
-            media: new Vue(Media),
-            uploads: new Vue(Uploads),
-        })),
-        inject('media', 'uploads'),
-    ],
+    mixins: [expose],
+
+    expose: ['store'],
+
+    data() {
+        return {
+            store: createStore(),
+        };
+    },
 
     computed: {
         settings() {
             return getTypeSettings(this.type);
         },
         media() {
-            return this.$media.media;
+            return this.store.media;
         },
         hasMedia() {
             return this.media.length > 0;
@@ -124,7 +124,7 @@ export default {
             return this.media.filter(media => media.markedForRemoval !== true).length > 0;
         },
         uploads() {
-            return this.$uploads.uploads;
+            return this.store.uploads;
         },
         hasUploads() {
             return this.uploads.length > 0;
@@ -148,13 +148,13 @@ export default {
 
     methods: {
         markAllMediaForRemoval() {
-            this.$media.markAllMediaForRemoval();
+            this.store.markAllMediaForRemoval();
         },
         translate,
     },
 
     created() {
-        this.$media.addMedia(this.initial);
+        this.store.addMedia(this.initial);
     },
 };
 </script>

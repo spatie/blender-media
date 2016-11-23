@@ -1,9 +1,9 @@
 import Media, { extendType } from '../src';
 import Vue from 'vue';
 
-extendType('download', {
-    editor: 'locales',
-});
+// extendType('download', {
+//     editor: 'locales',
+// });
 
 Vue.component('media', Media);
 

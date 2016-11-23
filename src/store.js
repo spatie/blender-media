@@ -1,11 +1,14 @@
-import { findOrFail } from '../util';
+import { findOrFail } from './util';
 import { forIn } from 'lodash';
+import Vue from 'vue';
 
-export default {
+const Store = {
 
     data() {
         return {
             media: [],
+            uploads: [],
+            error: '',
         };
     },
 
@@ -68,5 +71,35 @@ export default {
 
             this.$set(media.customProperties[namespace], key, value);
         },
+
+        startUpload(id, name) {
+            this.uploads.push({ id, name, progress: 0 });
+        },
+
+        updateUploadProgress(id, progress) {
+            const upload = this.uploads.filter(upload => upload.id === id)[0];
+
+            if (! upload) {
+                return;
+            }
+
+            upload.progress = progress;
+        },
+
+        finishUpload(id) {
+            this.uploads = this.uploads.filter(upload => upload.id !== id);
+        },
+
+        setError(message) {
+            this.error = message;
+        },
+
+        clearError() {
+            this.error = '';
+        },
     },
 };
+
+export default function createStore() {
+    return new Vue(Store);
+}

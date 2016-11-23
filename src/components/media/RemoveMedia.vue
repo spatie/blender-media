@@ -22,22 +22,22 @@
 </template>
 
 <script>
-import inject from '../../mixins/inject';
+import { inject } from 'vue-expose-inject';
 
 export default {
 
     props: ['media'],
 
-    mixins: [
-        inject('media'),
-    ],
+    computed: {
+        ...inject(['store']),
+    },
 
     methods: {
         markMediaForRemoval(media) {
-            this.$media.markMediaForRemoval(media.id);
+            this.store.markMediaForRemoval(media.id);
         },
         restoreMedia(media) {
-            this.$media.restoreMedia(media.id);
+            this.store.restoreMedia(media.id);
         },
     },
 };
