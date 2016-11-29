@@ -2,6 +2,12 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.1.0
+- Improved custom editor workflow
+- Internal state management refactor
+- Fixed an issue where multi-uploaded files appeared twice
+- Fixed an issue where the order column didn't update
+
 ## 3.0.5
 - CSS Typo
 
