@@ -1,8 +1,7 @@
-import { mountMedia, extendType } from '../src';
-import { queryAll } from 'spatie-dom';
+import { mount, extendType } from '../src';
 
 extendType('download', {
     editor: 'locales',
 });
 
-queryAll('media').forEach(el => mountMedia(el, { debug: true }));
+mount('media');
