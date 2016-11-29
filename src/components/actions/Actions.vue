@@ -1,8 +1,7 @@
 <template>
     <div class="media__actions">
         <button
-            class="media__button"
-            ref="addMedia"
+            class="media__button | js-add-media"
             @click.prevent
         >
             {{ uploadButtonText }}

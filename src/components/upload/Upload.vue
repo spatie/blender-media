@@ -6,6 +6,7 @@
 
 <script>
 import Dropzone from 'dropzone';
+import { query } from 'spatie-dom';
 import translate from '../../lib/trans';
 import { uuid } from '../../lib/util';
 
@@ -19,7 +20,7 @@ export default {
             uploadMultiple: this.store.settings.multiple,
             acceptedFiles: this.store.settings.accepts,
             parallelUploads: 10,
-            clickable: this.$parent.$refs.addMedia,
+            clickable: query('.js-add-media', this.$el),
 
             previewsContainer: false,
             previewTemplate: false,

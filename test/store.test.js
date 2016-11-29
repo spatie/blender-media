@@ -1,6 +1,6 @@
 import { assert } from 'chai';
-import createStore from '../src/createStore';
-import { findOrFail } from '../src/util';
+import createStore from '../src/lib/createStore';
+import { findOrFail } from '../src/lib/util';
 
 const createMedia = id => ({
     id: id,
@@ -86,41 +86,6 @@ describe('Store', () => {
 
             assert.equal(store.find(1).orderColumn, 1);
             assert.equal(store.find(2).orderColumn, 0);
-        });
-    });
-
-    describe('updateCustomProperty', () => {
-
-        it('can set a new custom property', () => {
-
-            const media = createMedia(1);
-
-            store.addMedia(media);
-            store.updateCustomProperty(media.id, 'foo', 'bar');
-
-            assert.equal(store.find(1).customProperties.foo, 'bar');
-        });
-
-        it('can set a nested custom property up to one level deep', () => {
-
-            const media = createMedia(1);
-
-            store.addMedia(media);
-            store.updateCustomProperty(media.id, 'foo.bar', 'baz');
-
-            assert.equal(store.find(1).customProperties.foo.bar, 'baz');
-        });
-
-        it('can update an existing custom property', () => {
-
-            const media = createMedia(1);
-
-            media.customProperties = { foo: 'bar' };
-
-            store.addMedia(media);
-            store.updateCustomProperty(media.id, 'foo', 'baz');
-
-            assert.equal(store.find(1).customProperties.foo, 'baz');
         });
     });
 

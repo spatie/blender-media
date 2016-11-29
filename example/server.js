@@ -34,6 +34,8 @@ app.post('/upload', upload.any(), (req, res) => {
     res.send(JSON.stringify(data));
 });
 
-app.listen(4000);
+const port = 4000;
 
-console.log('Server running at http://localhost:2000');
+app.listen(port);
+
+console.log(`Server running at http://localhost:${port}`);

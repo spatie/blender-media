@@ -1,5 +1,5 @@
 import { findOrFail, pipe } from './util';
-import { forIn, sortBy } from 'lodash';
+import { find, forIn, reject, sortBy } from 'lodash';
 import { getTypeSettings } from '../settings/types';
 import Vue from 'vue';
 
@@ -78,10 +78,14 @@ const Store = {
             if (! Array.isArray(media)) {
                 media = [media];
             }
+            
+            // Sometimes media items are added twice during multiple uploads,
+            // so want to reject media items that are already in the store.
+            media = 
+                reject(media, m => find(this.media, { id: m.id }))
+                    .map(m => ({ ...m, markedForRemoval: false }));
 
-            this.media = this.media.concat(
-                media.map(m => ({ ...m, markedForRemoval: false }))
-            );
+            this.media = [...this.media, ...media];
         },
 
         markAllMediaForRemoval() {
@@ -104,23 +108,6 @@ const Store = {
             });
         },
 
-        updateCustomProperty(id, property, value) {
-            const media = this.find(id);
-            const [namespace, key] = property.split('.');
-
-            if (! key) {
-                // If there's no key, the namespace variable holds the key instead
-                this.$set(media.customProperties, namespace, value);
-                return;
-            }
-
-            if (! media.customProperties.hasOwnProperty(namespace)) {
-                this.$set(media.customProperties, namespace, {});
-            }
-
-            this.$set(media.customProperties[namespace], key, value);
-        },
-
         startUpload(id, name) {
             this.uploads.push({ id, name, progress: 0 });
         },
@@ -136,6 +123,7 @@ const Store = {
         },
 
         finishUpload(id) {
+            console.log('finished upload');
             this.uploads = this.uploads.filter(upload => upload.id !== id);
         },
 

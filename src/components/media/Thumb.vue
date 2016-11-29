@@ -37,7 +37,7 @@ export default {
         },
 
         isImage() {
-            return includes(['jpg', 'jpeg', 'gif', 'png', 'svg'], this.extension);
+            return includes(['jpg', 'jpeg', 'gif', 'png'], this.extension);
         },
 
         originalUrl() {
