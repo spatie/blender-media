@@ -46,7 +46,7 @@ export default {
         trans,
 
         markAllMediaForRemoval() {
-            this.$emit('markAllMediaForRemoval');
+            this.$emit('mark-all-media-for-removal');
         },
 
         sendExportToConsole() {

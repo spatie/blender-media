@@ -11,7 +11,7 @@ import { uuid } from '../../lib/util';
 
 export default {
 
-    props: ['store'],
+    props: ['store', 'className'],
 
     mounted() {
         this.dropzone = new Dropzone(this.$el, {

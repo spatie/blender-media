@@ -29,7 +29,7 @@ export default {
 
     methods: {
         clearError() {
-            this.$emit('clearError');
+            this.$emit('clear-error');
         },
     },
 };
