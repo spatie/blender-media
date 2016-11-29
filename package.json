@@ -46,7 +46,6 @@
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-loader": "^6.2.5",
-    "babel-plugin-transform-node-env-inline": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "chai": "^3.5.0",

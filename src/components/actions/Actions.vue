@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import trans from '../../trans';
+import trans from '../../lib/trans';
 
 export default {
 
-    props: ['allowMultiple', 'canBeCleared', 'isEmpty', 'export'],
+    props: ['allowMultiple', 'canBeCleared', 'isEmpty', 'debug', 'export'],
 
     computed: {
         uploadButtonText() {
@@ -39,10 +39,6 @@ export default {
             }
             
             return this.isEmpty ? trans('addMedia') : trans('replaceMedia');
-        },
-
-        debug() {
-            return process.NODE_ENV !== 'production';
         },
     },
 
@@ -55,7 +51,7 @@ export default {
 
         sendExportToConsole() {
             // eslint-disable-next-line no-console
-            console.log(JSON.parse(this.export));
+            console.log(window.__media = JSON.parse(this.export));
         },
     },
 };

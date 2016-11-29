@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import trans from '../../trans';
+import trans from '../../lib/trans';
 
 export default {
     

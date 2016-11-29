@@ -20,6 +20,7 @@
                 :allow-multiple="store.settings.multiple"
                 :can-be-cleared="store.canBeCleared"
                 :is-empty="store.isEmpty"
+                :debug="store.debug"
                 :export="store.export"
                 @markAllMediaForRemoval="store.markAllMediaForRemoval"
             ></actions>

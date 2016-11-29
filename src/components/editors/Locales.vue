@@ -28,50 +28,26 @@
 </template>
 
 <script>
-import { assign, keys, pick } from 'lodash';
+import editor from './editor';
 
 export default {
 
-    props: ['media', 'data'],
+    mixins: [editor],
 
     computed: {
         locales() {
-            return this.customProperty('locales');
+            return this.media.customProperties.locales;
         },
     },
 
     methods: {
-        blurInput(event) {
-            event.target.blur();
-        },
-
         toggleLocale(locale) {
-            this.updateCustomProperty(`locales.${locale}`, !this.locales[locale]);
-        },
-
-        normalizeLocales() {
-            const locales = this.data.locales.reduce((locales, locale) => {
-                locales[locale] = true;
-                return locales;
-            }, {});
-
-            this.updateCustomProperty('locales', pick(
-                assign({}, locales, this.customProperty('locales')),
-                keys(locales)
-            ));
-        },
-
-        updateCustomProperty(property, value) {
-            this.store.updateCustomProperty(this.media.id, property, value);
-        },
-
-        customProperty(name, fallback = null) {
-            return this.media.customProperties[name] || fallback;
+            this.setTranslation('locales', locale, ! this.getTranslation('locales', locale));
         },
     },
 
     created() {
-        this.normalizeLocales();
+        this.normalizeTranslations('locales', true);
     },
 };
 </script>

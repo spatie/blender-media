@@ -1,14 +1,5 @@
-import { extendType, registerType } from './settings/types';
-import Media from './components/Media';
-import mountMedia from './mountMedia';
-import { registerEditor } from './settings/editors';
-
-export {
-    Media,
-    mountMedia,
-    registerEditor,
-    extendType,
-    registerType,
-};
-
-export default Media;
+export { default } from './components/Media';
+export { default as mountMedia } from './lib/mountMedia.js';
+export { registerEditor } from './settings/editors';
+export { extendType, registerType } from './settings/types';
+export { default as editor } from './components/editors/editor';

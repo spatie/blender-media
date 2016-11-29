@@ -1,5 +1,5 @@
-import BasicEditor from '../components/editors/basic';
-import LocaleEditor from '../components/editors/locales';
+import Basic from '../components/editors/Basic';
+import Locales from '../components/editors/Locales';
 
 const editors = {};
 
@@ -11,8 +11,9 @@ export function getEditor(name) {
     if (! editors.hasOwnProperty(name)) {
         throw new Error(`Editor \`${name}\` doesn't exist`);
     }
+    
     return editors[name];
 }
 
-registerEditor('basic', BasicEditor);
-registerEditor('locales', LocaleEditor);
+registerEditor('basic', Basic);
+registerEditor('locales', Locales);

@@ -16,7 +16,7 @@
 <script>
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
-import { matches } from '../../util';
+import { matches } from '../../lib/util';
 import MediaRow from './MediaRow';
 import { sortBy } from 'lodash';
 

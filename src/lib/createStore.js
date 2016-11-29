@@ -1,6 +1,6 @@
 import { findOrFail, pipe } from './util';
 import { forIn, sortBy } from 'lodash';
-import { getTypeSettings } from './settings/types';
+import { getTypeSettings } from '../settings/types';
 import Vue from 'vue';
 
 const Store = {
@@ -15,6 +15,7 @@ const Store = {
             media: [],
             uploads: [],
             error: '',
+            debug: false,
         };
     },
 
@@ -58,12 +59,13 @@ const Store = {
     },
 
     methods: {
-        init({ collection, type, uploadUrl, model, initial, data }) {
+        init({ collection, type, uploadUrl, model, initial, data, debug }) {
             this.collection = collection;
             this.type = type;
             this.uploadUrl = uploadUrl;
             this.model = model;
             this.data = data;
+            this.debug = debug;
 
             this.addMedia(initial);
         },

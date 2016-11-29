@@ -28,7 +28,7 @@
 <script>
 import MediaEditor from './MediaEditor';
 import RemoveMedia from './RemoveMedia';
-import Thumb from './thumb';
+import Thumb from './Thumb';
 
 export default {
 

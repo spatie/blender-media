@@ -6,8 +6,8 @@
 
 <script>
 import Dropzone from 'dropzone';
-import translate from '../../trans';
-import { uuid } from '../../util';
+import translate from '../../lib/trans';
+import { uuid } from '../../lib/util';
 
 export default {
 
