@@ -3,12 +3,12 @@
         <tr
             v-for="media in orderedMedia"
             is="media-row"
-            ref="rows"
             :media="media"
             :data="store.data"
             :settings="store.settings"
             class="media__row"
             :class="{ '-is-disabled': media.markedForRemoval }"
+            :data-media-id="media.id"
         ></tr>
     </table>
 </template>
@@ -16,6 +16,7 @@
 <script>
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
+import { queryAll } from 'spatie-dom';
 import { matches } from '../../lib/util';
 import MediaRow from './MediaRow';
 import { sortBy } from 'lodash';
@@ -38,8 +39,8 @@ export default {
         constrain(this.sortable);
 
         this.sortable.on('drop', function () {
-            const order = this.$refs.rows
-                .map(row => row.media.id)
+            const order = queryAll('.media__row', this.$el)
+                .map(row => row.dataset.mediaId)
                 .reduce((order, mediaId) => {
                     order[mediaId] = Object.keys(order).length;
                     return order;
