@@ -5,8 +5,8 @@
             is="media-row"
             ref="rows"
             :media="media"
-            :data="data"
-            :settings="settings"
+            :data="store.data"
+            :settings="store.settings"
             class="media__row"
             :class="{ '-is-disabled': media.markedForRemoval }"
         ></tr>
@@ -16,14 +16,13 @@
 <script>
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
-import { inject } from 'vue-expose-inject';
 import { matches } from '../../util';
 import MediaRow from './MediaRow';
 import { sortBy } from 'lodash';
 
 export default {
 
-    props: ['collection', 'media', 'settings', 'data'],
+    props: ['store'],
 
     components: {
         MediaRow,
@@ -55,9 +54,8 @@ export default {
     },
 
     computed: {
-        ...inject(['store']),
         orderedMedia() {
-            return sortBy(this.media, 'orderColumn');
+            return sortBy(this.store.media, 'orderColumn');
         },
     },
 };

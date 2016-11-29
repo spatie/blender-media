@@ -6,29 +6,18 @@
 
 <script>
 import Dropzone from 'dropzone';
-import { inject } from 'vue-expose-inject';
-import translate from '../../translations';
+import translate from '../../trans';
 import { uuid } from '../../util';
 
 export default {
 
-    props: [
-        'collection',
-        'model',
-        'url',
-        'multiple',
-        'accepts',
-    ],
-
-    computed: {
-        ...inject(['store']),
-    },
+    props: ['store'],
 
     mounted() {
         this.dropzone = new Dropzone(this.$el, {
-            url: this.url,
-            uploadMultiple: this.multiple,
-            acceptedFiles: this.accepts,
+            url: this.store.uploadUrl,
+            uploadMultiple: this.store.settings.multiple,
+            acceptedFiles: this.store.settings.accepts,
             parallelUploads: 10,
             clickable: this.$parent.$refs.addMedia,
 
@@ -41,12 +30,12 @@ export default {
         });
 
         this.dropzone.on('sending', function (file, xhr, data) {
-            file.collection = this.collection;
+            file.collection = this.store.collection;
             file.uploadId = uuid();
 
-            data.append('collection_name', this.collection);
-            data.append('model_name', this.model.name);
-            data.append('model_id', this.model.id);
+            data.append('collection_name', this.store.collection);
+            data.append('model_name', this.store.model.name);
+            data.append('model_id', this.store.model.id);
 
             this.store.clearError();
             this.store.startUpload(file.uploadId, file.name);
@@ -57,7 +46,7 @@ export default {
         }.bind(this));
 
         this.dropzone.on('success', function (file, response) {
-            this.multiple ?
+            this.store.settings.multiple ?
                 this.store.addMedia(response) :
                 this.store.replaceMedia(response);
         }.bind(this));

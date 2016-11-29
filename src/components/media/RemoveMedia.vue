@@ -4,7 +4,7 @@
             <a
                 href="#"
                 class="media__column--actions__icon -restore"
-                @click.prevent="restoreMedia(media)"
+                @click.prevent="restoreMedia"
             >
                 <i class="fa fa-undo"></i>
             </a>
@@ -13,7 +13,7 @@
             <a
                 href="#"
                 class="media__column--actions__icon -delete"
-                @click.prevent="markMediaForRemoval(media)"
+                @click.prevent="markMediaForRemoval"
             >
                 <i class="fa fa-remove"></i>
             </a>
@@ -22,22 +22,17 @@
 </template>
 
 <script>
-import { inject } from 'vue-expose-inject';
-
 export default {
 
     props: ['media'],
 
-    computed: {
-        ...inject(['store']),
-    },
-
     methods: {
-        markMediaForRemoval(media) {
-            this.store.markMediaForRemoval(media.id);
+        markMediaForRemoval() {
+            this.media.markedForRemoval = true;
         },
-        restoreMedia(media) {
-            this.store.restoreMedia(media.id);
+
+        restoreMedia() {
+            this.media.markedForRemoval = false;
         },
     },
 };

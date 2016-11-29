@@ -1,10 +1,8 @@
-import Media, { extendType } from '../src';
-import Vue from 'vue';
+import { mountMedia } from '../src';
+import { queryAll } from 'spatie-dom';
 
 // extendType('download', {
 //     editor: 'locales',
 // });
 
-Vue.component('media', Media);
-
-new Vue({ el: '#app' })
+queryAll('media').forEach(el => mountMedia(el));

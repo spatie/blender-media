@@ -3,8 +3,8 @@
         v-if="hasError"
         class="media__alert -error"
     >
-        <div class="media__alert__message" >
-            {{ error }}
+        <div class="media__alert__message">
+            {{ text }}
         </div>
         <a
             href="#"
@@ -17,23 +17,19 @@
 </template>
 
 <script>
-import { inject } from 'vue-expose-inject';
-
 export default {
 
+    props: ['text'],
+
     computed: {
-        ...inject(['store']),
-        error() {
-            return this.store.error;
-        },
         hasError() {
-            return this.error !== '';
+            return this.text !== '';
         },
     },
 
     methods: {
         clearError() {
-            this.store.clearError();
+            this.$emit('clearError');
         },
     },
 };

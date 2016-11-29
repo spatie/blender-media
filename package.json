@@ -11,8 +11,7 @@
     "dev:css": "postcss -c postcss.conf.js -o ./example/build/media.css -w",
     "dev:js": "NODE_ENV=development webpack-dev-server --config example/webpack.config.js",
     "example": "concurrently \"webpack -w --config example/webpack.config.js\" \"node example/server.js\" \"npm run dev:css\"",
-    "lint": "eslint src --ext .js --ext .vue",
-    "lint:fix": "eslint src --ext .js --ext .vue --fix",
+    "lint": "eslint src --ext .js --ext .vue --fix; exit 0",
     "prepublish": "npm run test; npm run build",
     "test": "mocha --compilers js:babel-register"
   },
@@ -37,11 +36,11 @@
     "dragula": "^3.7.1",
     "dragula-constrain": "^1.0.0",
     "dropzone": "^4.3.0",
-    "font-awesome-filetypes": "^1.0.1",
-    "vue-expose-inject": "^0.3.0"
+    "font-awesome-filetypes": "^1.0.1"
   },
   "peerDependencies": {
     "lodash": "^4.0.0",
+    "spatie-dom": "^1.0.0",
     "vue": "^2.0.0"
   },
   "devDependencies": {
@@ -65,6 +64,7 @@
     "postcss-easy-import": "^1.0.1",
     "postcss-nested": "^1.0.0",
     "postcss-simple-vars": "^2.0.0",
+    "spatie-dom": "^1.0.0",
     "vue": "^2.0.0",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",

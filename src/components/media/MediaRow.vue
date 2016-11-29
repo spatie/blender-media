@@ -10,8 +10,7 @@
             <thumb
                 :media="media"
                 :class="{ '-is-disabled': media.markedForRemoval }"
-            >
-            </thumb>
+            ></thumb>
         </td>
         <td class="media__column--editor">
             <media-editor

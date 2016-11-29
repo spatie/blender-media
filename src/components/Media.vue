@@ -1,160 +1,56 @@
 <template>
     <div class="media">
-        <upload
-            :collection="collection"
-            :model="model"
-            :url="uploadUrl"
-            :multiple="settings.multiple"
-            :accepts="settings.accepts"
-        >
-            <div v-if="hasMedia">
-                <media-table
-                    :collection="collection"
-                    :media="media"
-                    :settings="settings"
-                    :data="data"
-                ></media-table>
-            </div>
-            <div v-if="hasUploads">
-                <upload-table
-                    :uploads="uploads"
-                ></upload-table>
-            </div>
-            <div
-                v-if="isEmpty"
-                class="media__alert">
-                {{ translate('noMedia') }}
-            </div>
-            <upload-error></upload-error>
-            <div class="media__actions">
-                <button
-                    class="media__button"
-                    ref="addMedia"
-                    @click.prevent
-                >
-                    {{ uploadButtonText }}
-                </button>
-                <button
-                    v-if="canBeCleared"
-                    class="media__button--delete"
-                    @click.prevent="markAllMediaForRemoval({ collection })"
-                >
-                    {{ translate('clearCollection') }}
-                    <i class="fa fa-remove media__input--button--delete__icon"></i>
-                </button>
-            </div>
-            <export
-                :collection="collection"
-                :media="media"
-            ></export>
+        <upload :store="store">
+            <media-table
+                v-if="store.hasMedia"
+                :store="store"
+            ></media-table>
+            <upload-table
+                v-if="store.hasUploads"
+                :uploads="store.uploads"
+            ></upload-table>
+            <no-media
+                v-if="store.isEmpty"
+            ></no-media>
+            <error-message
+                :text="store.error"
+                @clear-error="store.clearError"
+            ></error-message>
+            <actions
+                :allow-multiple="store.settings.multiple"
+                :can-be-cleared="store.canBeCleared"
+                :is-empty="store.isEmpty"
+                :export="store.export"
+                @markAllMediaForRemoval="store.markAllMediaForRemoval"
+            ></actions>
+            <textarea
+                style="display: none"
+                :name="store.collection"
+                :value="store.export"
+            ></textarea>
         </upload>
     </div>
 </template>
 
 <script>
-import { expose, inject } from 'vue-expose-inject';
-import { getTypeSettings } from '../settings/types';
-import createStore from '../store';
-import translate from '../translations';
-
-import Export from './export/export';
+import Actions from './actions/actions';
+import ErrorMessage from './ui/ErrorMessage';
 import MediaTable from './media/MediaTable';
-import Upload from './upload/upload';
-import UploadError from './upload/UploadError';
+import NoMedia from './ui/NoMedia';
+import Upload from './upload/Upload';
 import UploadTable from './upload/UploadTable';
 
 export default {
 
-    props: {
-        collection: {
-            type: String,
-            required: true,
-        },
-        type: {
-            type: String,
-            required: true,
-        },
-        uploadUrl: {
-            type: String,
-            required: true,
-        },
-        model: {
-            type: Object,
-            required: true,
-        },
-        initial: {
-            type: Array,
-            default: () => [],
-        },
-        data: {
-            type: Object,
-            default: () => ({}),
-        },
-    },
+    props: ['store'],
 
     components: {
-        Export,
+        Actions,
+        ErrorMessage,
         MediaTable,
+        NoMedia,
         Upload,
-        UploadError,
         UploadTable,
-    },
-
-    mixins: [expose],
-
-    expose: ['store'],
-
-    data() {
-        return {
-            store: createStore(),
-        };
-    },
-
-    computed: {
-        settings() {
-            return getTypeSettings(this.type);
-        },
-        media() {
-            return this.store.media;
-        },
-        hasMedia() {
-            return this.media.length > 0;
-        },
-        hasActiveMedia() {
-            return this.media.filter(media => media.markedForRemoval !== true).length > 0;
-        },
-        uploads() {
-            return this.store.uploads;
-        },
-        hasUploads() {
-            return this.uploads.length > 0;
-        },
-        isEmpty() {
-            return ! this.hasMedia && ! this.hasUploads;
-        },
-        uploadButtonText() {
-            if (this.settings.multiple) {
-                return translate('addMedia');
-            }
-            return this.isEmpty ? translate('addMedia') : translate('replaceMedia');
-        },
-        canBeCleared() {
-            if (! this.hasActiveMedia) {
-                return false;
-            }
-            return this.settings.multiple;
-        },
-    },
-
-    methods: {
-        markAllMediaForRemoval() {
-            this.store.markAllMediaForRemoval();
-        },
-        translate,
-    },
-
-    created() {
-        this.store.addMedia(this.initial);
     },
 };
 </script>

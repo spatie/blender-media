@@ -1,18 +1,73 @@
-import { findOrFail } from './util';
-import { forIn } from 'lodash';
+import { findOrFail, pipe } from './util';
+import { forIn, sortBy } from 'lodash';
+import { getTypeSettings } from './settings/types';
 import Vue from 'vue';
 
 const Store = {
 
     data() {
         return {
+            collection: '',
+            type: '',
+            uploadUrl: '',
+            model: {},
+            data: {},
             media: [],
             uploads: [],
             error: '',
         };
     },
 
+    computed: {
+        hasMedia() {
+            return this.media.length > 0;
+        },
+
+        hasActiveMedia() {
+            return this.media.filter(media => media.markedForRemoval !== true).length > 0;
+        },
+
+        hasUploads() {
+            return this.uploads.length > 0;
+        },
+
+        isEmpty() {
+            return ! this.hasMedia && ! this.hasUploads;
+        },
+
+        canBeCleared() {
+            if (! this.hasActiveMedia) {
+                return false;
+            }
+            
+            return this.settings.multiple;
+        },
+
+        settings() {
+            return getTypeSettings(this.type);
+        },
+
+        export() {
+            return pipe(
+                this.media,
+                media => media.filter(media => ! media.markedForRemoval),
+                media => sortBy(media, 'orderColumn'),
+                media => JSON.stringify(media)
+            );
+        },
+    },
+
     methods: {
+        init({ collection, type, uploadUrl, model, initial, data }) {
+            this.collection = collection;
+            this.type = type;
+            this.uploadUrl = uploadUrl;
+            this.model = model;
+            this.data = data;
+
+            this.addMedia(initial);
+        },
+
         find(id) {
             return findOrFail(this.media, { id });
         },
@@ -29,16 +84,8 @@ const Store = {
 
         markAllMediaForRemoval() {
             this.media.forEach((media) => {
-                this.markMediaForRemoval(media.id);
+                media.markedForRemoval = true;
             });
-        },
-
-        markMediaForRemoval(id) {
-            this.find(id).markedForRemoval = true;
-        },
-
-        restoreMedia(id) {
-            this.find(id).markedForRemoval = false;
         },
 
         replaceMedia(media) {
