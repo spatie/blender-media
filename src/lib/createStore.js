@@ -123,7 +123,6 @@ const Store = {
         },
 
         finishUpload(id) {
-            console.log('finished upload');
             this.uploads = this.uploads.filter(upload => upload.id !== id);
         },
 
