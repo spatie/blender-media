@@ -6,11 +6,11 @@ export default {
 
     props: ['type', 'media', 'data'],
 
-    render(createElement, { props }) {
-        return createElement(getEditor(props.type), {
+    render(createElement, { props: { type, media, data } }) {
+        return createElement(getEditor(type), {
             props: {
-                media: props.media,
-                data: props.data,
+                media: media,
+                data: data,
             },
         });
     },

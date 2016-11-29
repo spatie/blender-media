@@ -3,8 +3,8 @@
         v-if="hasError"
         class="media__alert -error"
     >
-        <div class="media__alert__message" >
-            {{ error }}
+        <div class="media__alert__message">
+            {{ text }}
         </div>
         <a
             href="#"
@@ -17,26 +17,19 @@
 </template>
 
 <script>
-import inject from '../../mixins/inject';
-
 export default {
 
-    mixins: [
-        inject('uploads'),
-    ],
+    props: ['text'],
 
     computed: {
-        error() {
-            return this.$uploads.error;
-        },
         hasError() {
-            return this.error !== '';
+            return this.text !== '';
         },
     },
 
     methods: {
         clearError() {
-            this.$uploads.clearError();
+            this.$emit('clear-error');
         },
     },
 };

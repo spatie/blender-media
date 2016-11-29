@@ -10,10 +10,6 @@ export function findOrFail(collection, query) {
     return result;
 }
 
-export function pipe(object, ...operations) {
-    return operations.reduce((object, operation) => operation(object), object);
-}
-
 export function matches(element, selector) {
     if (element.matches) {
         return element.matches(selector);
@@ -26,6 +22,10 @@ export function matches(element, selector) {
     throw new Error('`Element.matches` is not supported in this browser');
 }
 
+export function pipe(object, ...operations) {
+    return operations.reduce((object, operation) => operation(object), object);
+}
+
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = Math.random() * 16 | 0;
@@ -34,12 +34,3 @@ export function uuid() {
     });
 }
 
-export class Store {
-    constructor(state) {
-        this.state = state;
-    }
-
-    commit(mutation, payload = {}) {
-        mutation(this.state, payload);
-    }
-}

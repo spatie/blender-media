@@ -40,7 +40,7 @@ const language = (() => {
     return includes(languages, language) ? language : 'en';
 })();
 
-export const translate = (key, parameters = {}) => {
+export const trans = (key, parameters = {}) => {
     const translation = translations[language][key];
 
     if (! translation) {
@@ -50,4 +50,4 @@ export const translate = (key, parameters = {}) => {
     return translation.replace(/:[\w]+/g, key => parameters[key.slice(1)] || key);
 };
 
-export default translate;
+export default trans;

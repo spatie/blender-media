@@ -31,19 +31,22 @@ export default {
         extension() {
             return this.media.fileName.split('.').pop().toLowerCase();
         },
+
         icon() {
             return getClassNameForExtension(this.extension);
         },
+
         isImage() {
-            return includes(['jpg', 'jpeg', 'gif', 'png', 'svg'], this.extension);
+            return includes(['jpg', 'jpeg', 'gif', 'png'], this.extension);
         },
+
         originalUrl() {
             return this.media.originalUrl;
         },
+
         thumbUrl() {
             return this.media.thumbUrl;
         },
     },
-
 };
 </script>

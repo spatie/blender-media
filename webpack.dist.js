@@ -13,8 +13,9 @@ config.output = {
 };
 
 config.externals = {
-    vue: 'vue',
-    lodash: 'lodash',
+    'vue': 'vue',
+    'lodash': 'lodash',
+    'spatie-dom': 'spatie-dom',
 };
 
 module.exports = config;

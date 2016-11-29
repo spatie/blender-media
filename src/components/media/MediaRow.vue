@@ -10,8 +10,7 @@
             <thumb
                 :media="media"
                 :class="{ '-is-disabled': media.markedForRemoval }"
-            >
-            </thumb>
+            ></thumb>
         </td>
         <td class="media__column--editor">
             <media-editor
@@ -29,7 +28,7 @@
 <script>
 import MediaEditor from './MediaEditor';
 import RemoveMedia from './RemoveMedia';
-import Thumb from './thumb';
+import Thumb from './Thumb';
 
 export default {
 
