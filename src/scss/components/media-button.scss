@@ -82,6 +82,10 @@
   background: none;
   box-shadow: none;
 
+  &:hover {
+    color: $red-light;
+  }
+
   &:focus {
     outline: 0;
   }

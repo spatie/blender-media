@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.1.1
+- Debug button style fix
+
 ## 3.1.0
 - Added a `mount` function
 - Improved custom editor workflow
