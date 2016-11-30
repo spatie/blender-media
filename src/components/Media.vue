@@ -41,7 +41,12 @@ import UploadTable from './upload/UploadTable';
 
 export default {
 
-    props: ['store'],
+    props: {
+        store: {
+            required: true,
+            type: Object,
+        },
+    },
 
     components: {
         Actions,
