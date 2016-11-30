@@ -136,10 +136,12 @@ const Store = {
     },
 };
 
-export default function createStore(options) {
+export default function createStore(options = null) {
     const store = new Vue(Store);
     
-    store.init(options);
+    if (options) {
+        store.init(options);
+    }
 
     return store;
 }
