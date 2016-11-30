@@ -1,5 +1,5 @@
 import { findOrFail, pipe } from './util';
-import { find, forIn, reject, sortBy } from 'lodash';
+import { find, forIn, isArray, reject, sortBy } from 'lodash';
 import { getTypeSettings } from '../settings/types';
 import Vue from 'vue';
 
@@ -83,9 +83,18 @@ const Store = {
             // so want to reject media items that are already in the store.
             media = 
                 reject(media, m => find(this.media, { id: m.id }))
-                    .map(m => ({ ...m, markedForRemoval: false }));
+                    .map(this.normalizeMedia);
 
             this.media = [...this.media, ...media];
+        },
+
+        normalizeMedia(media) {
+            return {
+                ...media,
+                markedForRemoval: false,
+                customProperties: isArray(media.customProperties) ?
+                    {} : media.customProperties,
+            };
         },
 
         markAllMediaForRemoval() {

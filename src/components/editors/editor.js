@@ -1,9 +1,25 @@
-import { pick, keys } from 'lodash';
+import { forEach, pick, keys } from 'lodash';
 import Vue from 'vue';
 
 export default {
 
     props: ['media', 'data'],
+
+    created() {
+        if (this.$options.customProperties) {
+            forEach(this.$options.customProperties, (val, prop) => {
+                this.setCustomProperty(prop, this.customProperty(prop, val));
+            });
+        }
+        
+        if (this.$options.translatableCustomProperties) {
+            forEach(this.$options.translatableCustomProperties, (val, prop) => {
+                this.initializeTranslations(prop, val);
+            });
+        }
+
+        console.log(this.media.customProperties);
+    },
 
     methods: {
         blurInput(event) {
@@ -22,7 +38,7 @@ export default {
             Vue.set(this.media.customProperties, key, value);
         },
         
-        normalizeTranslations(key, defaultValue = '') {
+        initializeTranslations(key, defaultValue = '') {
             let translations = this.getCustomProperty(key, {});
             
             const blueprint = this.data.locales.reduce((translations, locale) => {
