@@ -17,8 +17,6 @@ export default {
                 this.initializeTranslations(prop, val);
             });
         }
-
-        console.log(this.media.customProperties);
     },
 
     methods: {
@@ -39,7 +37,7 @@ export default {
         },
         
         initializeTranslations(key, defaultValue = '') {
-            let translations = this.getCustomProperty(key, {});
+            let translations = this.customProperty(key, {});
             
             const blueprint = this.data.locales.reduce((translations, locale) => {
                 translations[locale] = defaultValue;
