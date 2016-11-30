@@ -10,16 +10,16 @@ export default {
             event.target.blur();
         },
 
-        setCustomProperty(key, value) {
-            Vue.set(this.media.customProperties, key, value);
-        },
-
-        getCustomProperty(key, fallback) {
+        customProperty(key, fallback = null) {
             if (! this.media.customProperties.hasOwnProperty(key)) {
                 return fallback;
             }
 
             return this.media.customProperties[key];
+        },
+
+        setCustomProperty(key, value) {
+            Vue.set(this.media.customProperties, key, value);
         },
         
         normalizeTranslations(key, defaultValue = '') {
