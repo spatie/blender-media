@@ -83,18 +83,14 @@ const Store = {
             // so want to reject media items that are already in the store.
             media = 
                 reject(media, m => find(this.media, { id: m.id }))
-                    .map(this.normalizeMedia);
+                    .map(m => ({
+                        ...m,
+                        markedForRemoval: false,
+                        customProperties: isArray(m.customProperties) ?
+                            {} : m.customProperties,
+                    }));
 
             this.media = [...this.media, ...media];
-        },
-
-        normalizeMedia(media) {
-            return {
-                ...media,
-                markedForRemoval: false,
-                customProperties: isArray(media.customProperties) ?
-                    {} : media.customProperties,
-            };
         },
 
         markAllMediaForRemoval() {
