@@ -4,8 +4,8 @@
             v-for="media in orderedMedia"
             is="media-row"
             :media="media"
-            :data="store.data"
-            :settings="store.settings"
+            :data="data"
+            :settings="settings"
             class="media__row"
             :class="{ '-is-disabled': media.markedForRemoval }"
             :data-media-id="media.id"
@@ -17,13 +17,17 @@
 import constrain from 'dragula-constrain';
 import dragula from 'dragula';
 import { queryAll } from 'spatie-dom';
-import { matches } from '../../lib/util';
+import { matches, required } from '../../lib/util';
 import MediaRow from './MediaRow';
 import { sortBy } from 'lodash';
 
 export default {
 
-    props: ['store'],
+    props: required([
+        'media',
+        'data',
+        'settings',
+    ]),
 
     components: {
         MediaRow,
@@ -46,7 +50,7 @@ export default {
                     return order;
                 }, {});
 
-            this.store.setNewOrder(order);
+            this.$emit('reordered', { order });
         }.bind(this));
     },
 
@@ -56,7 +60,7 @@ export default {
 
     computed: {
         orderedMedia() {
-            return sortBy(this.store.media, 'orderColumn');
+            return sortBy(this.media, 'orderColumn');
         },
     },
 };

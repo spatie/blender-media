@@ -26,6 +26,10 @@ export function pipe(object, ...operations) {
     return operations.reduce((object, operation) => operation(object), object);
 }
 
+export function required(keys) {
+    return keys.reduce((props, prop) => (props[prop] = { required: true }, props), {});
+}
+
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = Math.random() * 16 | 0;
@@ -33,4 +37,3 @@ export function uuid() {
         return v.toString(16);
     });
 }
-

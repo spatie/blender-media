@@ -1,7 +1,6 @@
-import createStore from './createStore';
 import { isString } from 'lodash';
 import { queryAll, props } from 'spatie-dom';
-import Media from '../components/Media';
+import Standalone from '../components/Standalone';
 import Vue from 'vue';
 
 export default function mount(el, options = {}) {
@@ -9,13 +8,10 @@ export default function mount(el, options = {}) {
         return queryAll(el).map(el => mount(el, props(el)));
     }
     
-    const store = createStore();
-    store.init(options);
-    
     return new Vue({
         el,
         render(createElement) {
-            return createElement(Media, { props: { store } });
+            return createElement(Standalone, { props: props(el) });
         },
     });
 }

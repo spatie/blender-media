@@ -8,17 +8,23 @@
 import Dropzone from 'dropzone';
 import { query } from 'spatie-dom';
 import translate from '../../lib/trans';
-import { uuid } from '../../lib/util';
+import { required, uuid } from '../../lib/util';
 
 export default {
 
-    props: ['store', 'className'],
+    props: required([
+        'accepts',
+        'collection',
+        'model',
+        'multiple',
+        'uploadUrl',
+    ]),
 
     mounted() {
         this.dropzone = new Dropzone(this.$el, {
-            url: this.store.uploadUrl,
-            uploadMultiple: this.store.settings.multiple,
-            acceptedFiles: this.store.settings.accepts,
+            url: this.uploadUrl,
+            uploadMultiple: this.multiple,
+            acceptedFiles: this.accepts,
             parallelUploads: 10,
             clickable: query('.js-add-media', this.$el),
 
@@ -31,33 +37,30 @@ export default {
         });
 
         this.dropzone.on('sending', function (file, xhr, data) {
-            file.collection = this.store.collection;
+            file.collection = this.collection;
             file.uploadId = uuid();
 
-            data.append('collection_name', this.store.collection);
-            data.append('model_name', this.store.model.name);
-            data.append('model_id', this.store.model.id);
+            data.append('collection_name', this.collection);
+            data.append('model_name', this.model.name);
+            data.append('model_id', this.model.id);
 
-            this.store.clearError();
-            this.store.startUpload(file.uploadId, file.name);
+            this.$emit('started', { id: file.uploadId, name: file.name });
         }.bind(this));
 
         this.dropzone.on('uploadprogress', function (file) {
-            this.store.updateUploadProgress(file.uploadId, file.upload.progress);
+            this.$emit('progress', { id: file.uploadId, progress: file.upload.progress });
         }.bind(this));
 
         this.dropzone.on('success', function (file, response) {
-            this.store.settings.multiple ?
-                this.store.addMedia(response) :
-                this.store.replaceMedia(response);
+            this.$emit('uploaded', { media: response });
         }.bind(this));
 
         this.dropzone.on('error', function () {
-            this.store.setError(translate('errors.fail'));
+            this.$emit('error', { error: translate('errors.fail') });
         }.bind(this));
 
         this.dropzone.on('complete', function (file) {
-            this.store.finishUpload(file.uploadId);
+            this.$emit('finished', { id: file.uploadId });
         }.bind(this));
     },
 

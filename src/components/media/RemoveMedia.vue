@@ -22,17 +22,20 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { required } from '../../lib/util';
+
 export default {
 
-    props: ['media'],
+    props: required(['media']),
 
     methods: {
         markMediaForRemoval() {
-            this.media.markedForRemoval = true;
+            Vue.set(this.media, 'markedForRemoval', true);
         },
 
         restoreMedia() {
-            this.media.markedForRemoval = false;
+            Vue.set(this.media, 'markedForRemoval', false);
         },
     },
 };

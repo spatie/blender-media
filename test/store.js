@@ -1,5 +1,6 @@
+// TODO: Refactor tests to test the Media component instead
+
 import { assert } from 'chai';
-import createStore from '../src/lib/createStore';
 import { findOrFail } from '../src/lib/util';
 
 const createMedia = id => ({

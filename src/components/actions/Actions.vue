@@ -45,12 +45,12 @@ export default {
         trans,
 
         markAllMediaForRemoval() {
-            this.$emit('mark-all-media-for-removal');
+            this.$emit('markAllForRemoval');
         },
 
         sendExportToConsole() {
             // eslint-disable-next-line no-console
-            console.log(window.__media = JSON.parse(this.export));
+            console.log(window.__media = this.export);
         },
     },
 };

@@ -47,7 +47,7 @@ export default {
     },
 
     created() {
-        this.normalizeTranslations('locales', true);
+        this.initializeTranslations('locales', true);
     },
 };
 </script>

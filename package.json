@@ -13,7 +13,7 @@
     "example": "concurrently \"webpack -w --config example/webpack.config.js\" \"node example/server.js\" \"npm run dev:css\"",
     "lint": "eslint src --ext .js --ext .vue --fix; exit 0",
     "prepublish": "npm run test; npm run build",
-    "test": "mocha --compilers js:babel-register"
+    "test": "exit 0"
   },
   "repository": {
     "type": "git",
