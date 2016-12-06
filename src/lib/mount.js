@@ -11,7 +11,7 @@ export default function mount(el, options = {}) {
     return new Vue({
         el,
         render(createElement) {
-            return createElement(Standalone, { props: props(el) });
+            return createElement(Standalone, { props: props(el) }, []);
         },
     });
 }

@@ -33,7 +33,7 @@ export default {
                 on: {
                     input: value => this.value = value,
                 },
-            }),
+            }, []),
             h('textarea', {
                 style: { display: 'none' },
                 attrs: {
@@ -42,7 +42,7 @@ export default {
                 domProps: {
                     value: this.exportable,
                 },
-            }),
+            }, []),
         ]);
     },
 
