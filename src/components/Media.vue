@@ -191,7 +191,7 @@ export default {
             this.uploads = this.uploads.filter(upload => upload.id !== id);
         },
 
-        setError({ error: message }) {
+        setError({ error }) {
             this.error = error;
         },
 
