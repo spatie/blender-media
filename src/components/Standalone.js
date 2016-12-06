@@ -27,7 +27,7 @@ export default {
         return h('div', {}, [
             h(Media, {
                 props: {
-                    ...mapValues(this.props, (_, prop) => this[prop]),
+                    ...mapValues(configuration, (_, prop) => this[prop]),
                     value: this.value,
                 },
                 on: {
