@@ -37,7 +37,7 @@ export default {
             h('textarea', {
                 style: { display: 'none' },
                 attrs: {
-                    collection: this.collection,
+                    name: this.collection,
                 },
                 domProps: {
                     value: this.exportable,
