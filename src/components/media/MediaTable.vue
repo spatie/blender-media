@@ -50,6 +50,8 @@ export default {
                     return order;
                 }, {});
 
+            this.sortable.cancel(true);
+
             this.$emit('reordered', { order });
         }.bind(this));
     },
