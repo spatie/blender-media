@@ -11,7 +11,7 @@
             class="media__alert__delete"
             @click.prevent="clearError"
         >
-            <i class="fa fa-remove"></i>
+            <i class="fa fa-trash"></i>
         </a>
     </div>
 </template>
