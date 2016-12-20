@@ -15,7 +15,7 @@
                 class="media__column--actions__icon -delete"
                 @click.prevent="markMediaForRemoval"
             >
-                <i class="fa fa-remove"></i>
+                <i class="fa fa-trash"></i>
             </a>
         </div>
     </div>

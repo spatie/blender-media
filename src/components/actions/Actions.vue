@@ -19,7 +19,7 @@
             @click.prevent="markAllMediaForRemoval"
         >
             {{ trans('clearCollection') }}
-            <i class="fa fa-remove media__input--button--delete__icon"></i>
+            <i class="fa fa-trash media__input--button--delete__icon"></i>
         </button>
     </div>
 </template>
