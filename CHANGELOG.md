@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.2.0
+- Internal refactor
+
 ## 3.1.2
 - Expose `createStore`
 
