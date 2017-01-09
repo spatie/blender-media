@@ -8,6 +8,7 @@
                 {{ locale }}
             </label>
             <input
+                type="text"
                 class="media__input--text"
                 :value="description"
                 @input="updateDescription(locale, $event.target.value)"

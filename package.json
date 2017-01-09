@@ -1,6 +1,6 @@
 {
   "name": "blender-media",
-  "version": "3.2.1-beta.1",
+  "version": "3.2.1-beta.2",
   "description": "Blender Media Component",
   "main": "dist/index.js",
   "scripts": {
