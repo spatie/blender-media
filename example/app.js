@@ -1,8 +1,9 @@
-import Media, { mount, extendType } from '../src';
+import Media, { mount, registerType } from '../src';
 import Vue from 'vue';
 
-extendType('download', {
-    editor: 'locales',
+registerType('download', {
+    extend: 'download',
+    editor: 'description',
 });
 
 mount('standalone');

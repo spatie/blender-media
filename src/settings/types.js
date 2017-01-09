@@ -1,21 +1,17 @@
-import { assign } from 'lodash';
-
 const types = {};
 
 export const registerType = (name, {
+    extend = null,
     accepts = null,
     multiple = true,
     editor = 'basic',
 }) => {
     types[name] = {
+        ...(extend ? getTypeSettings(extend) : {}),
         accepts,
         multiple,
         editor,
     };
-};
-
-export const extendType = (name, options) => {
-    assign(types[name], options);
 };
 
 export const getTypeSettings = name => {
@@ -31,12 +27,13 @@ registerType('images', {
 });
 
 registerType('image', {
-    accepts: '.jpg,.jpeg,.png,.gif,.svg',
+    extend: 'images',
     multiple: false,
 });
 
 registerType('downloads', {});
 
 registerType('download', {
+    extend: 'downloads',
     multiple: false,
 });

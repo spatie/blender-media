@@ -34,12 +34,6 @@ export default {
 
     mixins: [editor],
 
-    computed: {
-        locales() {
-            return this.media.customProperties.locales;
-        },
-    },
-
     methods: {
         toggleLocale(locale) {
             this.setTranslation('locales', locale, ! this.getTranslation('locales', locale));

@@ -1,4 +1,5 @@
 import Basic from '../components/editors/Basic';
+import Description from '../components/editors/Description';
 import Locales from '../components/editors/Locales';
 
 const editors = {};
@@ -17,3 +18,4 @@ export function getEditor(name) {
 
 registerEditor('basic', Basic);
 registerEditor('locales', Locales);
+registerEditor('description', Description);

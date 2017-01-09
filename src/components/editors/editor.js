@@ -5,6 +5,12 @@ export default {
 
     props: ['media', 'data'],
 
+    computed: {
+        locales() {
+            return this.media.customProperties.locales;
+        },
+    },
+
     created() {
         if (this.$options.customProperties) {
             forEach(this.$options.customProperties, (val, prop) => {
