@@ -2,7 +2,7 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
-## 3.2.1
+## 3.3.0
 - Added `description` editor type
 - Removed `extendType`
 
