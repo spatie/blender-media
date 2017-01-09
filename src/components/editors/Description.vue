@@ -1,10 +1,10 @@
 <template>
-    <div class="media__editor">
+    <div class="media__editor -padded">
         <span
             v-for="(description, locale) in descriptions"
             class="media__editor__column -stretch -stacked"
         >
-            <label class="media__input__label">
+            <label class="label_lang">
                 {{ locale }}
             </label>
             <input
