@@ -4,6 +4,7 @@
             <a
                 href="#"
                 class="media__column--actions__icon -restore"
+                tabindex="-1"
                 @click.prevent="restoreMedia"
             >
                 <i class="fa fa-undo"></i>
@@ -13,6 +14,7 @@
             <a
                 href="#"
                 class="media__column--actions__icon -delete"
+                tabindex="-1"
                 @click.prevent="markMediaForRemoval"
             >
                 <i class="fa fa-trash"></i>
