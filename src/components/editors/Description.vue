@@ -4,7 +4,7 @@
             v-for="(description, locale) in descriptions"
             class="media__editor__column -stretch -stacked"
         >
-            <label class="label_lang">
+            <label class="label--lang">
                 {{ locale }}
             </label>
             <input

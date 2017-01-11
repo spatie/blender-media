@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.3.1
+- Changed `label--lang` in `description` editor
+
 ## 3.3.0
 - Added `description` editor type
 - Removed `extendType`
