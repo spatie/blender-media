@@ -37,10 +37,6 @@ export default {
     },
 
     methods: {
-        blurInput(event) {
-            event.target.blur();
-        },
-
         updateDescription(locale, value) {
             this.setTranslation('description', locale, value);
         },
