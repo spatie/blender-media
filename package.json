@@ -1,5 +1,5 @@
 {
-  "name": "blender-media",
+  "name": "@spatie/blender-media",
   "version": "3.3.1",
   "description": "Blender Media Component",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spatie-custom/blender-media.git"
+    "url": "https://github.com/spatie/blender-media.git"
   },
   "keywords": [
     "spatie",
@@ -28,9 +28,9 @@
   "author": "Sebastian De Deyne",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/spatie-custom/blender-media/issues"
+    "url": "https://github.com/spatie/blender-media/issues"
   },
-  "homepage": "https://github.com/spatie-custom/blender-media",
+  "homepage": "https://github.com/spatie/blender-media",
   "dependencies": {
     "babel-core": "^6.18.2",
     "dragula": "^3.7.1",

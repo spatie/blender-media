@@ -7,10 +7,10 @@ The media uploader and manager for [Blender](https://github.com/spatie-custom/bl
 
 ## Installation
 
-The `blender-media` package isn't publicly available on npm, you'll need to either copy it into your own project, or require a tag as a dependency:
+The `blender-media` can be installed from npm.
 
 ```bash
-yarn add spatie-custom/blender-media#2.0.0
+yarn add @spatie/blender-media
 ```
 
 `blender-media` also requires you to install `vue@'^2.0.0'`:
