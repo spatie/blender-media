@@ -1,9 +1,9 @@
 # Blender Media
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie-custom/blender-media.svg?style=flat-square)](https://travis-ci.org/spatie-custom/blender-media)
+[![Build Status](https://img.shields.io/travis/spatie-custom/blender-media.svg?style=flat-square)](https://travis-ci.org/spatie/blender-media)
 
-The media uploader and manager for [Blender](https://github.com/spatie-custom/blender), our CMS.
+The media uploader and manager for [Blender](https://github.com/spatie/blender), our CMS.
 
 ## Installation
 
@@ -27,11 +27,11 @@ This repository contains a dummy version of the media component which can be use
 npm run example
 ```
 
-The process will also watch for JS and CSS file changes.
+script will also watch for JS and CSS file changes.
 
 ## Usage
 
-In order to use the `media` component, you'll need to register it first. You can either register it globally, or scoped to a view model:
+In order to use the `media` component, you need to register it first. You can register it globally, or inside a Vue component:
 
 ```js
 import Media from 'blender-media';
@@ -75,23 +75,22 @@ After registering the component, it can be used in your html:
 
 Media objects look like the original model from the Laravel package.
 
-```js
-/**
- * @typedef  {Object} Media
- * @property {number} id
- * @property {string} name
- * @property {string} fileName
- * @property {Object} customProperties
- * @property {number} orderColumn
- * @property {string} thumbUrl
- * @property {string} originalUrl
- * @property {string} collection
- */
+```ts
+interface Media {
+    id: number;
+    name: string;
+    fileName: string;
+    customProperties: any;
+    orderColumn: number;
+    thumbUrl: string;
+    originalUrl: string;
+    colection: string;
+}
 ```
 
 ### Properties
 
-The component requires a few properties to be set up to handle the collection and uploads.
+The component requires a few properties in order to handle the collection and uploads.
 
 #### `type: string`
 
@@ -105,11 +104,11 @@ The URL that newly uploaded media will be posted to. This endpoint should handle
 
 The fully qualified class name of the model that the media is related too and it's ID.
 
-#### `initial: Media[]`
+#### `initial: Array<Media>`
 
 The media items that are already in the collection.
 
-#### `data: ?Object`
+#### `data: any`
 
 Custom data that can be used in the media editor, e.g. a list of available locales so the media item can be toggled per language.
 
@@ -127,6 +126,8 @@ registerType('images', {
 });
 ```
 
+The package ships with `image`, `images`, `download` and `downloads` types. Types have to be registered **before** any `media` component gets rendered. If you register a type with the same name twice, only the last registered type will be used.
+
 #### Type Options
 
 ##### `accepts: ?string = null`
@@ -141,35 +142,80 @@ Determines whether multiple files can be uploaded to a collection.
 
 The name of the registered editor to be rendered inside the component. See [Editors](#editors) for a more detailed explanation.
 
-The package ships with `image`, `images`, `download` and `downloads` types. Types have to be registered and extended **before** any `media` component gets rendered.
+##### `extend: ?string = null`
+
+Extend an existing type. Creates a new type, based on an existing type. Other options will overwrite the existing type's options.
+
+#### Extending Types
+
+*Todo*
 
 ### Editors
 
-Every media row has an editor in the section between the thumbnail and the remove button. By default a `basic` editor that has in input to rename the media object is used. A `locales` editor also ships with the package, which allows you to enable and disable media items per language.
+Every media row has an editor in the section between the thumbnail and the remove button. The default editor—named `basic`—has in input to rename the media object.
 
-Editors are simply Vue components with an `editor` mixin. The mixin takes care of the `media` and `data` props, `name` computed prop, and adds some convenience methods.
+#### Available Editors
 
-Editors can be added by registering them through the `registerEditor` method. Here's a bare bone example of a read-only editor:
+This package ships with 4 editors:
+
+- `basic`: A simple `name` field
+- `sizePicker`: A `name` field and a `size` dropdown with 4 options (`full width`, `2/3`, `1/2`, `1/3`)
+- `toggleLocales`: A `name` field and a toggle for every language, to enable or disable the image. Use this when you need a different image per language
+- `translatedDescription`: A `description` field for every language. Use this when the image is the same per language, but needs a translated caption
+
+Editors come as-is, there's no extra configuration. If you need a variation, for example different widths in the `sizePicker`, copy the source code and register your own project-specific editor.
+
+#### Project-Specific Editors
+
+Editors are Vue components with an `editor` mixin. The mixin takes care of the boilerplate that a custom editor requires.
+
+- It adds `media` and `data` props
+- It provides convenience methods for dealing with custom properties
+- It provides convenience methods for UI actions
+
+The editor mixin allows you to set two new options: `customProperties` and `translatableCustomProperties`. They both take a name as key, and a default value as property value.
 
 ```js
-import { registerEditor, editor } from 'blender-media';
+import editor from './editor';
 
-registerEditor('readOnly', {
-
-    template: `
-        <div>{{ name }}</div>
-    `,
-
-    mixin: [editor],
-
-});
+export default {
+    mixins: [editor],
+    
+    customProperties: {
+        sku: '',
+    },
+    
+    
+    translatableCustomProperties: {
+        description: '',
+    },
+    
+    computed: {
+        descriptions() {
+            return this.customProperty('description');
+        },
+    },
+    
+    methods: {
+        updateDescription(locale, value) {
+            this.setTranslation('description', locale, value);
+        },
+    },
+};
 ```
 
+Editors can then be registered with the `registerEditor` method. Like types, editors have to be registered **before** any `media` component gets rendered. If you register an editor with the same name twice, only the last registered editor will be used.
+
+```js
+import { registerEditor } from 'blender-media';
+import MyEditor from './editors/MyEditor';
+
+registerEditor('myEditor', MyEditor);
+```
+
+Note that editors should be contained in a `.vue` file since they also require a template! Browse the [existing editors](https://github.com/spatie/blender-media/tree/ab21b19cb485c73906c96c72403b358d145cc437/src/components/editors) for some examples.
+
 #### Editor Methods
-
-##### `rename(name: string)`
-
-Rename the current media item.
 
 ##### `customProperty(key: string, fallback: any = null)`
 
@@ -185,9 +231,9 @@ this.customProperty('baz', 'qux');
 // > 'qux'
 ```
 
-##### `updateCustomProperty(string: key, any: value)`
+##### `setCustomProperty(key: string, value: any)`
 
-Update a custom property. The key can also be namespaced with a dot.
+Set a custom property.
 
 ```js
 // { customProperties: {} }
@@ -195,15 +241,30 @@ Update a custom property. The key can also be namespaced with a dot.
 this.updateCustomProperty('locales', { nl: true, en: false });
 
 // { customProperties: { locales: { nl: true, en: false } } }
-
-this.updateCustomProperty('locales.en', true);
-
-// { customProperties: { locales: { nl: true, en: true } } }
 ```
 
-For a more detailed example of an editor, check out the `basic` and `locales` editors in `src/components/editors`.
+##### `getTranslation(key: string, locale: string)`
 
-Like types, editors have to be registered **before** any `media` component gets rendered.
+Get a translated custom property.
+
+```js
+// { customProperties: { foo: { en: 'bar' } } }
+
+this.getTranslation('foo', 'en');
+// > 'bar'
+```
+
+##### `setTranslation(key: string, locale: string, value: any)`
+
+Set a translated custom property's translation.
+
+```js
+// { customProperties: { foo: { en: 'bar' } } }
+
+this.setTranslation('foo', 'en', 'baz');
+
+// { customProperties: { foo: { en: 'baz' } } }
+```
 
 ## Contributing
 

@@ -33,15 +33,15 @@ import editor from './editor';
 export default {
 
     mixins: [editor],
+    
+    translatableCustomProperties: {
+        locales: true,
+    },
 
     methods: {
         toggleLocale(locale) {
             this.setTranslation('locales', locale, ! this.getTranslation('locales', locale));
         },
-    },
-
-    created() {
-        this.initializeTranslations('locales', true);
     },
 };
 </script>
