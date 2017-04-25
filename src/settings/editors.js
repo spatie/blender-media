@@ -1,6 +1,7 @@
 import Basic from '../components/editors/Basic';
-import Description from '../components/editors/Description';
-import Locales from '../components/editors/Locales';
+import SizePicker from '../components/editors/SizePicker';
+import ToggleLocales from '../components/editors/ToggleLocales';
+import TranslatedDescription from '../components/editors/TranslatedDescription';
 
 const editors = {};
 
@@ -17,5 +18,6 @@ export function getEditor(name) {
 }
 
 registerEditor('basic', Basic);
-registerEditor('locales', Locales);
-registerEditor('description', Description);
+registerEditor('sizePicker', SizePicker);
+registerEditor('toggleLocales', ToggleLocales);
+registerEditor('translatedDescrition', TranslatedDescription);
