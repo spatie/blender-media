@@ -126,6 +126,8 @@ registerType('images', {
 });
 ```
 
+The package ships with `image`, `images`, `download` and `downloads` types. Types have to be registered **before** any `media` component gets rendered. If you register a type with the same name twice, only the last registered type will be used.
+
 #### Type Options
 
 ##### `accepts: ?string = null`
@@ -140,7 +142,9 @@ Determines whether multiple files can be uploaded to a collection.
 
 The name of the registered editor to be rendered inside the component. See [Editors](#editors) for a more detailed explanation.
 
-The package ships with `image`, `images`, `download` and `downloads` types. Types have to be registered **before** any `media` component gets rendered.
+##### `extend: ?string = null`
+
+Extend an existing type. Creates a new type, based on an existing type. Other options will overwrite the existing type's options.
 
 #### Extending Types
 
@@ -200,7 +204,7 @@ export default {
 };
 ```
 
-Editors can then be registered with the `registerEditor` method. Like types, editors have to be registered **before** any `media` component gets rendered.
+Editors can then be registered with the `registerEditor` method. Like types, editors have to be registered **before** any `media` component gets rendered. If you register an editor with the same name twice, only the last registered editor will be used.
 
 ```js
 import { registerEditor } from 'blender-media';
