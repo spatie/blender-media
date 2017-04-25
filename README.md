@@ -159,26 +159,49 @@ This package ships with 4 editors:
 - `toggleLocales`: A `name` field and a toggle for every language, to enable or disable the image. Use this when you need a different image per language
 - `translatedDescription`: A `description` field for every language. Use this when the image is the same per language, but needs a translated caption
 
-The editors come as-is. If you need a variation, copy the source code and register your own project-specific editor.
+Editors come as-is, there's no extra configuration. If you need a variation, for example different widths in the `sizePicker`, copy the source code and register your own project-specific editor.
 
 #### Project-Specific Editors
 
-Editors are simply Vue components with an `editor` mixin. The mixin takes care of the `media` and `data` props, `name` computed prop, and adds some convenience methods.
+Editors are Vue components with an `editor` mixin. The mixin takes care of the boilerplate that a custom editor requires.
 
-Editors can be added by registering them through the `registerEditor` method. Here's a bare bone example of a read-only editor:
+- It adds `media` and `data` props
+- It provides convenience methods for dealing with custom properties
+- It provides convenience methods for UI actions
+
+The editor mixin allows you to set two new options: `customProperties` and `translatableCustomProperties`. They both take a name as key, and a default value as property value.
 
 ```js
-import { registerEditor, editor } from 'blender-media';
+import editor from './editor';
 
-registerEditor('readOnly', {
+export default {
+    mixins: [editor],
+    
+    translatableCustomProperties: {
+        description: '',
+    },
+    
+    computed: {
+        descriptions() {
+            return this.customProperty('description');
+        },
+    },
+    
+    methods: {
+        updateDescription(locale, value) {
+            this.setTranslation('description', locale, value);
+        },
+    },
+};
+```
 
-    template: `
-        <div>{{ name }}</div>
-    `,
+Editors then can be registered with the `registerEditor` method.
 
-    mixin: [editor],
+```js
+import { registerEditor } from 'blender-media';
+import MyEditor from './editors/MyEditor';
 
-});
+registerEditor('myEditor', MyEditor);
 ```
 
 #### Editor Methods
