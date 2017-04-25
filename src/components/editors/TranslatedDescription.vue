@@ -24,8 +24,6 @@ export default {
 
     mixins: [editor],
 
-    props: ['media'],
-
     translatableCustomProperties: {
         description: '',
     },
