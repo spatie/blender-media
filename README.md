@@ -177,6 +177,11 @@ import editor from './editor';
 export default {
     mixins: [editor],
     
+    customProperties: {
+        sku: '',
+    },
+    
+    
     translatableCustomProperties: {
         description: '',
     },
@@ -195,7 +200,7 @@ export default {
 };
 ```
 
-Editors then can be registered with the `registerEditor` method.
+Editors can then be registered with the `registerEditor` method. Like types, editors have to be registered **before** any `media` component gets rendered.
 
 ```js
 import { registerEditor } from 'blender-media';
@@ -204,11 +209,9 @@ import MyEditor from './editors/MyEditor';
 registerEditor('myEditor', MyEditor);
 ```
 
+Note that editors should be contained in a `.vue` file since they also require a template! Browse the [existing editors](https://github.com/spatie/blender-media/tree/ab21b19cb485c73906c96c72403b358d145cc437/src/components/editors) for some examples.
+
 #### Editor Methods
-
-##### `rename(name: string)`
-
-Rename the current media item.
 
 ##### `customProperty(key: string, fallback: any = null)`
 
@@ -224,9 +227,9 @@ this.customProperty('baz', 'qux');
 // > 'qux'
 ```
 
-##### `updateCustomProperty(string: key, any: value)`
+##### `setCustomProperty(key: string, value: any)`
 
-Update a custom property. The key can also be namespaced with a dot.
+Set a custom property.
 
 ```js
 // { customProperties: {} }
@@ -234,15 +237,30 @@ Update a custom property. The key can also be namespaced with a dot.
 this.updateCustomProperty('locales', { nl: true, en: false });
 
 // { customProperties: { locales: { nl: true, en: false } } }
-
-this.updateCustomProperty('locales.en', true);
-
-// { customProperties: { locales: { nl: true, en: true } } }
 ```
 
-For a more detailed example of an editor, check out the `basic` and `locales` editors in `src/components/editors`.
+##### `getTranslation(key: string, locale: string)`
 
-Like types, editors have to be registered **before** any `media` component gets rendered.
+Get a translated custom property.
+
+```js
+// { customProperties: { foo: { en: 'bar' } } }
+
+this.getTranslation('foo', 'en');
+// > 'bar'
+```
+
+##### `setTranslation(key: string, locale: string, value: any)`
+
+Set a translated custom property's translation.
+
+```js
+// { customProperties: { foo: { en: 'bar' } } }
+
+this.setTranslation('foo', 'en', 'baz');
+
+// { customProperties: { foo: { en: 'baz' } } }
+```
 
 ## Contributing
 
