@@ -13,10 +13,10 @@ The `blender-media` can be installed from npm.
 yarn add @spatie/blender-media
 ```
 
-`blender-media` also requires you to install `vue@'^2.0.0'`:
+`blender-media` also requires you to install `vue@'^2.0.0'`, `lodash@'^4.0.0'`, and `spatie-dom@'^1.0.0'`:
 
 ```bash
-yarn add vue@'^2.0.0'
+yarn add vue@'^2.0.0' lodash@'^4.0.0' spatie-dom@'^1.0.0'
 ```
 
 ## Example
