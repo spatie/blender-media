@@ -71,7 +71,7 @@ After registering the component, it can be used in your html:
 ></media>
 ```
 
-If you want to use a `media` component outside of a Vue instance, this package provides a `mount` function. The `mount` will replace every element that matches a given selector with a `media` component. The element should contain props just like you'd pass them with Vue.
+If you want to use a `media` component outside of a Vue instance, this package provides a `mount` function. The `mount` function will replace every element that matches a given selector with a `media` component. The element should contain props just like you'd pass them with Vue.
 
 ```js
 import { mount } from '@spatie/blender-media';
@@ -110,7 +110,7 @@ interface Media {
 }
 ```
 
-### Properties
+### Component Properties
 
 The component requires a few properties in order to handle the collection and uploads.
 
