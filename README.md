@@ -34,7 +34,7 @@ script will also watch for JS and CSS file changes.
 In order to use the `media` component, you need to register it first. You can register it globally, or inside a Vue component:
 
 ```js
-import Media from 'blender-media';
+import Media from '@spatie/blender-media';
 import Vue from 'vue';
 
 // Global registration...
@@ -69,6 +69,28 @@ After registering the component, it can be used in your html:
     }]'
     :data="{ locales: ['nl', 'en'] }"
 ></media>
+```
+
+If you want to use a `media` component outside of a Vue instance, this package provides a `mount` function. The `mount` will replace every element that matches a given selector with a `media` component. The element should contain props just like you'd pass them with Vue.
+
+```js
+import { mount } from '@spatie/blender-media';
+
+export default function init() {
+    mount('.js-media');
+}
+```
+
+```html
+<div
+    class="js-media"
+    collection="images"
+    type="images"
+    upload-url="/upload"
+    :model="{ name: 'MyModel', id: 1 }"
+    :initial="[]"
+    :data="{ locales: ['nl', 'en'] }"
+></div>
 ```
 
 ### `Media` Objects
@@ -145,10 +167,6 @@ The name of the registered editor to be rendered inside the component. See [Edit
 ##### `extend: ?string = null`
 
 Extend an existing type. Creates a new type, based on an existing type. Other options will overwrite the existing type's options.
-
-#### Extending Types
-
-*Todo*
 
 ### Editors
 
