@@ -150,7 +150,7 @@ export default {
 
         markAllForRemoval() {
             this.media.forEach((media) => {
-                media.markedForRemoval = true;
+                this.$set(media, 'markedForRemoval', true);
             });
         },
 

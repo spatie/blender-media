@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.3.2 - 2017-05-22
+- Fixed: Reactivity issues with mark for removal
+
 ## 3.3.1
 - Changed `label--lang` in `description` editor
 
