@@ -1,5 +1,5 @@
 {
-  "name": "blender-media",
+  "name": "@spatie/blender-media",
   "version": "1.4.4",
   "description": "Blender Media Component",
   "main": "lib/MountsMediaComponents.js",
