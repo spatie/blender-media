@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 1.4.4
+- Add "Add files" translation
+
 ## 1.4.3
 - Array.from polyfill
 
@@ -30,7 +33,7 @@ All Notable changes to `blender-media` will be documented in this file.
 ## 1.2.0
 - Removed: LockToggleButton & WithLockToggle
 - Changed: Toggle field properties
- 
+
 ## 1.1.3
 - Fixed: Moved node-sass from devDependencies to dependencies
 
