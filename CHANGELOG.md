@@ -2,7 +2,7 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
-## 1.4.4
+## 1.4.5
 - Add "Add files" translation
 
 ## 1.4.3
