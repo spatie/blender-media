@@ -11,7 +11,7 @@ const translations = {
 }
 
 export default function __(key) {
-    const lang = document.rootElement.getAttribute('lang')
+    const lang = document.documentElement.getAttribute('lang')
 
     return translations[lang][key]
 }
