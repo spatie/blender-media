@@ -2,8 +2,7 @@ import translate from 'blender.js/modules/interface.translations'
 import getClassNameForExtension from 'font-awesome-filetypes'
 
 function mapToArray(map) {
-    // Array.from polyfill
-    return [].slice.call(map.values())
+    return [...map.values()]
 }
 
 function confirm(action) {
@@ -39,7 +38,7 @@ function getExtensionFromFilename(filename) {
 
 function isImage(filename) {
     const imageExtensions = ['jpg', 'jpeg', 'gif', 'png']
-    
+
     let extension = getExtensionFromFilename(filename)
 
     return imageExtensions
