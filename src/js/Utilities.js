@@ -2,7 +2,7 @@ import translate from 'blender.js/modules/interface.translations'
 import getClassNameForExtension from 'font-awesome-filetypes'
 
 function mapToArray(map) {
-    return [...map.values()]
+    return Array.from(map.values())
 }
 
 function confirm(action) {
