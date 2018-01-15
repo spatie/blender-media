@@ -2,6 +2,9 @@
 
 All Notable changes to `blender-media` will be documented in this file.
 
+## 3.3.3 - 2018-01-15
+- Fixed: Custom properties issue when nothing is set
+
 ## 3.3.2 - 2017-05-22
 - Fixed: Reactivity issues with mark for removal
 
@@ -50,7 +53,7 @@ All Notable changes to `blender-media` will be documented in this file.
 
 ## 2.0.1
 - Treat svg's like images for thumbs
-- Hide clear collection when irrelevant 
+- Hide clear collection when irrelevant
 
 ## 2.0.0
 - Rewrite with Vue.js
@@ -86,7 +89,7 @@ All Notable changes to `blender-media` will be documented in this file.
 ## 1.2.0
 - Removed: LockToggleButton & WithLockToggle
 - Changed: Toggle field properties
- 
+
 ## 1.1.3
 - Fixed: Moved node-sass from devDependencies to dependencies
 
