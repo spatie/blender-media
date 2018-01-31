@@ -1,11 +1,6 @@
 import Media, { mount, registerType } from '../src';
 import Vue from 'vue';
 
-registerType('download', {
-    extend: 'download',
-    editor: 'description',
-});
-
 mount('standalone');
 
 new Vue({
@@ -49,7 +44,7 @@ new Vue({
             ],
         };
     },
-    
+
     components: {
         Media,
     },

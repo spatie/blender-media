@@ -55,8 +55,12 @@ export default {
             this.$emit('uploaded', { media: response });
         }.bind(this));
 
-        this.dropzone.on('error', function () {
-            this.$emit('error', { error: translate('errors.fail') });
+        this.dropzone.on('error', function (_file, _message, xhr) {
+            if (xhr.status === 413) {
+                this.$emit('error', { error: translate('errors.maxFileSize') });
+            } else {
+                this.$emit('error', { error: translate('errors.fail') });
+            }
         }.bind(this));
 
         this.dropzone.on('complete', function (file) {
